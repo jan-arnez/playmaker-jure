@@ -1,0 +1,458 @@
+{
+  "Global": {
+    "notFoundPage": {
+      "title": "Not found"
+    }
+  },
+  "AuthModule": {
+    "platformLoginPage": {
+      "title": "Welcome back",
+      "description": "Login with your Google account",
+      "orContinueWith": "Or continue with",
+      "termsText": "By clicking continue, you agree to our",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "platformSignupPage": {
+      "title": "Create an account",
+      "description": "Signup with your Google account",
+      "orContinueWith": "Or continue with",
+      "termsText": "By clicking continue, you agree to our",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "googleButton": {
+      "loginWithGoogle": "Login with Google",
+      "signupWithGoogle": "Sign up with Google"
+    },
+    "platformLoginForm": {
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "login": "Login",
+      "dontHaveAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "successMessage": "Successfully logged in!",
+      "errorMessage": "Something went wrong. Please try again."
+    },
+    "platformSignupForm": {
+      "name": "Name",
+      "namePlaceholder": "shadcn",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "forgotPassword": "Forgot your password?",
+      "signup": "Signup",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login",
+      "successMessage": "Successfully signed up!",
+      "errorMessage": "Something went wrong. Please try again."
+    },
+    "adminLoginPage": {
+      "title": "Admin Panel",
+      "description": "This page is for administrators only"
+    },
+    "adminLoginForm": {
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "login": "Login",
+      "successMessage": "Successfully logged in!",
+      "errorMessage": "Something went wrong. Please try again."
+    }
+  },
+  "PlatformModule": {
+    "facilityCard": {
+      "booking": "Booking"
+    },
+    "platformHeader": {
+      "admin": "Admin",
+      "logo": "Logo",
+      "navigation": "Navigation",
+      "facilities": "Facilities"
+    },
+    "platformFooter": {
+      "copyright": "Copyright © {year} Playmaker"
+    },
+    "homePage": {
+      "controls": "Controls",
+      "sampleLocation": "Cerklje",
+      "sampleTitle": "Tenis Igrišče"
+    },
+    "facilitiesPage": {
+      "filters": "Filters",
+      "sampleLocation": "Ljubljana",
+      "sampleTitle": "Plavalni center"
+    },
+    "facilityDetailPage": {
+      "title": "Title",
+      "description": "bla bla bla"
+    },
+    "facilityDetail": {
+      "contactInformation": "Contact Information",
+      "facilityFeatures": "Facility Features",
+      "professionalEquipment": "Professional Equipment",
+      "parkingAvailable": "Parking Available",
+      "changingRooms": "Changing Rooms",
+      "equipmentRental": "Equipment Rental",
+      "wifiAvailable": "WiFi Available",
+      "airConditioning": "Air Conditioning",
+      "available": "Available",
+      "activeBookings": "active bookings"
+    }
+  },
+  "AdminModule": {
+    "adminSidebar": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "organizations": "Organizations"
+    },
+    "userColumns": {
+      "name": "Name",
+      "email": "Email",
+      "joinedAt": "Joined at",
+      "actions": "Actions",
+      "role": "Role"
+    },
+    "organizationColumns": {
+      "name": "Name",
+      "createdAt": "Created at",
+      "actions": "Actions"
+    },
+    "createOrganizationForm": {
+      "name": "Name",
+      "namePlaceholder": "Organization",
+      "slug": "Slug",
+      "slugPlaceholder": "organization-slug",
+      "create": "Create",
+      "successMessage": "Organization created successfully",
+      "nameRequired": "Name is required",
+      "slugRequired": "Slug is required"
+    },
+    "createOrganizationDialog": {
+      "trigger": "Create Organization",
+      "title": "Create Organization"
+    },
+    "userTableActions": {
+      "openMenu": "Open menu",
+      "setAdmin": "Set admin",
+      "delete": "Delete"
+    },
+    "adminPages": {
+      "organizations": "Organizations",
+      "users": "Users",
+      "dashboard": "Dashboard"
+    },
+    "serverActions": {
+      "unauthenticated": "Unauthenticated",
+      "unauthorized": "Unauthorized",
+      "organizationIdMissing": "Organization ID is missing",
+      "organizationNotFound": "Organization not found",
+      "organizationSlugExists": "Organization with this slug already exists",
+      "invalidFormData": "Invalid form data",
+      "failedToCreateOrganization": "Failed to create organization",
+      "failedToDeleteOrganization": "Failed to delete organization"
+    },
+    "inviteOrganizationOwnerForm": {
+      "email": "Email",
+      "emailPlaceholder": "Jack.doe@example.com",
+      "invite": "Invite",
+      "successMessage": "Owner invited successfully"
+    },
+    "organizationTableActions": {
+      "openMenu": "Open menu",
+      "inviteOwner": "Invite Owner",
+      "manageMembers": "Manage Members",
+      "viewProviderDashboard": "View Provider Dashboard",
+      "delete": "Delete",
+      "confirmDelete": "Delete Organization",
+      "confirmDeleteDescription": "Are you sure you want to delete this organization? This action cannot be undone.",
+      "cancel": "Cancel"
+    },
+    "manageMembers": {
+      "title": "Manage Organization Members",
+      "description": "Manage members and their roles for {organizationName}",
+      "addMember": "Add New Member",
+      "email": "Email",
+      "emailPlaceholder": "member@example.com",
+      "role": "Role",
+      "roleMember": "Member",
+      "roleAdmin": "Admin",
+      "roleOwner": "Owner",
+      "add": "Add Member",
+      "currentMembers": "Current Members",
+      "name": "Name",
+      "joinedAt": "Joined At",
+      "actions": "Actions"
+    }
+  },
+  "SharedModule": {
+    "passwordInput": {
+      "hidePassword": "Hide password",
+      "showPassword": "Show password"
+    },
+    "userDropdown": {
+      "profile": "Profile",
+      "admin": "Admin",
+      "signOut": "Sign out",
+      "errorMessage": "Something went wrong",
+      "successMessage": "Signed out successfully"
+    },
+    "dataTable": {
+      "noResults": "No results."
+    },
+    "userButton": {
+      "logOut": "Log out"
+    },
+    "sidebar": {
+      "toggleSidebar": "Toggle Sidebar"
+    }
+  },
+  "ProviderModule": {
+    "loginPage": {
+      "title": "Facility Provider Login",
+      "subtitle": "Access your facility management dashboard"
+    },
+    "loginForm": {
+      "title": "Sign in to your account",
+      "description": "Enter your credentials to access the provider dashboard",
+      "email": "Email",
+      "emailPlaceholder": "provider@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign In",
+      "noAccount": "Don't have a provider account?",
+      "contactAdmin": "Contact our sales team to get started.",
+      "error": "Invalid credentials. Please try again.",
+      "noSession": "Unable to establish session. Please try again."
+    },
+    "sidebar": {
+      "overview": "Overview",
+      "facilities": "Facilities",
+      "bookings": "Bookings",
+      "analytics": "Analytics",
+      "team": "Team",
+      "settings": "Settings",
+      "createFacility": "Create Facility",
+      "role": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "member": "Member"
+      },
+      "poweredBy": "Powered by"
+    },
+    "dashboard": {
+      "providerDashboard": "Provider Dashboard",
+      "createFacility": "Create Facility",
+      "totalFacilities": "Total Facilities",
+      "facilitiesCreated": "facilities created",
+      "totalBookings": "Total Bookings",
+      "bookingsThisMonth": "bookings this month",
+      "teamMembers": "Team Members",
+      "activeMembers": "active members",
+      "revenue": "Revenue",
+      "thisMonth": "this month",
+      "facilities": "Facilities",
+      "manageFacilities": "Manage your facilities and bookings",
+      "noFacilities": "No facilities yet",
+      "noFacilitiesDescription": "Create your first facility to start accepting bookings",
+      "createFirstFacility": "Create First Facility",
+      "allTimeBookings": "all time bookings",
+      "activeBookings": "Active Bookings",
+      "currentlyActive": "currently active",
+      "monthlyRevenue": "Monthly Revenue",
+      "welcomeBack": "Welcome back",
+      "dashboardSubtitle": "Here's what's happening with your facilities today",
+      "recentActivity": "Recent Activity",
+      "recentActivityDescription": "Latest updates and notifications",
+      "pendingBookings": "Pending Bookings",
+      "bookingsNeedAttention": "bookings need attention",
+      "noRecentActivity": "No recent activity",
+      "quickStats": "Quick Stats",
+      "quickStatsDescription": "Key metrics at a glance",
+      "getStarted": "Get Started",
+      "getStartedDescription": "Set up your first facility to begin accepting bookings",
+      "createYourFirstFacility": "Create Your First Facility",
+      "createFirstFacilityDescription": "Add your first facility to start managing bookings and growing your business",
+      "role": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "member": "Member"
+      }
+    },
+    "facilities": {
+      "facilities": "Facilities",
+      "manageYourFacilities": "Manage your facilities and their details",
+      "totalFacilities": "Total Facilities",
+      "facilitiesCreated": "facilities created",
+      "activeFacilities": "Active Facilities",
+      "currentlyActive": "currently active",
+      "recentlyAdded": "Recently Added",
+      "last30Days": "last 30 days",
+      "facilitiesList": "Facilities List",
+      "facilitiesListDescription": "All your facilities in one place",
+      "name": "Name",
+      "location": "Location",
+      "contact": "Contact",
+      "created": "Created",
+      "actions": "Actions",
+      "noFacilities": "No facilities yet",
+      "noFacilitiesDescription": "Create your first facility to start managing bookings",
+      "createFirstFacility": "Create First Facility",
+      "createFacility": "Create Facility"
+    },
+    "bookings": {
+      "bookings": "Bookings",
+      "manageYourBookings": "Manage bookings and reservations",
+      "totalBookings": "Total Bookings",
+      "allTime": "all time",
+      "pending": "Pending",
+      "needsAttention": "needs attention",
+      "confirmed": "Confirmed",
+      "upcoming": "upcoming",
+      "completed": "Completed",
+      "finished": "finished",
+      "totalRevenue": "Total Revenue",
+      "bookingsList": "Bookings List",
+      "bookingsListDescription": "All bookings and reservations",
+      "customer": "Customer",
+      "facility": "Facility",
+      "date": "Date",
+      "time": "Time",
+      "bookingStatus": "Status",
+      "amount": "Amount",
+      "actions": "Actions",
+      "noBookings": "No bookings yet",
+      "noBookingsDescription": "Bookings will appear here once customers start making reservations",
+      "createFirstBooking": "Create First Booking",
+      "createBooking": "Create Booking",
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "completed": "Completed"
+      }
+    },
+    "analytics": {
+      "analytics": "Analytics",
+      "analyticsSubtitle": "Track your performance and growth",
+      "totalRevenue": "Total Revenue",
+      "vsLastMonth": "vs last month",
+      "totalBookings": "Total Bookings",
+      "averageBookingValue": "Average Booking Value",
+      "perBooking": "per booking",
+      "activeFacilities": "Active Facilities",
+      "outOf": "out of",
+      "total": "total",
+      "revenueChart": "Revenue Chart",
+      "revenueChartDescription": "Revenue trends over time",
+      "bookingsChart": "Bookings Chart",
+      "bookingsChartDescription": "Booking volume trends",
+      "chartPlaceholder": "Chart will be displayed here",
+      "topFacilities": "Top Facilities",
+      "topFacilitiesDescription": "Your best performing facilities",
+      "bookings": "bookings",
+      "revenue": "revenue",
+      "noFacilityData": "No facility data available",
+      "monthlyBreakdown": "Monthly Breakdown",
+      "monthlyBreakdownDescription": "This month's performance",
+      "thisMonth": "This Month",
+      "thisMonthBookings": "This Month Bookings",
+      "averagePerBooking": "Average per Booking",
+      "facilityUtilization": "Facility Utilization"
+    },
+    "team": {
+      "team": "Team",
+      "manageTeamMembers": "Manage team members and their roles",
+      "totalMembers": "Total Members",
+      "teamMembers": "team members",
+      "owners": "Owners",
+      "organizationOwners": "organization owners",
+      "admins": "Admins",
+      "administrators": "administrators",
+      "members": "Members",
+      "regularMembers": "regular members",
+      "teamMembersDescription": "All team members and their roles",
+      "name": "Name",
+      "email": "Email",
+      "memberRole": "Role",
+      "joinedAt": "Joined At",
+      "lastActive": "Last Active",
+      "actions": "Actions",
+      "never": "Never",
+      "demote": "Demote",
+      "promote": "Promote",
+      "remove": "Remove",
+      "noMembers": "No team members",
+      "noMembersDescription": "Invite team members to collaborate on managing your facilities",
+      "inviteFirstMember": "Invite First Member",
+      "inviteMember": "Invite Member",
+      "role": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "member": "Member"
+      }
+    },
+    "settings": {
+      "settings": "Settings",
+      "manageOrganizationSettings": "Manage your organization settings and preferences",
+      "organizationSettings": "Organization Settings",
+      "organizationSettingsDescription": "Manage your organization information",
+      "organizationName": "Organization Name",
+      "organizationSlug": "Organization Slug",
+      "organizationDescription": "Organization Description",
+      "organizationDescriptionPlaceholder": "Describe your organization",
+      "saveChanges": "Save Changes",
+      "notificationSettings": "Notification Settings",
+      "notificationSettingsDescription": "Configure how you receive notifications",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDescription": "Receive notifications via email",
+      "bookingNotifications": "Booking Notifications",
+      "bookingNotificationsDescription": "Get notified about new bookings",
+      "teamNotifications": "Team Notifications",
+      "teamNotificationsDescription": "Get notified about team changes",
+      "privacySettings": "Privacy Settings",
+      "privacySettingsDescription": "Control your organization's privacy",
+      "publicProfile": "Public Profile",
+      "publicProfileDescription": "Make your organization visible to the public",
+      "showContactInfo": "Show Contact Information",
+      "showContactInfoDescription": "Display contact information publicly",
+      "allowDirectBooking": "Allow Direct Booking",
+      "allowDirectBookingDescription": "Allow customers to book directly",
+      "integrationSettings": "Integration Settings",
+      "integrationSettingsDescription": "Connect with external services",
+      "websiteUrl": "Website URL",
+      "websiteUrlPlaceholder": "https://your-website.com",
+      "socialMedia": "Social Media",
+      "facebookPlaceholder": "Facebook URL",
+      "instagramPlaceholder": "Instagram URL",
+      "twitterPlaceholder": "Twitter URL",
+      "dangerZone": "Danger Zone",
+      "dangerZoneDescription": "Irreversible and destructive actions",
+      "deleteOrganization": "Delete Organization",
+      "deleteOrganizationDescription": "Permanently delete this organization and all its data"
+    },
+    "createFacility": {
+      "title": "Create New Facility",
+      "description": "Add a new facility to your organization",
+      "facilityName": "Facility Name",
+      "facilityNamePlaceholder": "Enter facility name",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Describe your facility",
+      "address": "Address",
+      "addressPlaceholder": "Enter full address",
+      "city": "City",
+      "cityPlaceholder": "Enter city",
+      "phone": "Phone",
+      "phonePlaceholder": "Enter phone number",
+      "email": "Email",
+      "emailPlaceholder": "Enter contact email",
+      "cancel": "Cancel",
+      "create": "Create Facility",
+      "error": "Failed to create facility. Please try again."
+    }
+  }
+}

@@ -1,34 +1,179 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Playmaker - Sports Facility Booking Platform
+
+A comprehensive sports facility booking platform built with Next.js 15, featuring multi-tenant architecture, real-time booking management, and analytics dashboard.
+
+## Features
+
+### 🏟️ Platform Features
+- **Facility Discovery**: Search and browse sports facilities across Slovenia
+- **Real-time Booking**: Book facilities with instant confirmation
+- **Advanced Search**: Filter by location, facility type, and availability
+- **Responsive Design**: Mobile-first design with modern UI
+
+### 🏢 Provider Dashboard
+- **Facility Management**: Create and manage multiple facilities
+- **Booking Management**: Handle bookings with status updates
+- **Analytics Dashboard**: Track revenue, bookings, and facility performance
+- **Team Management**: Invite and manage team members
+
+### 👨‍💼 Admin Panel
+- **Organization Management**: Oversee all organizations and facilities
+- **User Management**: Manage users and permissions
+- **System Analytics**: Platform-wide analytics and insights
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: Better Auth
+- **UI Components**: Radix UI + Tailwind CSS
+- **Internationalization**: next-intl
+- **Styling**: Tailwind CSS
+- **Package Manager**: pnpm
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- pnpm
+- PostgreSQL database
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd playmaker-nextjs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-## Learn More
+4. Configure your environment variables in `.env.local`:
+```env
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/playmaker"
 
-To learn more about Next.js, take a look at the following resources:
+# Better Auth
+BETTER_AUTH_SECRET="your-secret-key"
+BETTER_AUTH_URL="http://localhost:3000"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Optional: Email service (for notifications)
+EMAIL_SERVER_HOST="smtp.gmail.com"
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER="your-email@gmail.com"
+EMAIL_SERVER_PASSWORD="your-app-password"
+EMAIL_FROM="noreply@playmaker.com"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Set up the database:
+```bash
+# Generate Prisma client
+pnpm prisma generate
 
-## Deploy on Vercel
+# Run database migrations
+pnpm prisma migrate dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Seed the database with sample data
+pnpm prisma db seed
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6. Start the development server:
+```bash
+pnpm dev
+```
+
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Database Schema
+
+The application uses the following main entities:
+
+- **Users**: System users with roles (admin, owner, user)
+- **Organizations**: Facility provider organizations
+- **Facilities**: Individual sports facilities
+- **Bookings**: Facility reservations
+- **Members**: Organization membership relationships
+
+## API Endpoints
+
+### Public Endpoints
+- `GET /api/facilities` - List facilities with search/filter
+- `POST /api/bookings` - Create new booking
+
+### Protected Endpoints
+- `PATCH /api/bookings/[id]` - Update booking status
+- `GET /api/admin/organizations` - Admin organization management
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy automatically on push
+
+### Manual Deployment
+
+1. Build the application:
+```bash
+pnpm build
+```
+
+2. Start the production server:
+```bash
+pnpm start
+```
+
+## Development
+
+### Database Management
+
+```bash
+# View database in Prisma Studio
+pnpm prisma studio
+
+# Reset database (development only)
+pnpm prisma migrate reset
+
+# Deploy migrations to production
+pnpm prisma migrate deploy
+```
+
+### Code Quality
+
+```bash
+# Run linting
+pnpm lint
+
+# Run type checking
+pnpm type-check
+
+# Format code
+pnpm format
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit your changes: `git commit -am 'Add new feature'`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support and questions, please open an issue on GitHub or contact the development team.

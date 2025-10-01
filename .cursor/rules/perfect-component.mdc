@@ -1,0 +1,309 @@
+---
+description: Perfect component structure and patterns for React/Next.js
+alwaysApply: false
+---
+# Perfect Component Cursor Rule
+
+This rule defines the complete structure, naming, and ordering for all components in a React/Next.js project.
+
+## 1. File & Naming Rules
+
+**File Name**: Must use kebab-case (e.g., `user-profile-card.tsx`)
+
+**Component Name**: Must use PascalCase (e.g., `UserProfileCard`)
+
+**Export Rules**:
+- **Page Components**: Must be default exported
+- **All Other Components & Functions**: Must be named exported
+
+**Declaration**: Must use function declaration over arrow function for better tool compatibility:
+
+```typescript
+// ✅ Correct
+function UserProfileCard() {
+  return <div>...</div>;
+}
+
+// ❌ Avoid
+const UserProfileCard = () => {
+  return <div>...</div>;
+};
+```
+
+## 2. Props & Typing Rules
+
+**Props Definition**: Use TypeScript interface (not type) for props:
+
+```typescript
+interface UserProfileCardProps {
+  user: User;
+  onEdit?: () => void;
+  className?: string;
+}
+```
+
+**Props Naming**: Interface should be named `[ComponentName]Props`
+
+**Prop Usage Rules**:
+- **≤3 props**: Use destructuring in function signature
+- **>3 props**: Use props object to keep function header clean
+
+```typescript
+// ✅ ≤3 props - destructure
+function UserCard({ user, onEdit, className }: UserCardProps) {
+  // ...
+}
+
+// ✅ >3 props - use props object
+function ComplexComponent(props: ComplexComponentProps) {
+  const { user, settings, onSave, onCancel, className, ...rest } = props;
+  // ...
+}
+```
+
+## 3. Component Body Order
+
+Components must follow this exact sequential order:
+
+| Order | Section | Description |
+|-------|---------|-------------|
+| 1 | **Custom Hooks** | Self-written or third-party hooks (e.g., `useAuth`, `useRouter`) |
+| 2 | **State Hooks** | All `useState` declarations |
+| 3 | **Ref Hooks** | All `useRef` declarations |
+| 4 | **Effect Hooks** | All `useEffect` declarations (must be last hook type) |
+| 5 | **Helper Functions** | Functions dependent on component variables (props, state) |
+| 6 | **Event Handlers** | Functions handling user input (e.g., `handleClick`, `handleSubmit`) |
+| 7 | **Early Returns** | Conditional returns for loading, error, or auth states |
+| 8 | **Last Render Logic** | Final calculations for JSX variables |
+| 9 | **JSX Return** | The final return statement |
+
+### Example Structure:
+
+```typescript
+interface UserProfileProps {
+  userId: string;
+  onUpdate?: (user: User) => void;
+}
+
+function UserProfile({ userId, onUpdate }: UserProfileProps) {
+  // 1. Custom Hooks
+  const { user, isLoading } = useUser(userId);
+  const router = useRouter();
+  
+  // 2. State Hooks
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState<UserFormData>({});
+  
+  // 3. Ref Hooks
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  // 4. Effect Hooks
+  useEffect(() => {
+    if (user) {
+      setFormData(user);
+    }
+  }, [user]);
+  
+  // 5. Helper Functions
+  function validateForm(data: UserFormData): boolean {
+    return data.name.length > 0 && data.email.includes('@');
+  }
+  
+  // 6. Event Handlers
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (validateForm(formData)) {
+      onUpdate?.(formData);
+      setIsEditing(false);
+    }
+  }
+  
+  function handleEdit() {
+    setIsEditing(true);
+  }
+  
+  // 7. Early Returns
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (!user) {
+    return <div>User not found</div>;
+  }
+  
+  // 8. Last Render Logic
+  const displayName = user.name || 'Unknown User';
+  const buttonText = isEditing ? 'Save Changes' : 'Edit Profile';
+  
+  // 9. JSX Return
+  return (
+    <div className="user-profile">
+      <h2>{displayName}</h2>
+      {/* ... rest of JSX */}
+    </div>
+  );
+}
+```
+
+## 4. Next.js Specific Rules
+
+### Server Components
+```typescript
+// ✅ Server Component (default)
+async function UserList() {
+  const users = await db.user.findMany();
+  return (
+    <div>
+      {users.map(user => <UserCard key={user.id} user={user} />)}
+    </div>
+  );
+}
+```
+
+### Client Components
+```typescript
+'use client';
+
+import { useState } from 'react';
+
+function InteractiveButton() {
+  const [count, setCount] = useState(0);
+  
+  function handleClick() {
+    setCount(prev => prev + 1);
+  }
+  
+  return (
+    <button onClick={handleClick}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+### Page Components
+```typescript
+// app/users/page.tsx
+export default function UsersPage() {
+  return (
+    <div>
+      <h1>Users</h1>
+      <UserList />
+    </div>
+  );
+}
+```
+
+## 5. Refactoring & Maintenance Rules
+
+**Logic Extraction**: If body logic becomes complex, extract into custom hooks:
+
+```typescript
+// Extract complex logic
+function useUserForm(userId: string) {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    fetchUser(userId).then(setUser).finally(() => setIsLoading(false));
+  }, [userId]);
+  
+  return { user, isLoading, updateUser: setUser };
+}
+
+// Clean component
+function UserProfile({ userId }: { userId: string }) {
+  const { user, isLoading, updateUser } = useUserForm(userId);
+  
+  if (isLoading) return <div>Loading...</div>;
+  
+  return <div>{user?.name}</div>;
+}
+```
+
+**JSX Extraction**: Break down large JSX into smaller components:
+
+```typescript
+function UserProfile({ user }: { user: User }) {
+  return (
+    <div className="user-profile">
+      <UserHeader user={user} />
+      <UserDetails user={user} />
+      <UserActions user={user} />
+    </div>
+  );
+}
+```
+
+## 6. Styling Guidelines
+
+- Use semantic HTML elements
+- Prefer Tailwind CSS utility classes
+- Use CSS modules only when necessary
+- Maintain consistent styling patterns
+- Use proper responsive design
+
+```typescript
+function UserCard({ user }: { user: User }) {
+  return (
+    <article className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      <header className="mb-4">
+        <h3 className="text-xl font-semibold text-gray-900">{user.name}</h3>
+      </header>
+      <p className="text-gray-600">{user.email}</p>
+    </article>
+  );
+}
+```
+
+## 7. Error Handling
+
+Always include proper error boundaries and loading states:
+
+```typescript
+function UserProfile({ userId }: { userId: string }) {
+  const { user, isLoading, error } = useUser(userId);
+  
+  // Early returns for different states
+  if (isLoading) return <UserProfileSkeleton />;
+  if (error) return <ErrorMessage error={error} />;
+  if (!user) return <NotFound />;
+  
+  return <UserProfileContent user={user} />;
+}
+```
+
+## 8. Comments and Documentation
+
+**Comments Policy:**
+- Only add comments for complex functionality when explicitly requested
+- Do NOT add structural comments like "// 1. Custom Hooks", "// 2. State Hooks", etc.
+- Do NOT add comments for obvious code
+- Only comment complex business logic, algorithms, or non-obvious behavior
+
+**Empty Props Policy:**
+- If a component doesn't have props, do NOT define empty props interfaces or objects
+- Use the component name directly without empty `{}` destructuring
+- Only define props interfaces when the component actually accepts props
+
+```typescript
+// ✅ Correct - no props needed
+export function PlatformHeader() {
+  return <header>...</header>;
+}
+
+// ❌ Avoid - unnecessary empty props
+interface PlatformHeaderProps {}
+export function PlatformHeader({}: PlatformHeaderProps) {
+  return <header>...</header>;
+}
+
+// ✅ Correct - has actual props
+interface UserCardProps {
+  user: User;
+  onEdit?: () => void;
+}
+export function UserCard({ user, onEdit }: UserCardProps) {
+  return <div>...</div>;
+}
+```
