@@ -83,7 +83,7 @@ export function CompetitiveComparison() {
                 )}
               >
               <div className="col-span-1 font-medium text-foreground md:text-lg text-sm pr-4">
-                {t(`features.${featureKey}`)}
+                {t(`features.${featureKey}` as any)}
               </div>
               <div className="col-span-1 flex justify-center">
                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
