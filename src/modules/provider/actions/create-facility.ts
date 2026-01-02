@@ -4,6 +4,7 @@ import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/modules/auth/lib/get-session";
+import { generateFacilitySlug } from "@/lib/generate-slug";
 
 export async function createFacility(
   formData: FormData,
@@ -48,9 +49,18 @@ export async function createFacility(
   const email = formData.get("email") as string;
 
   try {
+    // Generate unique slug
+    const existingSlugs = await prisma.facility.findMany({
+      where: { slug: { not: null } },
+      select: { slug: true },
+    }).then(facilities => facilities.map(f => f.slug!).filter(Boolean));
+
+    const slug = generateFacilitySlug(name, existingSlugs);
+
     const facility = await prisma.facility.create({
       data: {
         name,
+        slug,
         description,
         address,
         city,

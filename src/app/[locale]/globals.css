@@ -114,4 +114,54 @@
   .container {
     @apply max-w-7xl lg:px-12 px-6 mx-auto;
   }
+  
+  .line-clamp-5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    line-clamp: 5;
+    overflow: hidden;
+  }
+}
+
+/* Marquee animation for Why Choose section */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Marquee animation for Stats section */
+@keyframes marquee-stats {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-marquee-stats {
+  animation: marquee-stats 15s linear infinite;
+}
+
+/* Prevent iOS zoom on input focus - inputs need 16px font size */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea,
+  [role="combobox"] {
+    font-size: 16px !important;
+  }
 }

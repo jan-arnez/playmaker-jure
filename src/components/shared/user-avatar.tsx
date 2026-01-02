@@ -1,31 +1,40 @@
 "use client";
 
-import type { ComponentProps } from "react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
-export interface UserAvatarProps extends ComponentProps<typeof Avatar> {
-  name: string;
-  image: string | null | undefined;
+interface UserAvatarProps {
+  name?: string | null;
+  image?: string | null;
+  className?: string;
+  size?: "sm" | "md" | "lg";
 }
 
-export function UserAvatar(props: UserAvatarProps) {
-  const { name, image, className, ...rest } = props;
-  const initials = name
-    .split(" ")
-    .filter(Boolean)
-    .map((part) => part[0])
-    .join("");
+export function UserAvatar({ name, image, className, size = "md" }: UserAvatarProps) {
+  // Generate initials from name
+  const getInitials = (name: string | null | undefined): string => {
+    if (!name) return "U";
+    const parts = name.trim().split(" ");
+    if (parts.length === 1) {
+      return parts[0].charAt(0).toUpperCase();
+    }
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+  };
+
+  const sizeClasses = {
+    sm: "h-6 w-6 text-xs",
+    md: "h-8 w-8 text-sm",
+    lg: "h-12 w-12 text-base",
+  };
 
   return (
-    <Avatar className={cn(className)} {...rest}>
-      <AvatarImage
-        src={image ?? undefined}
-        alt={name}
-        className="aspect-square object-cover"
-      />
-      <AvatarFallback className="border">{initials}</AvatarFallback>
+    <Avatar className={cn(sizeClasses[size], className)}>
+      {image && (
+        <AvatarImage src={image} alt={name || "User avatar"} />
+      )}
+      <AvatarFallback className="bg-gradient-to-br from-primary/80 to-primary text-primary-foreground font-medium">
+        {getInitials(name)}
+      </AvatarFallback>
     </Avatar>
   );
 }

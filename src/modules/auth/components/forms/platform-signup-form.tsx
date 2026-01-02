@@ -24,7 +24,11 @@ import { authClient } from "@/modules/auth/lib/auth-client";
 const formSchema = z.object({
   name: z.string().min(3),
   email: z.email(),
-  password: z.string().min(8),
+  password: z
+    .string()
+    .min(8)
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number"),
 });
 
 export function PlatformSignupForm() {
@@ -50,17 +54,23 @@ export function PlatformSignupForm() {
   }: z.infer<typeof formSchema>) {
     setIsLoading(true);
 
-    const { data, error } = await authClient.signUp.email({
+    const response = await authClient.signUp.email({
       email,
       password,
       name,
     });
 
+    const { data, error } = response;
+
+    if (error) {
+      toast.error(error.message || t("errorMessage"));
+      setIsLoading(false);
+      return;
+    }
+
     if (data) {
       toast.success(t("successMessage"));
       router.push("/", { locale });
-    } else {
-      toast.error(error.message || t("errorMessage"));
     }
 
     setIsLoading(false);

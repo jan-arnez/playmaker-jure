@@ -38,7 +38,7 @@ export function ProviderDashboardLayout({
       <div className="flex h-screen bg-gray-50">
         {/* Desktop Sidebar */}
         <div className="hidden md:flex md:w-64 md:flex-col">
-          <ProviderSidebar onNavigate={handleCreateFacility} />
+          <ProviderSidebar />
         </div>
 
         {/* Mobile Sidebar */}
@@ -53,7 +53,7 @@ export function ProviderDashboardLayout({
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="p-0 w-64">
-            <ProviderSidebar onNavigate={handleCreateFacility} />
+            <ProviderSidebar />
           </SheetContent>
         </Sheet>
 

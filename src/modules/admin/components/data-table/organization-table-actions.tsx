@@ -1,4 +1,6 @@
-import { Building2, MoreVertical, Users } from "lucide-react";
+"use client";
+
+import { Building2, ExternalLink, MoreVertical, Settings, Trash2, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -21,23 +23,35 @@ import { DialogProvider } from "@/context/dialog-context";
 import { deleteOrganization } from "../../actions/delete-organization";
 import InviteOwnerDialog from "../dialog/invite-owner-dialog";
 import { ManageMembersDialog } from "../dialog/manage-members-dialog";
+import { useRouter } from "@/i18n/navigation";
 
 interface OrganizationTableActionsProps {
   organizationId: string;
   organizationName: string;
+  organizationSlug?: string | null;
 }
 
 export function OrganizationTableActions({
   organizationId,
   organizationName,
+  organizationSlug,
 }: OrganizationTableActionsProps) {
   const t = useTranslations("AdminModule.organizationTableActions");
+  const router = useRouter();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showManageMembers, setShowManageMembers] = useState(false);
 
   const handleDelete = async () => {
     await deleteOrganization(organizationId);
     setShowDeleteDialog(false);
+  };
+
+  // Navigate to owner dashboard for this organization
+  // Admin has access to all organizations via the provider layout check
+  const handleManageOrganization = () => {
+    // Use organization slug (or ID as fallback) for the provider route
+    const routeParam = organizationSlug || organizationId;
+    router.push(`/provider/${routeParam}`);
   };
 
   return (
@@ -54,6 +68,30 @@ export function OrganizationTableActions({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
+          {/* Manage Organization - Primary Action */}
+          <DropdownMenuItem 
+            onClick={handleManageOrganization}
+            className="font-medium"
+          >
+            <Settings className="mr-2 h-4 w-4" />
+            Manage Organization
+          </DropdownMenuItem>
+
+          {/* Open in new tab */}
+          <DropdownMenuItem asChild>
+            <a
+              href={`/provider/${organizationSlug || organizationId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" />
+              Open in New Tab
+            </a>
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
           <DialogProvider>
             <InviteOwnerDialog organizationId={organizationId}>
               <Button
@@ -71,29 +109,13 @@ export function OrganizationTableActions({
             {t("manageMembers")}
           </DropdownMenuItem>
 
-          <DropdownMenuItem asChild>
-            <Button
-              variant="ghost"
-              className="w-full items-start justify-start px-2 font-normal"
-              asChild
-            >
-              <a
-                href={`/provider/${organizationId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Building2 className="mr-2 h-4 w-4" />
-                {t("viewProviderDashboard")}
-              </a>
-            </Button>
-          </DropdownMenuItem>
-
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
             onClick={() => setShowDeleteDialog(true)}
-            variant="destructive"
+            className="text-red-600 focus:text-red-600"
           >
+            <Trash2 className="mr-2 h-4 w-4" />
             {t("delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>

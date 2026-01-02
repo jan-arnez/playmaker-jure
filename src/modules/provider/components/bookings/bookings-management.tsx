@@ -38,8 +38,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useOptimisticBookings, type Booking as HookBooking } from "@/hooks/use-optimistic-bookings";
+import { FacilityPicker } from "../facility-picker";
 
-interface Booking {
+interface BookingProp {
   id: string;
   facilityId: string;
   facilityName: string;
@@ -60,15 +62,18 @@ interface BookingsManagementProps {
     slug: string;
   };
   userRole: string;
-  bookings: Booking[];
+  bookings: BookingProp[];
+  facilities?: Array<{ id: string; name: string }>;
   onCreateBooking?: () => void;
   onUpdateBookingStatus?: (bookingId: string, status: string) => void;
   onViewBooking?: (bookingId: string) => void;
 }
 
 export function BookingsManagement({
+  _organization,
   userRole,
   bookings = [],
+  facilities = [],
   onCreateBooking,
   onViewBooking,
 }: BookingsManagementProps) {
@@ -77,40 +82,48 @@ export function BookingsManagement({
 
   const canManageBookings = userRole === "owner" || userRole === "admin";
 
+  // Use optimistic bookings hook
+  // Transform bookings to match hook requirements
+  const formattedBookings: HookBooking[] = bookings.map(b => ({
+    ...b,
+    startTime: new Date(b.startTime),
+    endTime: new Date(b.endTime),
+    userId: 'unknown', // Required by hook but not present in props
+    updatedAt: new Date(b.createdAt), // Required by hook but not present in props
+    createdAt: new Date(b.createdAt),
+  }));
+
+  const {
+    bookings: optimisticBookings,
+    updateBookingStatus,
+    isOptimistic,
+  } = useOptimisticBookings(formattedBookings);
+
   const handleUpdateBookingStatus = async (
     bookingId: string,
     status: string,
   ) => {
     try {
-      const response = await fetch(`/api/bookings/${bookingId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update booking status");
-      }
-
-      toast.success("Booking status updated successfully!");
+      await updateBookingStatus(
+        bookingId,
+        status as any
+      );
+      
       router.refresh();
     } catch (error) {
-      toast.error("Failed to update booking status");
       console.error("Error updating booking status:", error);
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "pending":
-        return (
-          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
-            <AlertCircle className="h-3 w-3 mr-1" />
-            {t("status.pending")}
-          </Badge>
-        );
+      // case "pending":
+      //   return (
+      //     <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+      //       <AlertCircle className="h-3 w-3 mr-1" />
+      //       {t("status.pending")}
+      //     </Badge>
+      //   );
       case "confirmed":
         return (
           <Badge variant="secondary" className="bg-green-100 text-green-800">
@@ -137,25 +150,26 @@ export function BookingsManagement({
     }
   };
 
-  const formatTime = (dateString: string) => {
-    return new Date(dateString).toLocaleTimeString([], {
+  const formatTime = (date: string | Date) => {
+    return new Date(date).toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
+  const formatDate = (date: string | Date) => {
+    return new Date(date).toLocaleDateString();
   };
 
-  // Calculate stats
+  // Calculate stats using optimistic bookings
   const stats = {
-    total: bookings.length,
-    pending: bookings.filter((b) => b.status === "pending").length,
-    confirmed: bookings.filter((b) => b.status === "confirmed").length,
-    completed: bookings.filter((b) => b.status === "completed").length,
-    cancelled: bookings.filter((b) => b.status === "cancelled").length,
-    totalRevenue: bookings.reduce((sum, b) => sum + b.totalAmount, 0),
+    total: optimisticBookings.length,
+    // pending: optimisticBookings.filter((b) => b.status === "pending").length,
+    pending: 0, // Disabled for now
+    confirmed: optimisticBookings.filter((b) => b.status === "confirmed").length,
+    completed: optimisticBookings.filter((b) => b.status === "completed").length,
+    cancelled: optimisticBookings.filter((b) => b.status === "cancelled").length,
+    totalRevenue: optimisticBookings.reduce((sum, b) => sum + (b.totalAmount ?? 0), 0),
   };
 
   return (
@@ -166,12 +180,20 @@ export function BookingsManagement({
           <h1 className="text-3xl font-bold text-gray-900">{t("bookings")}</h1>
           <p className="text-gray-600 mt-1">{t("manageYourBookings")}</p>
         </div>
-        {canManageBookings && onCreateBooking && (
-          <Button onClick={onCreateBooking} size="lg">
-            <Plus className="h-4 w-4 mr-2" />
-            {t("createBooking")}
-          </Button>
-        )}
+        <div className="flex items-center gap-3">
+          {facilities.length > 0 && (
+            <FacilityPicker
+              facilities={facilities}
+              organizationId={_organization.id}
+            />
+          )}
+          {canManageBookings && onCreateBooking && (
+            <Button onClick={onCreateBooking} size="lg">
+              <Plus className="h-4 w-4 mr-2" />
+              {t("createBooking")}
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Stats */}
@@ -259,7 +281,7 @@ export function BookingsManagement({
           <CardDescription>{t("bookingsListDescription")}</CardDescription>
         </CardHeader>
         <CardContent>
-          {bookings.length > 0 ? (
+          {optimisticBookings.length > 0 ? (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
@@ -274,8 +296,8 @@ export function BookingsManagement({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {bookings.map((booking) => (
-                    <TableRow key={booking.id}>
+                  {optimisticBookings.map((booking) => (
+                    <TableRow key={booking.id} className={isOptimistic(booking.id) ? "opacity-75 bg-muted/50" : ""}>
                       <TableCell>
                         <div>
                           <div className="font-medium text-gray-900">
@@ -312,7 +334,7 @@ export function BookingsManagement({
                       <TableCell>{getStatusBadge(booking.status)}</TableCell>
                       <TableCell>
                         <div className="font-medium text-gray-900">
-                          €{booking.totalAmount}
+                          €{booking.totalAmount ?? 0}
                         </div>
                       </TableCell>
                       <TableCell className="text-right">
@@ -328,9 +350,9 @@ export function BookingsManagement({
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="pending">
+                                {/* <SelectItem value="pending">
                                   {t("status.pending")}
-                                </SelectItem>
+                                </SelectItem> */}
                                 <SelectItem value="confirmed">
                                   {t("status.confirmed")}
                                 </SelectItem>

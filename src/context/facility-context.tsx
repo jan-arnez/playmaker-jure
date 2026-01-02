@@ -2,6 +2,23 @@
 
 import { createContext, useContext } from "react";
 
+interface Court {
+  id: string;
+  name: string;
+  isActive: boolean;
+  locationType?: string | null;
+  surface?: string | null;
+  timeSlots?: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pricing?: any; // Prisma returns Json type, runtime validation in availability-calendar
+}
+
+interface SportCategory {
+  id: string;
+  name: string;
+  courts: Court[];
+}
+
 interface Facility {
   id: string;
   name: string;
@@ -11,6 +28,8 @@ interface Facility {
   phone: string | null;
   email: string | null;
   imageUrl?: string | null;
+  workingHours?: unknown;
+  sportCategories?: SportCategory[];
   organization: {
     name: string;
     slug: string | null;

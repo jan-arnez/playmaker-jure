@@ -2,11 +2,13 @@
 
 import { addDays, format } from "date-fns";
 import { Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { BsFillLightningChargeFill } from "react-icons/bs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { BookingConfirmationDialog } from "./booking-confirmation-dialog";
+import { DayPicker } from "./day-picker";
 
 interface TimeSlot {
   id: string;
@@ -16,8 +18,9 @@ interface TimeSlot {
   userName?: string;
 }
 
-interface DayAvailability {
-  date: string;
+interface CourtAvailability {
+  courtId: string;
+  courtName: string;
   slots: TimeSlot[];
 }
 
@@ -32,10 +35,10 @@ export function BookingCalendar({
   facilityName,
   onBookingSelect,
 }: BookingCalendarProps) {
-  const [currentWeek, setCurrentWeek] = useState(new Date());
-  const [availability, setAvailability] = useState<DayAvailability[]>([]);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [availability, setAvailability] = useState<CourtAvailability[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<{
-    date: string;
+    courtId: string;
     time: string;
   } | null>(null);
   const [showBookingDialog, setShowBookingDialog] = useState(false);
@@ -51,20 +54,22 @@ export function BookingCalendar({
     [],
   );
 
-  // Generate week dates - memoized to prevent rerenders
-  const weekDates = useMemo(() => {
-    const getWeekDates = (startDate: Date) => {
-      return Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
-    };
-    return getWeekDates(currentWeek);
-  }, [currentWeek]);
+  // Generate courts - memoized to prevent rerenders
+  const courts = useMemo(() => {
+    return [
+      { id: "court-1", name: "Court 1" },
+      { id: "court-2", name: "Court 2" },
+      { id: "court-3", name: "Court 3" },
+      { id: "court-4", name: "Court 4" },
+    ];
+  }, []);
 
   // Fetch availability data
   const fetchAvailability = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `/api/facilities/${facilityId}/availability?start=${weekDates[0].toISOString()}&end=${weekDates[6].toISOString()}`,
+        `/api/facilities/${facilityId}/availability?date=${currentDate.toISOString()}`,
       );
 
       if (!response.ok) {
@@ -77,10 +82,11 @@ export function BookingCalendar({
     } catch (error) {
       console.error("Failed to fetch availability:", error);
       // Generate mock data for demonstration
-      const mockAvailability = weekDates.map((date) => ({
-        date: format(date, "yyyy-MM-dd"),
+      const mockAvailability = courts.map((court) => ({
+        courtId: court.id,
+        courtName: court.name,
         slots: timeSlots.map((time) => ({
-          id: `${format(date, "yyyy-MM-dd")}-${time}`,
+          id: `${court.id}-${time}`,
           time,
           available: Math.random() > 0.3, // 70% availability
           bookingId:
@@ -94,26 +100,26 @@ export function BookingCalendar({
     } finally {
       setIsLoading(false);
     }
-  }, [facilityId, weekDates, timeSlots]);
+  }, [facilityId, currentDate, courts, timeSlots]);
 
   useEffect(() => {
     fetchAvailability();
   }, [fetchAvailability]);
 
-  const handlePreviousWeek = useCallback(() => {
-    setCurrentWeek(addDays(currentWeek, -7));
-  }, [currentWeek]);
+  const handlePreviousDay = useCallback(() => {
+    setCurrentDate(addDays(currentDate, -1));
+  }, [currentDate]);
 
-  const handleNextWeek = useCallback(() => {
-    setCurrentWeek(addDays(currentWeek, 7));
-  }, [currentWeek]);
+  const handleNextDay = useCallback(() => {
+    setCurrentDate(addDays(currentDate, 1));
+  }, [currentDate]);
 
   const handleSlotClick = useCallback(
-    (date: string, time: string, available: boolean) => {
+    (courtId: string, time: string, available: boolean) => {
       if (available) {
-        setSelectedSlot({ date, time });
+        setSelectedSlot({ courtId, time });
         setShowBookingDialog(true);
-        onBookingSelect?.(date, time);
+        onBookingSelect?.(courtId, time);
       }
     },
     [onBookingSelect],
@@ -156,45 +162,45 @@ export function BookingCalendar({
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Calendar className="h-5 w-5" />
-            Book {facilityName}
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="flex items-center gap-2">
+              <BsFillLightningChargeFill className="h-5 w-5" />
+              Book Online at {facilityName}
+            </CardTitle>
+            
+            {/* Legend - Top Right */}
+            <div className="flex gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-100 border border-green-300 rounded"></div>
+                <span>Available</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-red-100 border border-red-300 rounded"></div>
+                <span>Booked</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-gray-100 border border-gray-300 rounded"></div>
+                <span>Unavailable</span>
+              </div>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          {/* Week Navigation */}
-          <div className="flex items-center justify-between mb-6">
-            <Button variant="outline" size="sm" onClick={handlePreviousWeek}>
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-
-            <div className="text-center">
-              <h3 className="font-semibold">
-                {format(weekDates[0], "MMM d")} -{" "}
-                {format(weekDates[6], "MMM d, yyyy")}
-              </h3>
-              <p className="text-sm text-muted-foreground">Week View</p>
-            </div>
-
-            <Button variant="outline" size="sm" onClick={handleNextWeek}>
-              <ChevronRight className="h-4 w-4" />
-            </Button>
+          {/* Day Picker */}
+          <div className="flex items-center justify-center mb-6">
+            <DayPicker
+              selectedDate={currentDate}
+              onDateChange={setCurrentDate}
+              onPreviousDay={handlePreviousDay}
+              onNextDay={handleNextDay}
+            />
           </div>
 
-          {/* Legend */}
-          <div className="flex gap-4 mb-4 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-100 border border-green-300 rounded"></div>
-              <span>Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-red-100 border border-red-300 rounded"></div>
-              <span>Booked</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-gray-100 border border-gray-300 rounded"></div>
-              <span>Unavailable</span>
-            </div>
+          {/* Selected Date Display */}
+          <div className="text-center mb-6">
+            <h3 className="font-semibold text-lg">
+              {format(currentDate, "EEEE, d MMMM yyyy")}
+            </h3>
           </div>
 
           {/* Calendar Grid */}
@@ -207,19 +213,16 @@ export function BookingCalendar({
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <div className="min-w-[800px]">
+              <div className="min-w-[600px]">
                 {/* Header Row */}
-                <div className="grid grid-cols-8 gap-1 mb-2">
+                <div className="grid grid-cols-5 gap-1 mb-2">
                   <div className="p-2 text-sm font-medium text-muted-foreground">
                     <Clock className="h-4 w-4" />
                   </div>
-                  {weekDates.map((date) => (
-                    <div key={date.toISOString()} className="text-center p-2">
+                  {courts.map((court) => (
+                    <div key={court.id} className="text-center p-2">
                       <div className="text-sm font-medium">
-                        {format(date, "EEE")}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {format(date, "MMM d")}
+                        {court.name}
                       </div>
                     </div>
                   ))}
@@ -227,22 +230,22 @@ export function BookingCalendar({
 
                 {/* Time Slots */}
                 {timeSlots.map((time) => (
-                  <div key={time} className="grid grid-cols-8 gap-1 mb-1">
+                  <div key={time} className="grid grid-cols-5 gap-1 mb-1">
                     <div className="p-2 text-sm text-muted-foreground flex items-center">
                       {time}
                     </div>
-                    {weekDates.map((date) => {
-                      const dayAvailability = availability.find(
-                        (day) => day.date === format(date, "yyyy-MM-dd"),
+                    {courts.map((court) => {
+                      const courtAvailability = availability.find(
+                        (courtData) => courtData.courtId === court.id,
                       );
-                      const slot = dayAvailability?.slots.find(
+                      const slot = courtAvailability?.slots.find(
                         (s) => s.time === time,
                       );
 
                       if (!slot) {
                         return (
                           <div
-                            key={`${date.toISOString()}-${time}`}
+                            key={`${court.id}-${time}`}
                             className="p-2"
                           >
                             <div className="w-full h-8 bg-gray-50 border border-gray-200 rounded"></div>
@@ -251,20 +254,20 @@ export function BookingCalendar({
                       }
 
                       const isSelected =
-                        selectedSlot?.date === format(date, "yyyy-MM-dd") &&
+                        selectedSlot?.courtId === court.id &&
                         selectedSlot?.time === time;
                       const status = getSlotStatus(slot);
 
                       return (
                         <div
-                          key={`${date.toISOString()}-${time}`}
+                          key={`${court.id}-${time}`}
                           className="p-2"
                         >
                           <button
                             type="button"
                             onClick={() =>
                               handleSlotClick(
-                                format(date, "yyyy-MM-dd"),
+                                court.id,
                                 time,
                                 slot.available,
                               )
@@ -308,8 +311,8 @@ export function BookingCalendar({
             <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <h4 className="font-medium text-blue-900">Selected Time Slot</h4>
               <p className="text-sm text-blue-700">
-                {format(new Date(selectedSlot.date), "EEEE, MMMM d, yyyy")} at{" "}
-                {selectedSlot.time}
+                {format(currentDate, "EEEE, d MMMM yyyy")} at{" "}
+                {selectedSlot.time} - {courts.find(c => c.id === selectedSlot.courtId)?.name}
               </p>
               <Button className="mt-2" onClick={handleConfirmBooking}>
                 Confirm Booking
@@ -326,7 +329,7 @@ export function BookingCalendar({
           onOpenChange={setShowBookingDialog}
           facilityId={facilityId}
           facilityName={facilityName}
-          selectedDate={selectedSlot.date}
+          selectedDate={format(currentDate, "yyyy-MM-dd")}
           selectedTime={selectedSlot.time}
           onBookingConfirmed={handleBookingConfirmed}
         />

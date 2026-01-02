@@ -1,0 +1,1580 @@
+{
+  "Global": {
+    "notFoundPage": {
+      "title": "Stran ni bila najdena"
+    }
+  },
+  "AuthModule": {
+    "platformLoginPage": {
+      "title": "Dobrodošli nazaj",
+      "description": "Prijavite se z vašim Google računom",
+      "orContinueWith": "Ali nadaljujte z",
+      "termsText": "S klikom na nadaljuj se strinjate z našimi",
+      "termsOfService": "Pogoji storitve",
+      "and": "in",
+      "privacyPolicy": "Politika zasebnosti"
+    },
+    "platformSignupPage": {
+      "title": "Ustvari račun",
+      "description": "Registrirajte se z vašim Google računom",
+      "orContinueWith": "Ali nadaljujte z",
+      "termsText": "S klikom na nadaljuj se strinjate z našimi",
+      "termsOfService": "Pogoji storitve",
+      "and": "in",
+      "privacyPolicy": "Politika zasebnosti"
+    },
+    "googleButton": {
+      "loginWithGoogle": "Prijava z Googlom",
+      "signupWithGoogle": "Registracija z Googlom"
+    },
+    "platformLoginForm": {
+      "email": "E-pošta",
+      "emailPlaceholder": "m@primer.com",
+      "password": "Geslo",
+      "forgotPassword": "Ste pozabili geslo?",
+      "login": "Prijava",
+      "dontHaveAccount": "Nimate računa?",
+      "signUp": "Registracija",
+      "successMessage": "Uspešna prijava!",
+      "errorMessage": "Nekaj je šlo narobe. Poskusite znova."
+    },
+    "platformSignupForm": {
+      "name": "Ime",
+      "namePlaceholder": "shadcn",
+      "email": "E-pošta",
+      "emailPlaceholder": "m@primer.com",
+      "password": "Geslo",
+      "forgotPassword": "Ste pozabili geslo?",
+      "signup": "Registracija",
+      "alreadyHaveAccount": "Že imate račun?",
+      "login": "Prijava",
+      "successMessage": "Uspešna registracija!",
+      "errorMessage": "Nekaj je šlo narobe. Poskusite znova."
+    },
+    "adminLoginPage": {
+      "title": "Admin Plošča",
+      "description": "Ta stran je namenjena samo administratorjem"
+    },
+    "adminLoginForm": {
+      "email": "E-pošta",
+      "emailPlaceholder": "m@primer.com",
+      "password": "Geslo",
+      "login": "Prijava",
+      "successMessage": "Uspešna prijava!",
+      "errorMessage": "Nekaj je šlo narobe. Poskusite znova."
+    }
+  },
+  "PlatformModule": {
+    "facilityCard": {
+      "booking": "Rezervacija"
+    },
+    "booking": {
+      "seasonalTerm": {
+        "requestLink": "Želite tedensko ponavljanje? Zahtevajte sezonski termin →",
+        "signInRequired": "Prijavite se za zahtevo sezonskega termina",
+        "verifyEmail": "Najprej potrdite svoj e-poštni naslov",
+        "completeBooking": "Dokončajte vsaj 1 rezervacijo za odklepanje sezonskih terminov",
+        "title": "Zahteva za sezonski termin",
+        "description": "Zahtevajte tedensko ponavljajočo se rezervacijo za to igrišče. Lastnik objekta bo pregledal vašo zahtevo.",
+        "startDate": "Začetek sezone",
+        "endDate": "Konec sezone",
+        "pickDate": "Izberite datum",
+        "dayOfWeek": "Dan",
+        "startTime": "Začetni čas",
+        "endTime": "Končni čas",
+        "totalSlots": "Skupno rezervacij",
+        "notes": "Opombe (neobvezno)",
+        "notesPlaceholder": "Morebitne posebne zahteve ali opombe za lastnika...",
+        "cancel": "Prekliči",
+        "submitRequest": "Pošlji zahtevo",
+        "submitting": "Pošiljanje...",
+        "fillRequired": "Izpolnite vsa obvezna polja",
+        "requestSubmitted": "Vaša zahteva za sezonski termin je bila oddana! Lastnik objekta jo bo pregledal.",
+        "requestError": "Zahteve ni bilo mogoče oddati. Poskusite znova."
+      }
+    },
+    "platformHeader": {
+      "admin": "Admin",
+      "logo": "Logotip",
+      "navigation": "Navigacija",
+      "facilities": "Objekti"
+    },
+    "platformFooter": {
+      "copyright": "Avtorske pravice © {year} Playmaker"
+    },
+    "homePage": {
+      "controls": "Kontrole",
+      "sampleLocation": "Cerklje",
+      "sampleTitle": "Tenis igrišče"
+    },
+    "facilitiesPage": {
+      "filters": "Filtri",
+      "sampleLocation": "Ljubljana",
+      "sampleTitle": "Plavalni center",
+      "allFacilities": "Vsi objekti",
+      "facilitiesIn": "Objekti v {location}",
+      "sportFacilities": "{sport} objekti",
+      "sportIn": "{sport} v {location}",
+      "searchResults": "Rezultati iskanja",
+      "findAndBook": "Poiščite in rezervirajte popoln športni objekt",
+      "noFacilitiesFound": "Ni najdenih objektov",
+      "tryAdjusting": "Poskusite prilagoditi iskalne kriterije",
+      "clearFilters": "Počisti filtre",
+      "activeFilters": "Aktivni filtri",
+      "sort": {
+        "sortBy": "Razvrsti po",
+        "relevance": "Ustreznost",
+        "priceAsc": "Cena: naraščajoče",
+        "priceDesc": "Cena: padajoče",
+        "newest": "Najnovejši prvi"
+      }
+    },
+    "facilityDetailPage": {
+      "title": "Naslov",
+      "description": "bla bla bla",
+      "breadcrumb": {
+        "home": "Domov",
+        "facilities": "Objekti"
+      },
+      "openingHours": "Delovni čas",
+      "contactForHours": "Kontaktirajte za delovni čas",
+      "location": "Lokacija",
+      "getDirections": "Prikaži pot",
+      "showAllImages": "Prikaži vse slike",
+      "imageCount": "{count} slik",
+      "aboutFacility": "O tem objektu",
+      "rulesGuidelines": "Pravila in smernice",
+      "amenities": "Oprema",
+      "youMightAlsoLike": "Morda vam bo všeč tudi",
+      "noRelatedFacilities": "Ni sorodnih objektov",
+      "viewAll": "Poglej vse",
+      "phoneMissing": "Telefon manjka",
+      "website": "Spletna stran",
+      "availabilityCalendar": "Razpoložljivost",
+      "days": {
+        "monday": "Ponedeljek",
+        "tuesday": "Torek",
+        "wednesday": "Sreda",
+        "thursday": "Četrtek",
+        "friday": "Petek",
+        "saturday": "Sobota",
+        "sunday": "Nedelja"
+      },
+      "closed": "Zaprto",
+      "open": "Odprto",
+      "openNow": "Zdaj odprto",
+      "closedNow": "Zaprto",
+      "sportSelector": {
+        "allSports": "Vsi športi",
+        "selectSport": "Izberi šport"
+      }
+    },
+    "facilityDetail": {
+      "contactInformation": "Kontaktni podatki",
+      "facilityFeatures": "Značilnosti objekta",
+      "professionalEquipment": "Profesionalna oprema",
+      "parkingAvailable": "Na voljo parkirišče",
+      "changingRooms": "Garderobe",
+      "equipmentRental": "Izposoja opreme",
+      "wifiAvailable": "Wi-Fi na voljo",
+      "airConditioning": "Klimatska naprava",
+      "available": "Na voljo",
+      "activeBookings": "aktivne rezervacije",
+      "amenities": {
+        "parking": "Parkirišče",
+        "wifi": "Brezplačen WiFi",
+        "showers": "Tuši",
+        "lockers": "Omarice",
+        "changingRooms": "Garderobe",
+        "equipment": "Izposoja opreme",
+        "airConditioning": "Klimatska naprava",
+        "lighting": "Osvetlitev",
+        "cafe": "Kavarna/Bar",
+        "proShop": "Trgovina",
+        "coaching": "Trenerstvo na voljo",
+        "spectatorSeating": "Sedeži za gledalce"
+      }
+    }
+  },
+  "AdminModule": {
+    "adminSidebar": {
+      "dashboard": "Nadzorna plošča",
+      "users": "Uporabniki",
+      "organizations": "Organizacije",
+      "facilities": "Objekti",
+      "bookings": "Rezervacije",
+      "promotions": "Promocije",
+      "waitlist": "Čakalna vrsta",
+      "noShows": "Neopravičene odsotnosti",
+      "analytics": "Analitika",
+      "security": "Varnost",
+      "auditLog": "Revizijska sled",
+      "content": "Vsebina",
+      "settings": "Nastavitve",
+      "groupMain": "Pregled",
+      "groupEntities": "Upravljanje",
+      "groupAnalytics": "Analitika",
+      "groupSystem": "Sistem"
+    },
+    "userColumns": {
+      "name": "Ime",
+      "email": "E-pošta",
+      "joinedAt": "Pridružen",
+      "actions": "Dejanja",
+      "role": "Vloga"
+    },
+    "organizationColumns": {
+      "name": "Ime",
+      "createdAt": "Ustvarjeno",
+      "actions": "Dejanja"
+    },
+    "createOrganizationForm": {
+      "name": "Ime",
+      "namePlaceholder": "Organizacija",
+      "slug": "Kratko ime",
+      "slugPlaceholder": "organizacija-slug",
+      "create": "Ustvari",
+      "successMessage": "Organizacija uspešno ustvarjena",
+      "nameRequired": "Ime je obvezno",
+      "slugRequired": "Kratko ime je obvezno"
+    },
+    "createOrganizationDialog": {
+      "trigger": "Ustvari organizacijo",
+      "title": "Ustvari organizacijo"
+    },
+    "userTableActions": {
+      "openMenu": "Odpri meni",
+      "setAdmin": "Nastavi admina",
+      "delete": "Izbriši"
+    },
+    "adminPages": {
+      "organizations": "Organizacije",
+      "users": "Uporabniki",
+      "dashboard": "Nadzorna plošča"
+    },
+    "serverActions": {
+      "unauthenticated": "Nepoverjen",
+      "unauthorized": "Nepooblaščen",
+      "organizationIdMissing": "Manjka ID organizacije",
+      "organizationNotFound": "Organizacija ni bila najdena",
+      "organizationSlugExists": "Organizacija s tem kratkim imenom že obstaja",
+      "invalidFormData": "Neveljavni podatki obrazca",
+      "failedToCreateOrganization": "Ustvarjanje organizacije ni uspelo",
+      "failedToDeleteOrganization": "Brisanje organizacije ni uspelo"
+    },
+    "inviteOrganizationOwnerForm": {
+      "email": "E-pošta",
+      "emailPlaceholder": "jack.doe@primer.com",
+      "invite": "Povabi",
+      "successMessage": "Lastnik uspešno povabljen"
+    },
+    "organizationTableActions": {
+      "openMenu": "Odpri meni",
+      "inviteOwner": "Povabi lastnika",
+      "manageMembers": "Upravljaj člane",
+      "viewProviderDashboard": "Poglej nadzorno ploščo ponudnika",
+      "delete": "Izbriši",
+      "confirmDelete": "Izbriši organizacijo",
+      "confirmDeleteDescription": "Ste prepričani, da želite izbrisati to organizacijo? Tega dejanja ni mogoče razveljaviti.",
+      "cancel": "Prekliči"
+    },
+    "manageMembers": {
+      "title": "Upravljanje članov organizacije",
+      "description": "Upravljajte člane in njihove vloge za {organizationName}",
+      "addMember": "Dodaj novega člana",
+      "email": "E-pošta",
+      "emailPlaceholder": "clan@primer.com",
+      "role": "Vloga",
+      "roleMember": "Član",
+      "roleAdmin": "Admin",
+      "roleOwner": "Lastnik",
+      "add": "Dodaj člana",
+      "currentMembers": "Trenutni člani",
+      "name": "Ime",
+      "joinedAt": "Pridružen",
+      "actions": "Dejanja"
+    }
+  },
+  "SharedModule": {
+    "passwordInput": {
+      "hidePassword": "Skrij geslo",
+      "showPassword": "Pokaži geslo"
+    },
+    "userDropdown": {
+      "profile": "Profil",
+      "admin": "Admin",
+      "signOut": "Odjava",
+      "errorMessage": "Nekaj je šlo narobe",
+      "successMessage": "Uspešna odjava"
+    },
+    "dataTable": {
+      "noResults": "Ni rezultatov."
+    },
+    "userButton": {
+      "logOut": "Odjava"
+    },
+    "sidebar": {
+      "toggleSidebar": "Preklopi stranski meni"
+    }
+  },
+  "ProviderModule": {
+    "loginPage": {
+      "title": "Prijava ponudnika objektov",
+      "subtitle": "Dostopajte do svoje nadzorne plošče za upravljanje objektov"
+    },
+    "loginForm": {
+      "title": "Prijavite se v svoj račun",
+      "description": "Vnesite svoje podatke za dostop do nadzorne plošče ponudnika",
+      "email": "E-pošta",
+      "emailPlaceholder": "ponudnik@primer.com",
+      "password": "Geslo",
+      "passwordPlaceholder": "Vnesite geslo",
+      "submit": "Prijava",
+      "noAccount": "Nimate računa za ponudnike?",
+      "contactAdmin": "Kontaktirajte naš prodajni tim za začetek.",
+      "error": "Neveljavni podatki za prijavo. Poskusite znova.",
+      "noSession": "Povezave ni bilo mogoče vzpostaviti. Poskusite znova."
+    },
+    "sidebar": {
+      "overview": "Pregled",
+      "facilities": "Objekti",
+      "bookings": "Rezervacije",
+      "calendar": "Koledar",
+      "calendarSubItems": {
+        "allBookings": "Vse rezervacije",
+        "calendarView": "Pogled koledarja"
+      },
+      "analytics": "Analitika",
+      "promotions": "Promocije",
+      "seasonalTerms": "Sezonski termini",
+      "team": "Ekipa",
+      "settings": "Nastavitve",
+      "createFacility": "Ustvari objekt",
+      "role": {
+        "owner": "Lastnik",
+        "admin": "Admin",
+        "member": "Član"
+      },
+      "poweredBy": "Poganja",
+      "logout": "Odjava"
+    },
+    "calendar": {
+      "title": "Koledar in rezervacije",
+      "subtitle": "Upravljajte in spremljajte vse rezervacije objektov",
+      "tabs": {
+        "calendar": "Pogled koledarja",
+        "bookings": "Seznam rezervacij"
+      },
+      "navigation": {
+        "today": "Danes",
+        "createBooking": "Ustvari rezervacijo"
+      },
+      "bookingsList": {
+        "title": "Vse rezervacije",
+        "found": "{count} rezervacij najdeno",
+        "exportExcel": "Izvozi v Excel",
+        "emptyState": "Ni najdenih rezervacij",
+        "emptyStateHint": "Poskusite izbrati drug objekt",
+        "createFirst": "Ustvarite svojo prvo rezervacijo"
+      },
+      "filters": {
+        "title": "Filtri",
+        "facility": "Objekt",
+        "status": "Status",
+        "selectFacility": "Izberite objekt",
+        "selectStatus": "Izberite status",
+        "allFacilities": "Vsi objekti",
+        "allStatuses": "Vsi statusi",
+        "pending": "V čakanju",
+        "confirmed": "Potrjeno",
+        "cancelled": "Preklicano",
+        "completed": "Zaključeno"
+      },
+      "calendar": {
+        "title": "Pogled koledarja"
+      }
+    },
+    "dashboard": {
+      "providerDashboard": "Nadzorna plošča ponudnika",
+      "createFacility": "Ustvari objekt",
+      "totalFacilities": "Skupno objektov",
+      "facilitiesCreated": "ustvarjeni objekti",
+      "totalBookings": "Skupno rezervacij",
+      "bookingsThisMonth": "rezervacij ta mesec",
+      "teamMembers": "Člani ekipe",
+      "activeMembers": "aktivni člani",
+      "revenue": "Prihodki",
+      "thisMonth": "ta mesec",
+      "facilities": "Objekti",
+      "manageFacilities": "Upravljajte svoje objekte in rezervacije",
+      "noFacilities": "Ni še objektov",
+      "noFacilitiesDescription": "Ustvarite svoj prvi objekt, da začnete sprejemati rezervacije",
+      "createFirstFacility": "Ustvari prvi objekt",
+      "allTimeBookings": "skupno rezervacij",
+      "activeBookings": "Aktivne rezervacije",
+      "currentlyActive": "trenutno aktivne",
+      "monthlyRevenue": "Mesečni prihodki",
+      "welcomeBack": "Dobrodošli nazaj",
+      "dashboardSubtitle": "Tukaj je pregled dogajanja pri vaših objektih danes",
+      "recentActivity": "Nedavna dejavnost",
+      "recentActivityDescription": "Zadnje posodobitve in obvestila",
+      "pendingBookings": "Nerešene rezervacije",
+      "bookingsNeedAttention": "rezervacije potrebujejo pozornost",
+      "noRecentActivity": "Ni nedavne dejavnosti",
+      "quickStats": "Hitre statistike",
+      "quickStatsDescription": "Ključne metrike na enem mestu",
+      "getStarted": "Začnite zdaj",
+      "getStartedDescription": "Nastavite svoj prvi objekt in začnite sprejemati rezervacije",
+      "createYourFirstFacility": "Ustvarite svoj prvi objekt",
+      "createFirstFacilityDescription": "Dodajte svoj prvi objekt, da začnete upravljati rezervacije in širiti svoje poslovanje",
+      "role": {
+        "owner": "Lastnik",
+        "admin": "Admin",
+        "member": "Član"
+      }
+    },
+    "createFacility": {
+      "title": "Ustvari nov objekt",
+      "description": "Dodajte nov objekt v vašo organizacijo",
+      "facilityName": "Ime objekta",
+      "facilityNamePlaceholder": "Vnesite ime objekta",
+      "descriptionLabel": "Opis",
+      "descriptionPlaceholder": "Opišite svoj objekt",
+      "address": "Naslov",
+      "addressPlaceholder": "Vnesite polni naslov",
+      "city": "Mesto",
+      "cityPlaceholder": "Vnesite mesto",
+      "phone": "Telefon",
+      "phonePlaceholder": "Vnesite telefonsko številko",
+      "email": "E-pošta",
+      "emailPlaceholder": "Vnesite kontaktno e-pošto",
+      "cancel": "Prekliči",
+      "create": "Ustvari objekt",
+      "error": "Ustvarjanje objekta ni uspelo. Poskusite znova."
+    },
+    "analytics": {
+      "analytics": "Analitika",
+      "analyticsSubtitle": "Spremljajte svojo uspešnost in rast",
+      "totalRevenue": "Skupni prihodki",
+      "vsLastMonth": "v primerjavi z prejšnjim mesecem",
+      "totalBookings": "Skupno rezervacij",
+      "averageBookingValue": "Povprečna vrednost rezervacije",
+      "perBooking": "na rezervacijo",
+      "activeFacilities": "Aktivni objekti",
+      "outOf": "od",
+      "total": "skupaj",
+      "revenueChart": "Graf prihodkov",
+      "revenueChartDescription": "Trendi prihodkov skozi čas",
+      "bookingsChart": "Graf rezervacij",
+      "bookingsChartDescription": "Trendi obsega rezervacij",
+      "chartPlaceholder": "Graf bo prikazan tukaj",
+      "topFacilities": "Najboljši objekti",
+      "topFacilitiesDescription": "Vaši najbolj uspešni objekti",
+      "bookings": "rezervacij",
+      "revenue": "prihodek",
+      "noFacilityData": "Ni podatkov o objektih",
+      "monthlyBreakdown": "Mesečna razčlenitev",
+      "monthlyBreakdownDescription": "Uspešnost tega meseca",
+      "thisMonth": "Ta mesec",
+      "thisMonthBookings": "Rezervacije ta mesec",
+      "averagePerBooking": "Povprečje na rezervacijo",
+      "facilityUtilization": "Zasedenost objektov",
+      "filters": {
+        "label": "Filtri:",
+        "allTime": "Vsi časi",
+        "last7Days": "Zadnjih 7 dni",
+        "last30Days": "Zadnjih 30 dni",
+        "last90Days": "Zadnjih 90 dni",
+        "customRange": "Po meri",
+        "selectDateRange": "Izberite datumsko obdobje",
+        "allFacilities": "Vsi objekti",
+        "allCourts": "Vsa igrišča",
+        "clearFilters": "Počisti filtre"
+      },
+      "metrics": {
+        "totalRevenue": "Skupni prihodki",
+        "monthlyRevenue": "Mesečni prihodki",
+        "totalBookings": "Skupno rezervacij",
+        "avgBooking": "Povp. rezervacija",
+        "perBooking": "Na rezervacijo",
+        "occupancy": "Zasedenost",
+        "activeFacilities": "Aktivni objekti",
+        "vsLastMonth": "v primerjavi z prejšnjim mesecem",
+        "thisMonth": "Ta mesec",
+        "ofTotal": "od {count} skupaj",
+        "courts": "{active} od {total} igrišč"
+      },
+      "charts": {
+        "revenueAnalyticsTitle": "Analitika prihodkov",
+        "revenueAnalyticsDesc": "Podrobna razčlenitev in trendi prihodkov",
+        "revenueOverTime": "Prihodki skozi čas",
+        "revenueOverTimeDesc": "Mesečni trendi prihodkov",
+        "bookingsOverTime": "Rezervacije skozi čas",
+        "bookingsOverTimeDesc": "Mesečni obseg rezervacij",
+        "revenueByFacility": "Prihodki po objektih",
+        "revenueByFacilityDesc": "Primerjava prihodkov med objekti",
+        "revenueByCourt": "Prihodki po igriščih",
+        "revenueByCourtDesc": "Najbolj donosna igrišča",
+        "revenueByStatus": "Prihodki po statusu",
+        "revenueByStatusDesc": "Razčlenitev po statusu rezervacij",
+        "revenueByDayOfWeek": "Prihodki po dnevu",
+        "revenueByDayOfWeekDesc": "Tedenski vzorci prihodkov",
+        "revenueByHour": "Prihodki po urah",
+        "revenueByHourDesc": "Urna porazdelitev prihodkov",
+        "facilityDistribution": "Porazdelitev objektov",
+        "facilityDistributionDesc": "Porazdelitev rezervacij med objekti"
+      },
+      "bookingAnalytics": {
+        "title": "Analitika rezervacij",
+        "description": "Podrobna razčlenitev in trendi rezervacij",
+        "bookings": "Rezervacije",
+        "totalBookings": "Skupno rezervacij",
+        "bookingsOverTime": "Rezervacije skozi čas",
+        "bookingsOverTimeDesc": "Trend rezervacij v zadnjih 6 mesecih",
+        "bookingStatusBreakdown": "Razčlenitev statusa rezervacij",
+        "bookingStatusBreakdownDesc": "Porazdelitev rezervacij po statusu",
+        "bookingsByFacility": "Rezervacije po objektih",
+        "bookingsByFacilityDesc": "Najboljši objekti po številu rezervacij",
+        "bookingsByCourt": "Rezervacije po igriščih",
+        "bookingsByCourtDesc": "Najboljša igrišča po številu rezervacij",
+        "bookingsByDayOfWeek": "Rezervacije po dnevu v tednu",
+        "bookingsByDayOfWeekDesc": "Porazdelitev rezervacij čez teden",
+        "bookingsByHourOfDay": "Rezervacije po urah dneva",
+        "bookingsByHourOfDayDesc": "Konice rezervacij",
+        "cancellationRate": "Stopnja preklica",
+        "cancellationRateDesc": "Celotna statistika preklicov rezervacij",
+        "totalCancelled": "Skupno preklicanih"
+      },
+      "occupancyAnalytics": {
+        "title": "Zasedenost in uporaba",
+        "description": "Metrike uporabe igrišč in uspešnosti objektov",
+        "courtUtilization": "Uporaba igrišč po objektih",
+        "courtUtilizationDesc": "Odstotek izkoriščenosti igrišč po objektih",
+        "peakHoursHeatmap": "Toplotni zemljevid konic",
+        "peakHoursHeatmapDesc": "Zasedenost rezervacij po dneh in urah",
+        "facilityPerformance": "Primerjava uspešnosti objektov",
+        "facilityPerformanceDesc": "Primerjava objektov po rezervacijah, prihodkih in izkoriščenosti",
+        "underutilized": "Slabo izkoriščena igrišča/objekti",
+        "underutilizedCourts": "Slabo izkoriščena igrišča",
+        "underutilizedCourtsDesc": "Igrišča z manj kot 50% izkoriščenostjo",
+        "underutilizedFacilities": "Slabo izkoriščeni objekti",
+        "underutilizedFacilitiesDesc": "Objekti z manj kot 20% izkoriščenostjo",
+        "noUnderutilizedCourts": "Ni slabo izkoriščenih igrišč",
+        "allCourtsUtilized": "Vsa igrišča so dobro izkoriščena",
+        "noUnderutilizedFacilities": "Ni slabo izkoriščenih objektov",
+        "allFacilitiesUtilized": "Vsi objekti so dobro izkoriščeni",
+        "utilizationRate": "Izkoriščenost",
+        "activeCourts": "Aktivna igrišča",
+        "totalCourts": "Skupno igrišč",
+        "avgPerCourt": "Povp. na igrišče",
+        "revenuePerCourt": "Prihodek na igrišče",
+        "of": "od",
+        "courtsActive": "igrišč aktivnih"
+      },
+      "customerInsights": {
+        "title": "Vpogledi o strankah",
+        "totalUniqueCustomers": "Skupno edinstvenih strank",
+        "repeatCustomerRate": "Stopnja vračajočih strank",
+        "newCustomers": "Nove stranke",
+        "returningCustomers": "Vračajoče stranke",
+        "topCustomersByBookings": "Najboljše stranke po rezervacijah",
+        "topCustomersByBookingsDesc": "Vaše najbolj aktivne stranke",
+        "topCustomersByRevenue": "Najboljše stranke po prihodkih",
+        "topCustomersByRevenueDesc": "Vaše najbolj vredne stranke",
+        "last30Days": "Zadnjih 30 dni",
+        "repeatCustomers": "vračajoče stranke"
+      },
+      "timeBasedPatterns": {
+        "title": "Časovni vzorci",
+        "description": "Odkrijte najboljše čase in sezonske trende",
+        "bestPerformingDays": "Najbolj uspešni dnevi",
+        "bestPerformingDaysDesc": "Prihodki in rezervacije po dnevu v tednu",
+        "bestPerformingHours": "Najbolj uspešne ure",
+        "bestPerformingHoursDesc": "Prihodki in rezervacije po urah dneva",
+        "seasonalTrends": "Sezonski trendi",
+        "seasonalTrendsDesc": "Mesečni trendi rezervacij in prihodkov v zadnjih 12 mesecih",
+        "top3BestDays": "Top 3 najbolj uspešni dnevi",
+        "top3BestDaysDesc": "Dnevi z najvišjimi prihodki",
+        "top5BestHours": "Top 5 najbolj uspešnih ur",
+        "top5BestHoursDesc": "Ure z najvišjimi prihodki",
+        "best": "Najboljše",
+        "peak": "Konica",
+        "avg": "povp.",
+        "totalBookings12Months": "Skupno rezervacij (12 mesecev)",
+        "totalRevenue12Months": "Skupno prihodkov (12 mesecev)",
+        "avgMonthlyRevenue": "Povp. mesečni prihodek",
+        "insufficientData": "Premalo podatkov za sezonske trende",
+        "need3MonthsData": "Potrebni so vsaj 3 meseci podatkov o rezervacijah"
+      },
+      "status": {
+        "confirmed": "Potrjeno",
+        "cancelled": "Preklicano",
+        "pending": "V čakanju",
+        "completed": "Zaključeno"
+      },
+      "days": {
+        "sun": "Ned",
+        "mon": "Pon",
+        "tue": "Tor",
+        "wed": "Sre",
+        "thu": "Čet",
+        "fri": "Pet",
+        "sat": "Sob"
+      },
+      "noData": "Ni podatkov",
+      "export": "Izvoz"
+    },
+    "promotions": {
+      "title": "Promocije",
+      "subtitle": "Upravljajte popuste in posebne ponudbe za vaše objekte",
+      "createPromotion": "Ustvari promocijo",
+      "viewAnalytics": "Poglej analitiko",
+      "hideAnalytics": "Skrij analitiko",
+      "stats": {
+        "totalPromotions": "Skupaj promocij",
+        "active": "aktivnih",
+        "totalUsage": "Skupna uporaba",
+        "timesRedeemed": "Krat unovčeno",
+        "customerSavings": "Prihranki strank",
+        "totalValueProvided": "Skupna vrednost popustov",
+        "activePromotions": "Aktivne promocije",
+        "currentlyRunning": "Trenutno aktivne"
+      },
+      "filters": {
+        "search": "Iskanje",
+        "searchPlaceholder": "Išči po imenu, kodi...",
+        "status": "Status",
+        "allStatus": "Vsi statusi",
+        "active": "Aktivno",
+        "inactive": "Neaktivno",
+        "expired": "Poteklo",
+        "sortBy": "Razvrsti po",
+        "newestFirst": "Najprej najnovejše",
+        "oldestFirst": "Najprej najstarejše",
+        "mostUsed": "Najbolj uporabljene",
+        "leastUsed": "Najmanj uporabljene",
+        "highestDiscount": "Najvišji popust",
+        "lowestDiscount": "Najnižji popust",
+        "nameAZ": "Ime (A-Ž)",
+        "nameZA": "Ime (Ž-A)",
+        "results": "Rezultati",
+        "clearFilters": "Počisti filtre"
+      },
+      "list": {
+        "allPromotions": "Vse promocije",
+        "discount": "Popust",
+        "usage": "Uporaba",
+        "validUntil": "Veljavno do",
+        "facilities": "Objekti",
+        "all": "Vsi",
+        "noDescription": "Ni opisa"
+      },
+      "actions": {
+        "viewDetails": "Poglej podrobnosti",
+        "edit": "Uredi",
+        "duplicate": "Podvoji",
+        "extend": "Podaljšaj",
+        "activate": "Aktiviraj",
+        "deactivate": "Deaktiviraj",
+        "delete": "Izbriši",
+        "moreActions": "Več dejanj"
+      },
+      "emptyState": {
+        "title": "Ustvarite svojo prvo promocijo",
+        "description": "Privabite več strank s posebnimi ponudbami in popusti",
+        "boostTitle": "Povečajte rezervacije",
+        "boostDescription": "Ustvarite ciljane promocije za povečanje izkoriščenosti objektov in privabljanje novih strank.",
+        "createFirst": "Ustvari prvo promocijo"
+      },
+      "usageAnalytics": "Analitika uporabe",
+      "loading": "Nalaganje promocij...",
+      "dialogs": {
+        "extend": {
+          "title": "Podaljšaj trajanje promocije",
+          "description": "Podaljšajte končni datum za \"{name}\". Trenutni končni datum: {date}",
+          "extendBy": "Podaljšaj za (dni)",
+          "newEndDate": "Nov končni datum: {date}",
+          "cancel": "Prekliči",
+          "extend": "Podaljšaj"
+        },
+        "delete": {
+          "title": "Izbriši promocijo",
+          "description": "Ste prepričani, da želite izbrisati \"{name}\"? Tega dejanja ni mogoče razveljaviti. Če je bila promocija že uporabljena, bo deaktivirana namesto izbrisana.",
+          "cancel": "Prekliči",
+          "delete": "Izbriši"
+        }
+      },
+      "toast": {
+        "promotionActivated": "Promocija aktivirana",
+        "promotionDeactivated": "Promocija deaktivirana",
+        "promotionDuplicated": "Promocija uspešno podvojena",
+        "promotionExtended": "Promocija podaljšana za {days} dni",
+        "promotionDeleted": "Promocija uspešno izbrisana",
+        "promotionDeactivatedInfo": "Promocija deaktivirana (uporabljenih promocij ni mogoče izbrisati)",
+        "loadError": "Nalaganje promocij ni uspelo",
+        "updateError": "Posodobitev statusa promocije ni uspela",
+        "duplicateError": "Podvajanje promocije ni uspelo",
+        "extendError": "Podaljšanje promocije ni uspelo",
+        "deleteError": "Brisanje promocije ni uspelo",
+        "detailsError": "Nalaganje podrobnosti promocije ni uspelo"
+      }
+    },
+    "seasonalTerms": {
+      "title": "Sezonski termini",
+      "subtitle": "Upravljajte ponavljajoče se tedenske rezervacije od določenega datuma do določenega datuma",
+      "createSeries": "Ustvari sezonsko serijo",
+      "stats": {
+        "totalSeries": "Skupaj serij",
+        "seriesCreated": "ustvarjenih serij",
+        "activeSeries": "Aktivne serije",
+        "currentlyActive": "trenutno aktivnih",
+        "pendingSeries": "Nerešene serije",
+        "awaitingConfirmation": "čakajo na potrditev",
+        "totalBookings": "Skupaj rezervacij",
+        "fromAllSeries": "iz vseh serij"
+      },
+      "filters": {
+        "search": "Iskanje",
+        "searchPlaceholder": "Išči po stranki, igrišču...",
+        "court": "Igrišče",
+        "allCourts": "Vsa igrišča",
+        "status": "Status",
+        "allStatus": "Vsi statusi",
+        "sortBy": "Razvrsti po",
+        "newestFirst": "Najprej najnovejše",
+        "oldestFirst": "Najprej najstarejše",
+        "mostBookings": "Največ rezervacij",
+        "leastBookings": "Najmanj rezervacij",
+        "paymentStatus": "Plačilo",
+        "allPayments": "Vse",
+        "paymentPending": "Čaka plačilo",
+        "paymentPaid": "Plačano",
+        "results": "Rezultati",
+        "clearFilters": "Počisti filtre"
+      },
+      "tabs": {
+        "all": "Vse",
+        "pending": "V čakanju",
+        "confirmed": "Potrjeno",
+        "active": "Aktivno",
+        "completed": "Zaključeno",
+        "rejected": "Zavrnjeno"
+      },
+      "status": {
+        "pending": "V čakanju",
+        "confirmed": "Potrjeno",
+        "rejected": "Zavrnjeno",
+        "active": "Aktivno",
+        "completed": "Zaključeno"
+      },
+      "days": {
+        "sunday": "Nedelja",
+        "monday": "Ponedeljek",
+        "tuesday": "Torek",
+        "wednesday": "Sreda",
+        "thursday": "Četrtek",
+        "friday": "Petek",
+        "saturday": "Sobota"
+      },
+      "list": {
+        "courtFacility": "Igrišče - Objekt",
+        "schedule": "Urnik",
+        "bookings": "rezervacij",
+        "customer": "Stranka",
+        "notes": "Opombe",
+        "noSeries": "Ni najdenih sezonskih serij",
+        "createFirst": "Ustvarite svojo prvo sezonsko serijo za začetek.",
+        "noSeriesForStatus": "Ni najdenih {status} sezonskih serij."
+      },
+      "actions": {
+        "confirmSeries": "Potrdi serijo",
+        "rejectSeries": "Zavrni serijo",
+        "communicate": "Komuniciraj",
+        "email": "E-pošta",
+        "moreActions": "Več dejanj",
+        "viewDetails": "Poglej podrobnosti",
+        "edit": "Uredi",
+        "delete": "Izbriši"
+      },
+      "form": {
+        "title": "Ustvari sezonsko serijo",
+        "editTitle": "Uredi sezonsko serijo",
+        "description": "Ustvarite ponavljajočo se tedensko serijo rezervacij",
+        "facility": "Objekt",
+        "selectFacility": "Izberite objekt",
+        "court": "Igrišče",
+        "selectCourt": "Izberite igrišče",
+        "selectFacilityFirst": "Najprej izberite objekt",
+        "seasonStartDate": "Začetni datum sezone",
+        "seasonEndDate": "Končni datum sezone",
+        "pickDate": "Izberite datum",
+        "dayOfWeek": "Dan v tednu",
+        "selectDay": "Izberite dan",
+        "startTime": "Začetni čas",
+        "endTime": "Končni čas",
+        "selectTime": "Izberite čas",
+        "customerName": "Ime stranke",
+        "customerNamePlaceholder": "Vnesite ime stranke",
+        "customerEmail": "E-pošta stranke",
+        "customerEmailPlaceholder": "stranka@primer.com",
+        "customerPhone": "Telefon stranke",
+        "customerPhonePlaceholder": "+386...",
+        "notes": "Opombe",
+        "notesPlaceholder": "Dodatne opombe...",
+        "price": "Skupna cena",
+        "pricePlaceholder": "Vnesite skupno ceno",
+        "status": "Status rezervacije",
+        "paymentStatus": "Status plačila",
+        "paymentPending": "Čaka plačilo",
+        "paymentPaid": "Plačano",
+        "cancel": "Prekliči",
+        "create": "Ustvari serijo",
+        "save": "Shrani spremembe"
+      },
+      "summary": {
+        "numberOfSlots": "Število terminov",
+        "pricePerSlot": "Cena na termin",
+        "hours": "ur",
+        "totalPrice": "Skupna cena"
+      },
+      "communicate": {
+        "title": "Komunicirajte s stranko",
+        "description": "Pošljite sporočilo na {email}",
+        "message": "Sporočilo",
+        "messagePlaceholder": "Vnesite vaše sporočilo...",
+        "cancel": "Prekliči",
+        "send": "Pošlji sporočilo"
+      },
+      "toast": {
+        "seriesConfirmed": "Sezonska serija uspešno potrjena",
+        "seriesRejected": "Sezonska serija zavrnjena",
+        "seriesCreated": "Sezonska serija uspešno ustvarjena",
+        "seriesActivated": "Sezonska serija uspešno aktivirana",
+        "messageSent": "Sporočilo poslano na {email}",
+        "confirmError": "Potrditev sezonske serije ni uspela",
+        "rejectError": "Zavrnitev sezonske serije ni uspela",
+        "createError": "Ustvarjanje sezonske serije ni uspelo",
+        "activateError": "Aktivacija sezonske serije ni uspela",
+        "messageError": "Pošiljanje sporočila ni uspelo",
+        "fillRequired": "Prosimo, izpolnite vsa obvezna polja",
+        "activeRequiresPaid": "Status ni mogoče nastaviti na Aktivno - plačilo mora biti označeno kot Plačano",
+        "conflictsFound": "Najdeni konflikti z obstoječimi rezervacijami:",
+        "confirmActivate": "Ali želite vseeno nadaljevati?"
+      },
+      "loading": "Nalaganje sezonskih serij..."
+    },
+    "team": {
+      "team": "Ekipa",
+      "manageTeamMembers": "Upravljajte člane ekipe in njihove vloge",
+      "totalMembers": "Skupaj članov",
+      "teamMembers": "članov ekipe",
+      "owners": "Lastniki",
+      "organizationOwners": "lastnikov organizacije",
+      "admins": "Administratorji",
+      "administrators": "administratorjev",
+      "members": "Člani",
+      "regularMembers": "navadnih članov",
+      "teamMembersDescription": "Vsi člani ekipe in njihove vloge",
+      "name": "Ime",
+      "email": "E-pošta",
+      "memberRole": "Vloga",
+      "joinedAt": "Pridružen",
+      "lastActive": "Zadnja aktivnost",
+      "actions": "Dejanja",
+      "never": "Nikoli",
+      "demote": "Znižaj",
+      "promote": "Povišaj",
+      "remove": "Odstrani",
+      "noMembers": "Ni članov ekipe",
+      "noMembersDescription": "Povabite člane ekipe za sodelovanje pri upravljanju vaših objektov",
+      "inviteFirstMember": "Povabi prvega člana",
+      "inviteMember": "Povabi člana",
+      "facilities": "Objekti",
+      "noFacilities": "Ni objektov",
+      "allFacilities": "Vsi objekti",
+      "assignFacilities": "Dodeli objekte",
+      "role": {
+        "owner": "Lastnik",
+        "admin": "Admin",
+        "member": "Član"
+      },
+      "pendingInvitations": "Čakajoča povabila",
+      "pendingInvitationsDescription": "Povabila, ki čakajo na potrditev preko e-pošte",
+      "invitationExpired": "Povabilo je poteklo",
+      "expiresInDays": "Poteče čez {days} dni",
+      "expiresToday": "Poteče danes",
+      "invitedBy": "Povabil",
+      "expired": "Poteklo",
+      "pending": "V teku",
+      "dialogs": {
+        "assignFacilities": {
+          "title": "Dodeli objekte za {name}",
+          "description": "Izberite, do katerih objektov naj ima ta član dostop. Če obstaja samo en objekt, bo samodejno dodeljen.",
+          "noFacilities": "Ni razpoložljivih objektov",
+          "cancel": "Prekliči",
+          "save": "Shrani",
+          "saving": "Shranjevanje..."
+        },
+        "inviteMember": {
+          "title": "Povabi člana ekipe",
+          "description": "Povabite novega člana v vašo organizacijo. Izberite njihovo vlogo in dodelite objekte, če so član (receptor).",
+          "emailLabel": "E-pošta",
+          "emailPlaceholder": "clan@primer.com",
+          "roleLabel": "Vloga",
+          "rolePlaceholder": "Izberite vlogo",
+          "roleOwner": "Lastnik (poln dostop)",
+          "roleMember": "Član (receptor)",
+          "assignFacilities": "Dodeli objekte",
+          "oneFacilityNote": "Na voljo je samo en objekt. Samodejno bo dodeljen.",
+          "cancel": "Prekliči",
+          "invite": "Povabi člana",
+          "inviting": "Pošiljanje povabila..."
+        },
+        "removeMember": {
+          "title": "Odstrani člana ekipe",
+          "description": "Ste prepričani, da želite odstraniti tega člana iz organizacije? Tega dejanja ni mogoče razveljaviti.",
+          "cancel": "Prekliči",
+          "confirm": "Odstrani člana"
+        }
+      },
+      "toast": {
+        "facilitiesAssigned": "Objekti uspešno dodeljeni",
+        "facilitiesAssignError": "Dodelitev objektov ni uspela",
+        "inviteSentWithFacilities": "Povabilo poslano! Član bo prejel e-pošto za potrditev. Objekti bodo dodeljeni po sprejetju povabila.",
+        "inviteSent": "Povabilo poslano! Član bo prejel e-pošto za potrditev članstva.",
+        "inviteError": "Pošiljanje povabila ni uspelo",
+        "memberRemoved": "Član uspešno odstranjen",
+        "memberRemoveError": "Odstranitev člana ni uspela",
+        "roleUpdateComingSoon": "Posodobitev vloge kmalu",
+        "memberRemovalComingSoon": "Odstranitev člana kmalu",
+        "adminRoleForbidden": "Vloge administratorja ni mogoče dodeliti. Samo lastnik platforme lahko dodeli vloge administratorjev."
+      }
+    },
+    "noFacilityAccess": {
+      "title": "Ni dostopa do objektov",
+      "description": "Nimate dostopa do nobenega objekta",
+      "message": "Bili ste dodani v to organizacijo, vendar vam še ni bil dodeljen noben objekt. Kontaktirajte lastnika organizacije, da dobite dostop do objektov.",
+      "contactOwner": "Kontaktirajte lastnika organizacije"
+    },
+    "facilityManagement": {
+      "title": "Upravljanje objektov",
+      "subtitle": "Upravljajte vse vidike vaših športnih objektov",
+      "selectFacility": "Izberite objekt...",
+      "addNewFacility": "Dodaj nov objekt",
+      "noFacilitiesTitle": "Ni razpoložljivih objektov",
+      "noFacilitiesDesc": "Ustvarite svoj prvi objekt za začetek",
+      "noFacilitiesDescMember": "Objekti še niso bili ustvarjeni",
+      "createFirstFacility": "Ustvari prvi objekt"
+    },
+    "facilityDetails": {
+      "essentialInfo": "Osnovni podatki",
+      "viewFacilityPage": "Poglej stran objekta",
+      "editBasicInfo": "Uredi osnovne podatke",
+      "facilityName": "Ime objekta",
+      "address": "Naslov",
+      "phone": "Telefon",
+      "email": "E-pošta",
+      "website": "Spletna stran",
+      "noContactInfo": "Kontaktni podatki niso dodani",
+      "workingHours": "Delovni čas",
+      "editHours": "Uredi ure",
+      "noWorkingHours": "Delovni čas ni nastavljen",
+      "configureHours": "Kliknite \"Uredi ure\" za nastavitev"
+    },
+    "images": {
+      "title": "Slike",
+      "editImages": "Uredi slike",
+      "uploadImages": "Naloži slike",
+      "noImages": "Slike niso naložene",
+      "noImagesDesc": "Naložite slike za predstavitev vašega objekta",
+      "setAsDefault": "Nastavi kot privzeto",
+      "defaultBadge": "Privzeto"
+    },
+    "content": {
+      "title": "Opis in pravila",
+      "editContent": "Uredi vsebino",
+      "description": "Opis",
+      "rules": "Pravila",
+      "noDescription": "Opis ni dodan",
+      "addDescription": "Dodaj opis",
+      "noRules": "Pravila niso dodana",
+      "addRules": "Dodaj pravila"
+    },
+    "sportsAndCourts": {
+      "title": "Športi in igrišča",
+      "addSport": "Dodaj šport",
+      "addFirstSport": "Dodaj prvi šport",
+      "addCourt": "Dodaj igrišče",
+      "addCourtTo": "Dodaj igrišče za {sport}",
+      "noCourtsForSport": "Za ta šport ni dodanih igrišč",
+      "noSports": "Športi niso nastavljeni",
+      "noSportsDesc": "Dodajte športe in igrišča za omogočanje rezervacij",
+      "court": "igrišče",
+      "courts": "igrišč",
+      "sport": "šport",
+      "sports": "športov",
+      "totalCourts": "skupaj igrišč",
+      "location": "Lokacija",
+      "surface": "Podlaga",
+      "timeSlots": "Časovni termini",
+      "notSet": "Ni nastavljeno",
+      "status": "Status",
+      "active": "Aktivno",
+      "inactive": "Neaktivno",
+      "workingHoursLabel": "Delovni čas",
+      "usesFacilityHours": "Uporablja ure objekta",
+      "customHours": "Prilagojene ure",
+      "edit": "Uredi",
+      "delete": "Izbriši",
+      "copy": "Kopiraj",
+      "viewPricing": "Poglej cenik",
+      "toggleCourtStatus": "Preklopi status za {court}",
+      "copyCourt": "Kopiraj {court}",
+      "deleteCourt": "Izbriši {court}",
+      "editWorkingHours": "Uredi delovni čas za {court}"
+    },
+    "surfaces": {
+      "clay": "Pesek",
+      "hard": "Trda podlaga",
+      "grass": "Trava",
+      "synthetic": "Umetna masa",
+      "wood": "Les",
+      "sand": "Pesek"
+    },
+    "timeSlotOptions": {
+      "30min": "30 minut",
+      "45min": "45 minut",
+      "60min": "1 ura",
+      "90min": "1,5 ure",
+      "120min": "2 uri"
+    },
+    "sportOptions": {
+      "tennis": "Tenis",
+      "multipurpose": "Večnamensko",
+      "badminton": "Badminton",
+      "tableTennis": "Namizni tenis",
+      "volleyball": "Odbojka",
+      "padel": "Padel",
+      "swimming": "Plavanje",
+      "football": "Nogomet",
+      "squash": "Squash",
+      "basketball": "Košarka",
+      "pickleball": "Pickleball"
+    },
+    "dialogs": {
+      "createSport": {
+        "title": "Dodaj nov šport",
+        "description": "Ustvarite novo kategorijo športa za vaš objekt",
+        "sportName": "Ime športa *",
+        "selectSport": "Izberite šport...",
+        "create": "Ustvari šport",
+        "creating": "Ustvarjanje...",
+        "cancel": "Prekliči"
+      },
+      "editSport": {
+        "title": "Uredi šport",
+        "description": "Posodobite podrobnosti kategorije športa",
+        "sportName": "Ime športa *",
+        "save": "Shrani spremembe",
+        "update": "Posodobi šport",
+        "updating": "Posodabljanje..."
+      },
+      "createCourt": {
+        "title": "Dodaj novo igrišče",
+        "description": "Ustvarite novo igrišče za {sport}",
+        "courtName": "Ime igrišča *",
+        "courtNamePlaceholder": "npr. Igrišče {number}",
+        "courtDescription": "Opis",
+        "courtDescriptionPlaceholder": "Neobvezen opis",
+        "surface": "Vrsta podlage",
+        "selectSurface": "Izberite podlago...",
+        "locationType": "Vrsta lokacije *",
+        "indoor": "Notranji",
+        "outdoor": "Zunanji",
+        "capacity": "Kapaciteta",
+        "capacityPlaceholder": "npr. 4",
+        "timeSlot": "Časovni termin *",
+        "selectTimeSlot": "Izberite termin...",
+        "custom": "Po meri",
+        "customPlaceholder": "npr. 15min, 180min",
+        "customHelp": "Vnesite trajanje v minutah (npr. 15, 180) ali s pripono \"min\" (npr. 15min, 180min)",
+        "selectTimeSlotAlert": "Prosimo izberite časovni termin",
+        "pricing": "Cenik",
+        "pricingMode": {
+          "basic": "Osnovni cenik",
+          "basicDesc": "Ena cena za vse termine",
+          "advanced": "Napredni cenik",
+          "advancedDesc": "Različne cene za različne čase"
+        },
+        "pricePerSlot": "Cena na termin (€) *",
+        "pricePerSlotHelp": "Ta cena velja za vse izbrane termine. Cena, ki jo vnesete, je cena za trajanje vsakega termina (npr. če nastavite 25€ in imate 60min termine, vsaka 60min rezervacija stane 25€).",
+        "advancedPricingHelp": "Nastavite različne cene za različna časovna obdobja. Cena, ki jo vnesete, velja za vsako rezervacijo termina v tem časovnem obdobju.",
+        "advancedPricingNote": "Opomba: Če ni omogočen noben napredni cenovni razred, se za vsa časovna obdobja uporabi osnovna cena.",
+        "startTime": "Začetni čas",
+        "endTime": "Končni čas",
+        "priceLabel": "Cena (€)",
+        "isActiveLabel": "Igrišče je aktivno in na voljo za rezervacije",
+        "create": "Ustvari igrišče",
+        "creating": "Ustvarjanje...",
+        "cancel": "Prekliči"
+      },
+      "editCourt": {
+        "title": "Uredi igrišče",
+        "description": "Posodobite podrobnosti igrišča za {sport}",
+        "save": "Shrani spremembe",
+        "update": "Posodobi igrišče",
+        "updating": "Posodabljanje..."
+      },
+      "deleteSport": {
+        "confirm": "Ste prepričani? S tem boste izbrisali vsa igrišča za ta šport."
+      },
+      "deleteCourt": {
+        "confirm": "Ste prepričani, da želite izbrisati to igrišče?"
+      },
+      "pricing": {
+        "title": "Cenik za {court}",
+        "subtitle": "{sport} • Pregled strukture cenika",
+        "sport": "Šport",
+        "mode": "Način cenika",
+        "basicPricing": "Osnovni cenik",
+        "basicPricingDesc": "Enaka cena za vse termine in vse dni",
+        "advancedPricing": "Napredni cenik",
+        "advancedPricingDesc": "Različne cene za različna časovna obdobja",
+        "basicPrice": "Osnovna cena",
+        "pricePerTimeSlot": "Cena na termin:",
+        "perSlot": "na termin",
+        "availableTimeSlots": "Razpoložljivi termini:",
+        "booking": "rezervacija",
+        "tiers": "Cenovni razredi",
+        "tierName": "Ime razreda",
+        "timeRange": "Časovno obdobje",
+        "price": "Cena",
+        "enabled": "Omogočeno",
+        "noTiersEnabled": "Noben napredni cenovni razred ni omogočen. Uporablja se osnovna cena: €{price} na termin.",
+        "close": "Zapri"
+      },
+      "pricingTiers": {
+        "morning": "Jutro",
+        "afternoon": "Popoldne",
+        "evening": "Večer"
+      }
+    },
+    "errors": {
+      "failedToUpdate": "Posodobitev ni uspela. Poskusite znova.",
+      "failedToCreate": "Ustvarjanje ni uspelo. Poskusite znova.",
+      "failedToDelete": "Brisanje ni uspelo. Poskusite znova.",
+      "failedToCopy": "Kopiranje ni uspelo. Poskusite znova.",
+      "failedToUpdateCourtStatus": "Posodobitev statusa igrišča ni uspela. Poskusite znova.",
+      "failedToCreateSport": "Ustvarjanje športa ni uspelo. Poskusite znova.",
+      "failedToUpdateSport": "Posodobitev športa ni uspela. Poskusite znova.",
+      "failedToDeleteSport": "Brisanje športa ni uspelo. Poskusite znova.",
+      "failedToCreateCourt": "Ustvarjanje igrišča ni uspelo. Poskusite znova.",
+      "failedToUpdateCourt": "Posodobitev igrišča ni uspela. Poskusite znova.",
+      "failedToDeleteCourt": "Brisanje igrišča ni uspelo. Poskusite znova.",
+      "failedToUpdateCourtHours": "Posodobitev delovnega časa igrišča ni uspela. Poskusite znova."
+    },
+    "common": {
+      "save": "Shrani",
+      "cancel": "Prekliči",
+      "edit": "Uredi",
+      "delete": "Izbriši",
+      "close": "Zapri",
+      "loading": "Nalaganje...",
+      "updatingFacilities": "Posodabljanje objektov..."
+    }
+  },
+  "platform": {
+    "providers": {
+      "sticky": {
+        "text": "Ste pripravljeni posodobiti vaš objekt?",
+        "cta": "Začnite brezplačni preizkus"
+      },
+      "hero": {
+        "title": "Postanite partner Playmaker",
+        "subtitle": "Vse-v-enem platforma za upravljanje, avtomatizacijo in rast vašega športnega objekta.",
+        "contact": "Kontaktiraj prodajo",
+        "try": "Začni brezplačno",
+        "watchVideo": "Poglej video"
+      },
+      "stats": {
+        "facilities": "Upravljanih objektov",
+        "bookings": "Mesečnih rezervacij",
+        "revenue": "Obdelanih prihodkov",
+        "uptime": "Dosegljivost"
+      },
+      "features": {
+        "section1": {
+          "title": "Enostavno upravljanje objektov",
+          "description": "Upravljajte objekte, rezervacije in stranke na enem mestu z našo intuitivno platformo.",
+          "cta": "Izvedite več"
+        },
+        "section2": {
+          "title": "Avtomatiziran sistem rezervacij",
+          "description": "Omogočite strankam rezervacije 24/7 s sistemom, ki samodejno obravnava plačila in potrditve.",
+          "cta": "Začni zdaj"
+        },
+        "section3": {
+          "title": "Analitika in vpogledi",
+          "description": "Spremljajte uspešnost z natančno analitiko in vpogledi za optimizacijo uporabe objektov.",
+          "cta": "Oglej si demo"
+        }
+      },
+      "deepDive": {
+        "analytics": {
+          "title": "Odločitve na podlagi podatkov",
+          "subtitle": "Pretvorite podatke v prihodek",
+          "description": "Ne ugibajte več. Vedite točno, kdaj so vaše konice, katera igrišča prinašajo največ prihodkov in spremljajte rast skozi čas. Naša nadzorna plošča ponuja konkretne vpoglede za optimizacijo cen in razpoložljivosti.",
+          "points": [
+             "Sledenje prihodkov v realnem času", 
+             "Toplotni zemljevid zasedenosti", 
+             "Metrike zadrževanja strank",
+             "Izvozna poročila"
+          ],
+          "cta": "Razišči analitiko"
+        },
+        "seasonal": {
+           "title": "Sezonske in ponavljajoče se rezervacije",
+           "subtitle": "Poenostavite dolgoročno načrtovanje",
+           "description": "Enostavno upravljajte ligaške tekme, treninge in dolgoročne najeme. Naš sistem za sezonske rezervacije brez napora obravnava konflikte, samodejna podaljšanja in skupinsko izdajanje računov.",
+           "points": [
+             "Upravljanje skupinskih rezervacij",
+             "Samodejno zaznavanje konfliktov",
+             "Prilagodljive možnosti računanja",
+             "Orodja za prenos sezone"
+           ],
+           "cta": "Poglej kako deluje"
+        },
+        "marketing": {
+           "title": "Promocije in rast",
+           "subtitle": "Hitro zapolnite proste termine",
+           "description": "Privabite nove stranke in zapolnite termine izven konic s prilagodljivimi orodji za promocijo. Ustvarite časovno omejene ponudbe, popuste za nove stranke in ciljane kampanje.",
+           "points": [
+             "Kode za popuste po meri",
+             "Časovno omejene ponudbe",
+             "Orodja za pridobivanje novih strank",
+             "Sledenje uspešnosti kampanj"
+           ],
+           "cta": "Poglej orodja za trženje"
+        }
+      },
+      "comparison": {
+        "title": "Zakaj izbrati Playmaker?",
+        "subtitle": "Poglejte, kako se primerjamo s konkurenco",
+        "us": "Playmaker",
+        "others": "Drugi",
+        "features": {
+            "realtime": "Sistem rezervacij v realnem času",
+            "seasonal": "Napredno sezonsko upravljanje",
+            "analytics": "Globoka analitika in vpogledi",
+            "marketing": "Vgrajena orodja za trženje",
+            "mobile": "Prilagojeno za mobilne naprave",
+            "support": "24/7 namenska podpora"
+        }
+      },
+      "testimonials": {
+        "title": "Zaupajo nam lastniki objektov",
+        "subtitle": "Pridružite se stotim objektom, ki rastejo s Playmakerjem",
+        "t1": {
+            "text": "Playmaker je spremenil način upravljanja naših teniških igrišč. Samo funkcija sezonskih rezervacij nam je prihranila ure administrativnega dela vsak teden.",
+            "author": "Janez Novak",
+            "role": "Lastnik, Teniški klub Mesto"
+        },
+         "t2": {
+            "text": "Analitična nadzorna plošča nam daje vpoglede, ki jih prej nismo imeli. Prihodke smo povečali za 15% samo z optimizacijo terminov v konicah na podlagi podatkov.",
+            "author": "Marko Kovač",
+            "role": "Vodja, Športni Center"
+        },
+        "t3": {
+            "text": "Končno sistem, ki brez težav obvladuje tako naše dnevne rezervacije kot zapletene ligaške urnike. Podpora je izjemna.",
+            "author": "Miha Horvat",
+            "role": "Direktor, Padel Pro"
+        }
+      },
+      "video": {
+        "title": "Poglejte Playmaker v akciji",
+        "subtitle": "Oglejte si, kako enostavno je upravljati vaš objekt"
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Najdite popoln športni objekt",
+      "subtitle": "Odkrijte in rezervirajte vrhunske športne objekte po vsej Sloveniji. Od teniških igrišč do nogometnih polj - najdite svoj popoln objekt.",
+      "searchPlaceholder": "Išči po imenu, športu ali mestu...",
+      "searchButton": "Išči",
+      "locationPlaceholder": "Vsa mesta",
+      "sportPlaceholder": "Vsi športi",
+      "datePlaceholder": "Izberite datum",
+      "timePlaceholder": "Izberite čas"
+    },
+    "facilities": {
+      "popularTitle": "Priljubljeni objekti",
+      "popularSubtitle": "Odkrijte naše najbolj priljubljene športne objekte",
+      "searchResultsTitle": "Najdenih {count} objektov",
+      "searchResultsSubtitle": "Tukaj so objekti, ki ustrezajo vašemu iskanju",
+      "viewAll": "Poglej vse objekte",
+      "notFoundTitle": "Ni najdenih objektov",
+      "notFoundSubtitle": "Poskusite prilagoditi iskalne kriterije",
+      "clearSearch": "Počisti iskanje"
+    },
+    "freeFacilities": {
+      "badge": "Na voljo zdaj",
+      "title": "Prosti objekti",
+      "subtitle": "Preverite objekte s prostimi termini prav zdaj",
+      "tabToday": "Prosto danes",
+      "tabWeekend": "Ta vikend",
+      "viewAllToday": "Poglej vse proste danes",
+      "viewAllWeekend": "Poglej vse proste za vikend"
+    },
+    "footer": {
+      "description": "Odkrijte in rezervirajte športne objekte po vsej Sloveniji. Povežite se z lokalnimi športnimi prizorišči in uresničite svoje fitnes cilje.",
+      "quickLinks": "Hitre povezave",
+      "allFacilities": "Vsi objekti",
+      "aboutUs": "O nas",
+      "contact": "Kontakt",
+      "helpCenter": "Center za pomoč",
+      "forProviders": "Za ponudnike",
+      "providerLogin": "Prijava ponudnika",
+      "listYourFacility": "Dodajte svoj objekt",
+      "pricing": "Cenik",
+      "support": "Podpora",
+      "contactInfo": "Kontaktni podatki",
+      "rights": "© 2025 Playmaker. Vse pravice pridržane.",
+      "privacy": "Politika zasebnosti",
+      "terms": "Pogoji storitve",
+      "cookies": "Politika piškotkov"
+    },
+    "howItWorks": {
+      "title": "Kako deluje",
+      "subtitle": "Rezervirajte svoj najljubši športni objekt v treh preprostih korakih",
+      "steps": {
+        "search": {
+          "title": "Poiščite",
+          "description": "Preglejte stotine objektov po športu, lokaciji ali razpoložljivosti. Filtrirajte, da najdete popolno izbiro."
+        },
+        "book": {
+          "title": "Rezervirajte",
+          "description": "Izberite termin, potrdite rezervacijo takoj in prejmite takojšnjo potrditev po e-pošti."
+        },
+        "play": {
+          "title": "Igrajte",
+          "description": "Pridite v rezerviran objekt in uživajte v igri. Tako preprosto je!"
+        }
+      }
+    },
+    "sports": {
+      "title": "Priljubljeni športi",
+      "subtitle": "Najdite objekte za vaš najljubši šport",
+      "items": {
+        "tennis": { "name": "Tenis" },
+        "multipurpose": { "name": "Večnamensko" },
+        "badminton": { "name": "Badminton" },
+        "volleyball": { "name": "Odbojka" },
+        "padel": { "name": "Padel" },
+        "tableTennis": { "name": "Namizni tenis" },
+        "squash": { "name": "Squash" },
+        "football": { "name": "Nogomet" },
+        "basketball": { "name": "Košarka" }
+      }
+    },
+    "testimonials": {
+      "title": "Kaj pravijo igralci",
+      "subtitle": "Pridružite se tisočim zadovoljnim igralcem po vsej Sloveniji",
+      "t1": {
+        "text": "Končno platforma, kjer lahko najdem in rezerviram teniška igrišča brez klicanja 5 različnih mest. Prihranila mi je ogromno časa!",
+        "author": "Marko K.",
+        "sport": "Teniški igralec"
+      },
+      "t2": {
+        "text": "Odkril sem nova padel igrišča v moji bližini, za katera sploh nisem vedel, da obstajajo. Postopek rezervacije je super gladek.",
+        "author": "Ana J.",
+        "sport": "Padel navdušenka"
+      },
+      "t3": {
+        "text": "Odlično za organizacijo tedenskega nogometa s prijatelji. Vedno najdemo prosta igrišča, tudi ob vikendih.",
+        "author": "Tomaž N.",
+        "sport": "Nogometni igralec"
+      }
+    },
+    "features": {
+      "title": "Vse kar potrebujete",
+      "subtitle": "Rezervirajte športne objekte preprosto z našo zmogljivo platformo",
+      "items": {
+        "search": {
+          "title": "Pametno iskanje",
+          "description": "Najdite objekte po športu, lokaciji ali razpoložljivosti z našim inteligentnim iskanjem."
+        },
+        "booking": {
+          "title": "Enostavna rezervacija",
+          "description": "Rezervirajte svoje najljubše igrišče v nekaj klikih, kadarkoli želite."
+        },
+        "instant": {
+          "title": "Takojšnja potrditev",
+          "description": "Prejmite takojšnjo potrditev rezervacije in opomnike po e-pošti."
+        },
+        "location": {
+          "title": "Najdite v bližini",
+          "description": "Odkrijte športne objekte v vaši bližini z iskanjem po lokaciji."
+        },
+        "payment": {
+          "title": "Varno plačevanje",
+          "description": "Plačajte varno prek spleta z več možnostmi plačila."
+        },
+        "time": {
+          "title": "Prilagodljivi termini",
+          "description": "Izbirajte med različnimi termini, ki ustrezajo vašemu urniku."
+        },
+        "community": {
+          "title": "Pridružite se skupnosti",
+          "description": "Povežite se z drugimi igralci in najdite partnerje za vaše igre."
+        },
+        "verified": {
+          "title": "Preverjeni objekti",
+          "description": "Vsi objekti so preverjeni za zagotavljanje kakovosti in varnostnih standardov."
+        }
+      }
+    },
+    "stats": {
+      "facilities": "Objektov",
+      "cities": "Mest",
+      "bookings": "Rezervacij",
+      "rating": "Ocena"
+    },
+    "whyChoose": {
+      "title": "Zakaj izbrati Playmaker?",
+      "subtitle": "Iskanje in rezervacijo športnih objektov naredimo preprosto, hitro in zanesljivo.",
+      "items": {
+        "instant": {
+          "title": "Takojšnja rezervacija",
+          "description": "Rezervirajte svoje najljubše objekte v nekaj sekundah z našim poenostavljenim postopkom.",
+          "benefits": ["Razpoložljivost v realnem času", "Takojšnja potrditev"]
+        },
+        "verified": {
+          "title": "Preverjeni objekti",
+          "description": "Vsi objekti so preverjeni in vzdrževani po najvišjih standardih.",
+          "benefits": ["Zagotovljena kakovost", "Varnostno certificirano"]
+        },
+        "community": {
+          "title": "Aktivna skupnost",
+          "description": "Pridružite se tisočim športnim navdušencem v naši rastoči skupnosti.",
+          "benefits": ["Najdite soigralce", "Pridružite se lokalnim dogodkom"]
+        },
+        "quality": {
+          "title": "Premium kakovost",
+          "description": "Dostopajte do vrhunskih objektov s profesionalno opremo.",
+          "benefits": ["Profesionalna oprema", "Dobro vzdrževani objekti"]
+        }
+      }
+    },
+    "cta": {
+      "title": "Pripravljeni na igro?",
+      "subtitle": "Pridružite se tisočim igralcem, ki vsak dan rezervirajo svoje športne objekte s Playmakerjem.",
+      "findFacility": "Najdi objekt",
+      "listFacility": "Dodaj svoj objekt"
+    }
+  },
+  "filters": {
+    "title": "Filtri",
+    "clearAll": "Počisti vse",
+    "clear": "Počisti",
+    "location": {
+      "label": "Lokacija",
+      "selectLocation": "Kjerkoli",
+      "currentLocation": "Trenutna lokacija",
+      "startTyping": "Začnite tipkati lokacijo...",
+      "noResults": "Ni rezultatov.",
+      "popularLocations": "Priljubljene lokacije",
+      "allRegions": "Vse regije"
+    },
+    "sport": {
+      "label": "Šport",
+      "allSports": "Vsi športi",
+      "tennis": "Tenis",
+      "multiPurpose": "Večnamensko",
+      "badminton": "Badminton",
+      "tableTennis": "Namizni tenis",
+      "volleyball": "Odbojka",
+      "padel": "Padel",
+      "swimming": "Plavanje",
+      "football": "Nogomet",
+      "squash": "Squash",
+      "basketball": "Košarka",
+      "pickleball": "Pickleball"
+    },
+    "date": {
+      "label": "Datum",
+      "selectDate": "Kadarkoli",
+      "today": "Danes",
+      "tomorrow": "Jutri",
+      "weekend": "Vikend"
+    },
+    "time": {
+      "label": "Čas",
+      "anyTime": "Katerokoli uro",
+      "morning": "Dopoldne",
+      "afternoon": "Popoldne",
+      "evening": "Zvečer",
+      "selectTime": "Izberite uro",
+      "selectExactTime": "Izberite točen čas"
+    },
+    "locationType": {
+      "label": "Vrsta lokacije",
+      "allTypes": "Vse vrste",
+      "indoor": "Notranji",
+      "outdoor": "Zunanji"
+    },
+    "surface": {
+      "label": "Podlaga",
+      "clay": "Pesek",
+      "hard": "Trda podlaga",
+      "grass": "Trava",
+      "synthetic": "Umetna trava",
+      "wood": "Les",
+      "sand": "Pesek"
+    },
+    "amenities": {
+      "label": "Dodatne storitve",
+      "parking": "Brezplačno parkiranje",
+      "showers": "Tuši",
+      "lockers": "Omarice",
+      "cafe": "Kavarna",
+      "lighting": "Razsvetljava"
+    }
+  },
+  "PartnersPricing": {
+    "title": "Izberite svoj paket",
+    "description": "Izberite popoln načrt za svoje potrebe upravljanja objektov",
+    "monthly": "Mesečno",
+    "yearly": "Letno",
+    "discount20": "20% popust",
+    "popular": "Priljubljen",
+    "perMonth": "/mesec",
+    "contactUsForOptions": "Potrebujete poseben načrt?",
+    "plans": {
+      "osnovno": {
+        "name": "Osnovni",
+        "description": "Popoln za manjše objekte"
+      },
+      "napredno": {
+        "name": "Napredni",
+        "description": "Idealno za rastoča podjetja"
+      },
+      "naprednoPlus": {
+        "name": "Premium",
+        "description": "Za velika podjetja in organizacije"
+      }
+    },
+    "features": {
+      "includesBasic": "Vse iz Osnovnega paketa",
+      "includesAdvanced": "Vse iz Naprednega paketa",
+      "feature1": "Neomejene rezervacije",
+      "feature2": "Upravljanje strank",
+      "feature3": "Obdelava plačil",
+      "feature4": "E-poštna obvestila",
+      "feature5": "Osnovna analitika"
+    },
+    "ctaStartNow": "Začni zdaj",
+    "ctaSubscribe": "Naroči se",
+    "ctaContactUs": "Kontaktiraj nas"
+  }
+}

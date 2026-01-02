@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useSearchParams } from "next/navigation";
 import { PasswordInput } from "@/components/shared/password-input";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +31,8 @@ export function PlatformLoginForm() {
   const t = useTranslations("AuthModule.platformLoginForm");
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get('redirect');
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,21 +46,47 @@ export function PlatformLoginForm() {
 
   async function onSubmit({ email, password }: z.infer<typeof formSchema>) {
     setIsLoading(true);
+    try {
+      const result = await authClient.signIn.email({
+        email,
+        password,
+      });
 
-    const { data, error } = await authClient.signIn.email({
-      email,
-      password,
-    });
+      if (result.error) {
+        toast.error(result.error.message || "Login failed");
+        return;
+      }
 
-    if (data) {
-      toast.success(t("successMessage"));
-      router.push("/", { locale });
-    } else {
-      console.error(error);
-      toast.error(error.message || t("errorMessage"));
+      // Get fresh session to check user role
+      const session = await authClient.getSession();
+      const user = session?.data?.user;
+
+      toast.success("Login successful!");
+
+      // Role-based redirect logic
+      if (user?.role === 'admin') {
+        // Admin users go to admin dashboard or their intended admin path
+        if (redirectPath?.startsWith('/admin')) {
+          router.push(redirectPath, { locale });
+        } else {
+          router.push("/admin", { locale });
+        }
+      } else if (redirectPath?.startsWith('/provider')) {
+        // Provider redirect - layout will check membership
+        router.push(redirectPath, { locale });
+      } else if (redirectPath) {
+        // Other redirect path
+        router.push(redirectPath, { locale });
+      } else {
+        // Default: go to home
+        router.push("/", { locale });
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Login failed. Please check your credentials.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   }
 
   return (

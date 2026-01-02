@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useOptimisticForm } from "@/hooks/use-optimistic-updates";
 
 interface BookingFormProps {
   facilityId: string;
@@ -31,7 +32,6 @@ interface BookingFormProps {
 
 export function BookingForm({ facilityId, facilityName }: BookingFormProps) {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [date, setDate] = useState<Date>();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -40,6 +40,39 @@ export function BookingForm({ facilityId, facilityName }: BookingFormProps) {
     email: "",
     notes: "",
   });
+
+  // Use optimistic form hook
+  const { submit, isSubmitting } = useOptimisticForm(
+    formData,
+    async (data) => {
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          facilityId,
+          name: data.name,
+          email: data.email,
+          date: format(date!, "yyyy-MM-dd"),
+          startTime,
+          endTime,
+          notes: data.notes,
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to create booking");
+      }
+
+      return response.json();
+    },
+    {
+      successMessage: "Booking created successfully!",
+      errorMessage: "Failed to create booking",
+    }
+  );
 
   const timeSlots = [
     "08:00",
@@ -72,31 +105,8 @@ export function BookingForm({ facilityId, facilityName }: BookingFormProps) {
       return;
     }
 
-    setIsSubmitting(true);
-
     try {
-      const response = await fetch("/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          facilityId,
-          name: formData.name,
-          email: formData.email,
-          date: format(date, "yyyy-MM-dd"),
-          startTime,
-          endTime,
-          notes: formData.notes,
-        }),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Failed to create booking");
-      }
-
-      toast.success("Booking created successfully!");
+      await submit(formData);
       router.refresh();
 
       // Reset form
@@ -105,11 +115,7 @@ export function BookingForm({ facilityId, facilityName }: BookingFormProps) {
       setEndTime("");
       setFormData({ name: "", email: "", notes: "" });
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Failed to create booking",
-      );
-    } finally {
-      setIsSubmitting(false);
+      // Error handling is done by the optimistic form hook
     }
   };
 

@@ -58,7 +58,15 @@ export async function POST(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Check if user is admin
+  /*
+   * SECURITY CRITICAL: Only platform admins can access this endpoint
+   * 
+   * This endpoint is for platform admins (the platform owner) to manage organization members.
+   * Organization owners CANNOT use this endpoint - they must use the provider team management.
+   * 
+   * The admin role in the User model (session.user.role) is different from the admin role
+   * in the Member model (member.role). This endpoint checks for platform admin (User.role === "admin").
+   */
   if (session.user.role !== "admin") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
@@ -66,6 +74,12 @@ export async function POST(
   try {
     const { organizationId } = await params;
     const { email, role } = await request.json();
+
+    /*
+     * SECURITY NOTE: Even platform admins should be careful when assigning roles.
+     * The "admin" role in Member model should be used sparingly and only for
+     * trusted platform administrators, not organization members.
+     */
 
     if (!email || !role) {
       return NextResponse.json(

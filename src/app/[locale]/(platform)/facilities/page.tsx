@@ -1,84 +1,391 @@
-import { MapPin, Trophy } from "lucide-react";
+import { MapPin, Filter } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Footer } from "@/components/layout/footer";
 import { Navigation } from "@/components/layout/navigation";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { prisma } from "@/lib/prisma";
 import { FacilityCard } from "@/modules/platform/components/facility/facility-card";
-import { SearchBar } from "@/modules/platform/components/search/search-bar";
+import { EnhancedFacilitiesFilters } from "@/components/enhanced-facilities-filters";
+import { ActiveFiltersChips } from "@/components/active-filters-chips";
+import { FacilitiesHeader } from "@/components/facilities-header";
+import { FacilitiesResultsHeader } from "@/components/facilities-results-header";
+import { FacilitiesGrid } from "@/components/facilities-grid";
+import { FacilitiesEmptyState } from "@/components/facilities-empty-state";
+import { PaginationClient } from "@/components/pagination-client";
+import { getCitiesInRegion, getRegionFromCity } from "@/lib/region-mapping";
+import { formatAddress } from "@/lib/address-formatting";
+import { getSportNameVariations } from "@/lib/sport-mapping";
+import { SPORTS_LIST } from "@/lib/filter-constants";
+import { calculateFacilityAvailability } from "@/lib/facility-availability";
+import { slovenianRegions } from "@/config/regions";
 
 interface FacilitiesPageProps {
   searchParams: {
     search?: string;
     city?: string;
+    region?: string;
     sport?: string;
+    date?: string;
+    time?: string;
+    locationType?: string;
+    surface?: string;
+    facilities?: string;
+    page?: string;
   };
 }
 
 export default async function Facilities({
   searchParams,
 }: FacilitiesPageProps) {
+  // Await searchParams in Next.js 15
+  const params = await searchParams;
+  
+  // Get translations
+  const t = await getTranslations("PlatformModule.facilitiesPage");
+  const tFilters = await getTranslations("filters");
+  
+  // Pagination
+  const currentPage = parseInt(params.page || "1");
+  const itemsPerPage = 12;
+  const skip = (currentPage - 1) * itemsPerPage;
+  
   // Build search filters
   const whereClause: Record<string, unknown> = {};
+  const andConditions: Record<string, unknown>[] = [];
 
-  if (searchParams.search) {
-    whereClause.OR = [
-      { name: { contains: searchParams.search, mode: "insensitive" } },
-      { description: { contains: searchParams.search, mode: "insensitive" } },
-    ];
+  // Handle text search - search across name, description, city, and sports
+  if (params.search) {
+    andConditions.push({
+      OR: [
+        { name: { contains: params.search, mode: "insensitive" } },
+        { description: { contains: params.search, mode: "insensitive" } },
+        { city: { contains: params.search, mode: "insensitive" } },
+        { sportCategories: { some: { name: { contains: params.search, mode: "insensitive" } } } },
+      ]
+    });
   }
 
-  if (searchParams.city && searchParams.city !== "all") {
-    whereClause.city = { contains: searchParams.city, mode: "insensitive" };
+  // Handle city filter
+  if (params.city && params.city !== "all") {
+    andConditions.push({
+      city: { contains: params.city, mode: "insensitive" }
+    });
   }
 
-  if (searchParams.sport && searchParams.sport !== "all") {
-    whereClause.sport = { contains: searchParams.sport, mode: "insensitive" };
+  // Handle region filter
+  if (params.region && params.region !== "all") {
+    // Use centralized region mapping function to get all cities in the region
+    const citiesInRegion = getCitiesInRegion(params.region);
+    if (citiesInRegion.length > 0) {
+      // Normalize function to match cities with/without diacritics
+      const normalizeCity = (name: string) => 
+        name.toLowerCase()
+            .trim()
+            .replace(/š/g, "s").replace(/č/g, "c").replace(/ž/g, "z")
+            .replace(/ć/g, "c").replace(/đ/g, "d");
+      
+      // Create a set of all possible city name variations (with and without diacritics)
+      const cityVariations = new Set<string>();
+      citiesInRegion.forEach(city => {
+        const cityLower = city.toLowerCase().trim();
+        cityVariations.add(cityLower);
+        // Add normalized version (without diacritics)
+        const normalized = normalizeCity(city);
+        cityVariations.add(normalized);
+        // Also try removing just the diacritics
+        cityVariations.add(cityLower.replace(/š/g, "s").replace(/č/g, "c").replace(/ž/g, "z"));
+      });
+      
+      // Create OR conditions - use equals for exact match first, then contains as fallback
+      const cityConditions = Array.from(cityVariations).flatMap(cityName => [
+        { city: { equals: cityName, mode: "insensitive" as const } },
+        { city: { contains: cityName, mode: "insensitive" as const } }
+      ]);
+      
+      andConditions.push({
+        OR: cityConditions
+      });
+    }
+  }
+  
+  // Handle sport filter
+  if (params.sport && params.sport !== "all") {
+    // Get all sport name variations (handles Slovenian/English, case variations)
+    // Example: "tenis" -> ["tenis", "tennis"] to match both Slovenian and English
+    const sportVariations = getSportNameVariations(params.sport);
+    if (sportVariations.length > 0) {
+      // Prisma doesn't support OR inside some, so we use OR at the facility level
+      // Match facilities that have at least one sport category matching any variation
+      andConditions.push({
+        OR: sportVariations.map(sportName => ({
+          sportCategories: {
+            some: {
+              name: { contains: sportName, mode: "insensitive" as const }
+            }
+          }
+        }))
+      });
+    }
   }
 
-  // Fetch facilities with search filters
-  const facilities = await prisma.facility.findMany({
-    where: whereClause,
-    include: {
-      organization: {
-        select: {
-          name: true,
-          slug: true,
+  // Combine all conditions with AND
+  if (andConditions.length > 0) {
+    whereClause.AND = andConditions;
+  }
+
+  if (params.locationType && params.locationType !== "all") {
+    whereClause.locationType = params.locationType;
+  }
+
+  if (params.surface) {
+    const surfaceArray = params.surface.split(',');
+    whereClause.surface = {
+      in: surfaceArray
+    };
+  }
+
+  if (params.facilities) {
+    const facilitiesArray = params.facilities.split(',');
+    whereClause.facilities = {
+      hasSome: facilitiesArray
+    };
+  }
+
+  // Check if any filters are applied
+  const hasFilters = !!(
+    params.search ||
+    (params.city && params.city !== "all") ||
+    (params.region && params.region !== "all") ||
+    (params.sport && params.sport !== "all") ||
+    params.date ||
+    (params.time && params.time !== "any") ||
+    params.locationType ||
+    params.surface ||
+    params.facilities
+  );
+
+  // Fetch facilities - when no filters, fetch all to sort by popularity
+  const [allFacilities, totalCount] = await Promise.all([
+    prisma.facility.findMany({
+      where: whereClause,
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        address: true,
+        city: true,
+        description: true,
+        imageUrl: true,
+        images: true,
+        pricePerHour: true,
+        createdAt: true,
+        organization: {
+          select: {
+            name: true,
+            slug: true,
+          },
+        },
+        sportCategories: {
+          select: {
+            id: true,
+            name: true,
+            type: true,
+            courts: {
+              select: {
+                pricing: true,
+              },
+            },
+          },
+        },
+        bookings: {
+          where: {
+            status: "confirmed",
+          },
+          select: {
+            id: true,
+          },
         },
       },
-      bookings: {
-        where: {
-          status: "confirmed",
-        },
-        select: {
-          id: true,
-        },
+      orderBy: {
+        createdAt: "desc",
       },
+      // When no filters, fetch all to sort by popularity, otherwise use pagination
+      ...(hasFilters ? { skip, take: itemsPerPage } : {}),
+    }),
+    prisma.facility.count({
+      where: whereClause,
+    }),
+  ]);
+
+  // If no filters, sort by popularity (booking count) first, then by recency
+  let sortedFacilities = allFacilities;
+  if (!hasFilters) {
+    sortedFacilities = [...allFacilities].sort((a, b) => {
+      const aBookings = a.bookings.length;
+      const bBookings = b.bookings.length;
+      
+      // If booking counts are equal, sort by recency
+      if (aBookings === bBookings) {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+      
+      // Sort by booking count (descending) - popular first
+      return bBookings - aBookings;
+    });
+    
+    // Apply pagination after sorting
+    sortedFacilities = sortedFacilities.slice(skip, skip + itemsPerPage);
+  }
+
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+  // Parse date if provided
+  let selectedDate: Date | undefined;
+  if (params.date) {
+    if (params.date === "today") {
+      selectedDate = new Date();
+      selectedDate.setHours(0, 0, 0, 0);
+    } else {
+      selectedDate = new Date(params.date);
+      selectedDate.setHours(0, 0, 0, 0);
+    }
+  }
+
+  // Calculate availability for each facility if filters are applied
+  const facilitiesWithAvailability = await Promise.all(
+    sortedFacilities.map(async (facility) => {
+      let availability: {
+        slotsAvailableToday?: number;
+        slotsForDate?: number;
+        slotsForTimeRange?: string[];
+      } = {};
+      
+      // Only calculate availability if sport, date, or time filters are applied
+      if (params.sport || params.date || params.time) {
+        const dateToUse = selectedDate || new Date();
+        dateToUse.setHours(0, 0, 0, 0);
+        
+        availability = await calculateFacilityAvailability(
+          facility.id,
+          dateToUse,
+          params.sport && params.sport !== "all" ? params.sport : undefined,
+          params.time && params.time !== "any" ? params.time : undefined
+        );
+      }
+
+      return {
+        ...facility,
+        availability,
+      };
+    })
+  );
+
+  // Use centralized regions list
+  const regions = slovenianRegions;
+
+  const sports = await prisma.sportCategory.findMany({
+    select: {
+      name: true,
     },
+    distinct: ["name"],
     orderBy: {
-      createdAt: "desc",
+      name: "asc",
     },
   });
 
-  // Get unique cities and sports for filters
-  const cities = await prisma.facility.findMany({
-    select: {
-      city: true,
-    },
-    distinct: ["city"],
-    orderBy: {
-      city: "asc",
-    },
-  });
+  const filtersProps = {
+    initialSearch: params.search || "",
+    initialCity: params.city || "all",
+    initialRegion: params.region || "all",
+    initialSport: params.sport || "all",
+    initialDate: params.date || "",
+    initialTime: params.time || "any",
+    initialLocationType: params.locationType || "all",
+    initialSurface: params.surface || "",
+    initialFacilities: params.facilities ? params.facilities.split(',') : [],
+    cities: [],
+  };
 
-  const sports = await prisma.facility.findMany({
-    select: {
-      sport: true,
-    },
-    distinct: ["sport"],
-    orderBy: {
-      sport: "asc",
-    },
+  // Generate dynamic page title based on filters
+  const getPageTitle = () => {
+    const location = params.city && params.city !== "all" 
+      ? params.city 
+      : params.region && params.region !== "all" 
+        ? params.region 
+        : null;
+    
+    let sportName: string | null = null;
+    if (params.sport && params.sport !== "all") {
+      const sportItem = SPORTS_LIST.find(s => s.slug === params.sport);
+      if (sportItem) {
+        sportName = tFilters(`sport.${sportItem.translationKey}`);
+      }
+    }
+    
+    if (sportName && location) {
+      return t("sportIn", { sport: sportName, location });
+    }
+    if (sportName) {
+      return t("sportFacilities", { sport: sportName });
+    }
+    if (location) {
+      return t("facilitiesIn", { location });
+    }
+    return t("allFacilities");
+  };
+
+  // Calculate minPrice and prepare facility data for the grid
+  const facilityGridData = facilitiesWithAvailability.map((facility) => {
+    // Calculate minimum price from pricing tiers (same logic as landing page)
+    let minPrice = 0;
+    const prices: number[] = [];
+
+    facility.sportCategories.forEach((category) => {
+      category.courts.forEach((court) => {
+        const pricing = court.pricing as any;
+        if (pricing) {
+          if (pricing.basicPrice) {
+            prices.push(Number(pricing.basicPrice));
+          }
+          if (pricing.advancedPricing?.tiers) {
+            pricing.advancedPricing.tiers.forEach((tier: any) => {
+              if (tier.price) {
+                prices.push(Number(tier.price));
+              }
+            });
+          }
+        }
+      });
+    });
+
+    if (prices.length > 0) {
+      minPrice = Math.min(...prices);
+    }
+
+    return {
+                          id: facility.id,
+                          slug: facility.slug ?? undefined,
+                          title: facility.name,
+                          location: `${facility.city}, ${facility.address}`,
+    rating: 0,
+                          description: "",
+                          organization: facility.organization.name,
+                          bookingCount: facility.bookings.length,
+                          sport: facility.sportCategories?.[0]?.name || "",
+                          imageUrl: facility.imageUrl || "",
+                          region: getRegionFromCity(facility.city),
+                          address: formatAddress(facility.address, facility.city),
+                          sports: facility.sportCategories?.map(cat => cat.name) || [],
+                          priceFrom: minPrice,
+                          selectedSport: params.sport && params.sport !== "all" ? params.sport : undefined,
+                          selectedDate: params.date || undefined,
+                          selectedTime: params.time && params.time !== "any" ? params.time : undefined,
+                          slotsAvailableToday: facility.availability?.slotsAvailableToday,
+                          slotsForDate: facility.availability?.slotsForDate,
+                          slotsForTimeRange: facility.availability?.slotsForTimeRange,
+    };
   });
 
   return (
@@ -88,158 +395,58 @@ export default async function Facilities({
       <main className="flex-1">
         <div className="container mx-auto px-6 space-y-6 py-12">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-4">All Sports Facilities</h1>
-            <p className="text-xl text-muted-foreground">
-              Discover and book from our complete list of facilities
-            </p>
-          </div>
-
-          {/* Search and Filters */}
-          <div className="bg-card border rounded-2xl p-6 mb-8">
-            <SearchBar
-              initialSearch={searchParams.search || ""}
-              initialCity={searchParams.city || "all"}
-              initialSport={searchParams.sport || "all"}
-              cities={cities.map((c) => c.city)}
-              sports={sports
-                .map((s) => s.sport)
-                .filter((sport): sport is string => Boolean(sport))}
-            />
-          </div>
+          <FacilitiesHeader 
+            title={getPageTitle()} 
+            subtitle={t("findAndBook")}
+            totalCount={totalCount}
+          />
 
           {/* Results */}
-          <div className="flex gap-x-12 w-full">
-            <div className="lg:block hidden w-[350px] flex-shrink-0">
-              <div className="w-full bg-card border rounded-2xl sticky top-26 p-6">
-                <h3 className="font-semibold mb-4">Filters</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="text-sm font-medium text-muted-foreground">
-                      City
-                    </div>
-                    <div className="mt-2 space-y-2">
-                      <Link
-                        href="/facilities"
-                        className={`block text-sm p-2 rounded ${
-                          !searchParams.city || searchParams.city === "all"
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-muted"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-4 w-4" />
-                          All Cities
-                        </div>
-                      </Link>
-                      {cities.map((city) => (
-                        <Link
-                          key={city.city}
-                          href={`/facilities?city=${encodeURIComponent(
-                            city.city
-                          )}`}
-                          className={`block text-sm p-2 rounded ${
-                            searchParams.city === city.city
-                              ? "bg-primary text-primary-foreground"
-                              : "text-muted-foreground hover:bg-muted"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4" />
-                            {city.city}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 w-full">
+            {/* Filters Sidebar - Desktop */}
+            <div className="hidden lg:block">
+              <EnhancedFacilitiesFilters {...filtersProps} />
                 </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <div className="text-sm font-medium text-muted-foreground">
-                      Sport
-                    </div>
-                    <div className="mt-2 space-y-2">
-                      <Link
-                        href="/facilities"
-                        className={`block text-sm p-2 rounded ${
-                          !searchParams.sport || searchParams.sport === "all"
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-muted"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <Trophy className="h-4 w-4" />
-                          All Sports
-                        </div>
-                      </Link>
-                      {sports.map((sport) => (
-                        <Link
-                          key={sport.sport}
-                          href={`/facilities?sport=${encodeURIComponent(
-                            sport.sport || ""
-                          )}`}
-                          className={`block text-sm p-2 rounded ${
-                            searchParams.sport === sport.sport
-                              ? "bg-primary text-primary-foreground"
-                              : "text-muted-foreground hover:bg-muted"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <Trophy className="h-4 w-4" />
-                            {sport.sport}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <div className="flex-1 flex flex-col w-full gap-y-6">
-              <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold">
-                  {searchParams.search || searchParams.city
-                    ? `Found ${facilities.length} facilities`
-                    : `All ${facilities.length} facilities`}
-                </h2>
-              </div>
+              {/* Active Filters Chips */}
+              <ActiveFiltersChips
+                city={params.city}
+                region={params.region}
+                sport={params.sport}
+                date={params.date}
+                time={params.time}
+                locationType={params.locationType}
+                surface={params.surface}
+                facilities={params.facilities}
+              />
 
-              {facilities.length > 0 ? (
-                <div className="space-y-6">
-                  {facilities.map((facility) => (
-                    <FacilityCard
-                      key={facility.id}
-                      data={{
-                        id: facility.id,
-                        title: facility.name,
-                        location: `${facility.city}, ${facility.address}`,
-                        rating: 4.5 + Math.random() * 0.5, // Random rating between 4.5-5.0
-                        description: facility.description || "",
-                        organization: facility.organization.name,
-                        bookingCount: facility.bookings.length,
-                        sport: facility.sport || "",
-                        imageUrl: facility.imageUrl || "",
-                      }}
-                      variant="detailed"
-                    />
-                  ))}
-                </div>
+              {/* Results Header with Sort */}
+              <FacilitiesResultsHeader
+                totalCount={totalCount}
+                hasFilters={hasFilters}
+                filtersProps={filtersProps}
+              />
+
+              {facilityGridData.length > 0 ? (
+                <FacilitiesGrid 
+                  facilities={facilityGridData} 
+                  hideRegion={!!(
+                    (params.city && params.city !== "all") || 
+                    (params.region && params.region !== "all")
+                  )}
+                />
               ) : (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MapPin className="h-8 w-8 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-xl font-medium mb-2">
-                    No facilities found
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Try adjusting your search criteria
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link href="/facilities">Clear Filters</Link>
-                  </Button>
+                <FacilitiesEmptyState />
+              )}
+
+              {/* Pagination */}
+              {facilityGridData.length > 0 && totalPages > 1 && (
+                <div className="mt-8">
+                  <PaginationClient
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                  />
                 </div>
               )}
             </div>

@@ -9,44 +9,60 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id                String           @id
+  name              String
+  email             String           @unique
+  emailVerified     Boolean          @default(false)
+  image             String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now()) @updatedAt
+  banExpires        DateTime?
+  banReason         String?
+  banned            Boolean?         @default(false)
+  role              String?
+  
+  // Trust & Verification System
+  trustLevel             Int       @default(0) // 0=unverified, 1=verified, 2=trusted, 3=established
+  weeklyBookingLimit     Int       @default(0) // Current max bookings per week (0=cannot book)
+  successfulBookings     Int       @default(0) // Lifetime count of completed bookings without reports
+  activeStrikes          Int       @default(0) // Current active no-show strikes (max 3)
+  lastStrikeAt           DateTime? // When the last strike was received
+  bookingBanUntil        DateTime? // User cannot book until this date
+  verificationCode       String?   // 6-digit email verification code
+  verificationCodeExpiry DateTime? // When the verification code expires
+  verificationAttempts   Int       @default(0) // Failed verification attempts (max 3)
+  
+  accounts          Account[]
+  bookings          Booking[]
+  facilities        Facility[]
+  invitations       Invitation[]
+  members           Member[]
+  sessions          Session[]
+  createdPromotions Promotion[]      @relation("PromotionCreator")
+  promotionUsage    PromotionUsage[] @relation("PromotionUser")
+  createdSlotBlocks SlotBlock[]      @relation("SlotBlockCreator")
+  waitlistEntries   Waitlist[]
+  noShowReports     NoShowReport[]   @relation("ReportedUser")
+  reportsMade       NoShowReport[]   @relation("Reporter")
+  favorites         Favorite[]
+  adminAuditLogs    AdminAuditLog[]  @relation("AuditAdmin")
 
-  role        String?
-  banned      Boolean?     @default(false)
-  banReason   String?
-  banExpires  DateTime?
-  members     Member[]
-  invitations Invitation[]
-  facilities  Facility[]
-  bookings    Booking[]
-
-  @@unique([email])
   @@map("user")
 }
 
 model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  impersonatedBy       String?
+  id                   String   @id
+  expiresAt            DateTime
+  token                String   @unique
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  ipAddress            String?
+  userAgent            String?
+  userId               String
   activeOrganizationId String?
+  impersonatedBy       String?
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@map("session")
 }
 
@@ -55,7 +71,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -65,6 +80,7 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
 }
@@ -81,28 +97,30 @@ model Verification {
 }
 
 model Organization {
-  id          String       @id
-  name        String
-  slug        String?
-  logo        String?
-  createdAt   DateTime
-  metadata    String?
-  members     Member[]
-  invitations Invitation[]
-  facilities  Facility[]
+  id               String       @id
+  name             String
+  slug             String?      @unique
+  logo             String?
+  createdAt        DateTime
+  metadata         String?
+  rainSlotsEnabled Boolean      @default(true) // Enable/disable rain slots feature
+  facilities       Facility[]
+  invitations      Invitation[]
+  members          Member[]
+  promotions       Promotion[]
 
-  @@unique([slug])
   @@map("organization")
 }
 
 model Member {
-  id             String       @id
+  id             String           @id
   organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   userId         String
-  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   role           String
   createdAt      DateTime
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  facilityMembers FacilityMember[]
 
   @@map("member")
 }
@@ -110,50 +128,327 @@ model Member {
 model Invitation {
   id             String       @id
   organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   email          String
   role           String?
   status         String
   expiresAt      DateTime
   inviterId      String
   user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@map("invitation")
 }
 
 model Facility {
-  id             String       @id @default(cuid())
-  name           String
-  description    String?
-  address        String
-  city           String
-  phone          String?
-  email          String?
-  sport          String? // Sport category (e.g., "Tennis", "Basketball", "Swimming")
-  imageUrl       String? // Facility image URL
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  createdBy      String
-  creator        User         @relation(fields: [createdBy], references: [id], onDelete: Cascade)
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  bookings       Booking[]
+  id              String          @id @default(cuid())
+  name            String
+  slug            String?          @unique
+  description     String?
+  address         String
+  city            String
+  phone           String?
+  email           String?
+  website         String?
+  imageUrl        String?
+  images          String[] // Array of image URLs
+  locationType    String? // "indoor" or "outdoor"
+  surface         String?
+  facilities      String[] // Array of facility amenities
+  workingHours    Json? // Working hours as JSON
+  rules           String? // Facility rules and policies
+  capacity        Int? // Maximum capacity
+  pricePerHour    Decimal? // Price per hour
+  currency        String          @default("EUR")
+  status          String          @default("active") // active, inactive, maintenance
+  organizationId  String
+  createdBy       String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  bookings        Booking[]
+  creator         User            @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  organization    Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  sportCategories SportCategory[]
+  promotions      Promotion[] // Many-to-many relationship
+  waitlistEntries Waitlist[]
+  facilityMembers FacilityMember[]
+  favoritedBy     Favorite[]
+  
+  // Default season dates for seasonal term requests
+  defaultSeasonStartDate DateTime?
+  defaultSeasonEndDate   DateTime?
 
   @@map("facility")
+}
+
+model SportCategory {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  type        String
+  facilityId  String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  courts      Court[]
+  facility    Facility    @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+  promotions  Promotion[] // Many-to-many back-reference
+
+  @@map("sport_category")
+}
+
+model Court {
+  id              String        @id @default(cuid())
+  name            String
+  description     String?
+  surface         String?
+  capacity        Int?
+  isActive        Boolean       @default(true)
+  timeSlots       String[]
+  locationType    String?
+  workingHours    Json?
+  pricing         Json?
+  sportCategoryId String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  bookings        Booking[]
+  slotBlocks      SlotBlock[]
+  waitlistEntries Waitlist[]
+  sportCategory   SportCategory @relation(fields: [sportCategoryId], references: [id], onDelete: Cascade)
+  promotions      Promotion[]   // Many-to-many back-reference
+
+  @@map("court")
 }
 
 model Booking {
   id         String   @id @default(cuid())
   facilityId String
-  facility   Facility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   startTime  DateTime
   endTime    DateTime
-  status     String   @default("pending") // pending, confirmed, cancelled, completed
+  status     String   @default("pending")
   notes      String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  courtId    String?
+  court      Court?   @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  facility   Facility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Seasonal/Recurring booking fields
+  isSeasonal        Boolean?  @default(false)
+  seasonalSeriesId  String? // Groups all bookings in the same seasonal series
+  seasonalStartDate DateTime? // When the seasonal period starts
+  seasonalEndDate   DateTime? // When the seasonal period ends
+  dayOfWeek         Int? // 0-6 (Sunday-Saturday) for weekly recurrence
+  parentBookingId   String? // Reference to parent/pattern booking
+  parentBooking     Booking?  @relation("SeasonalSeries", fields: [parentBookingId], references: [id], onDelete: Cascade)
+  childBookings     Booking[] @relation("SeasonalSeries")
+  
+  // Pricing and payment for seasonal bookings
+  price             Decimal?  // Total price for this booking/series
+  paymentStatus     String?   @default("reserved") // "reserved" | "paid"
+
+  // Promotion tracking
+  promotionId    String?
+  promotion      Promotion?      @relation(fields: [promotionId], references: [id], onDelete: SetNull)
+  promotionUsage PromotionUsage?
+  
+  // No-show tracking
+  noShowReport   NoShowReport?
 
   @@map("booking")
+}
+
+model Promotion {
+  id                    String          @id @default(cuid())
+  name                  String
+  description           String?
+  discountType          String
+  discountValue         Decimal
+  startDate             DateTime
+  endDate               DateTime
+  status                String          @default("active")
+  maxUsage              Int?
+  maxUsagePerUser       Int?            @default(1)
+  timeRestrictions      Json?
+  firstTimeCustomerOnly Boolean         @default(false)
+  organizationId        String
+  createdBy             String
+  usageCount            Int             @default(0)
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  organization    Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  creator         User             @relation("PromotionCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+  facilities      Facility[]       // Target: specific facilities
+  sportCategories SportCategory[]  // Target: specific sports (more specific than facilities)
+  courts          Court[]          // Target: specific courts (most specific)
+  bookings        Booking[]
+  usageRecords    PromotionUsage[]
+
+  @@map("promotion")
+}
+
+model PromotionUsage {
+  id             String   @id @default(cuid())
+  promotionId    String
+  bookingId      String   @unique
+  userId         String
+  usedAt         DateTime @default(now())
+  discountAmount Decimal // Amount saved
+
+  promotion Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  booking   Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  user      User      @relation("PromotionUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("promotion_usage")
+}
+
+model SlotBlock {
+  id               String    @id @default(cuid())
+  courtId          String
+  startTime        DateTime
+  endTime          DateTime
+  reason           String // "tournament" | "maintenance" | "lessons" | "rain" | "other" | "rain_override"
+  notes            String?
+  isRecurring      Boolean   @default(false)
+  recurringType    String? // "weekly" | "weekdays" | "custom"
+  recurringEndDate DateTime? // End date for recurring blocks
+  dayOfWeek        Int? // 0-6 (Sunday-Saturday) for weekly recurrence
+  createdBy        String // User ID who created the block
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  court   Court @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  creator User  @relation("SlotBlockCreator", fields: [createdBy], references: [id], onDelete: Cascade)
+
+  @@map("slot_block")
+}
+
+model Waitlist {
+  id                   String   @id @default(cuid())
+  facilityId           String
+  courtId              String
+  startTime            DateTime // The slot time they're waiting for
+  endTime              DateTime
+  email                String   // Required for email notifications
+  phone                String?  // Optional for SMS notifications
+  name                 String?  // Optional name for personalization
+  userId               String   // Required - user must be logged in to join waitlist
+  status               String   @default("waitlist") // "waitlist" | "notified" | "booked" | "canceled" | "expired"
+  reservationToken    String?  @unique // Token for 30-min reservation link
+  reservationExpiresAt DateTime? // When the reservation link expires (30 min from notification)
+  notifiedAt           DateTime? // When they were notified
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  facility Facility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+  court    Court    @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Index for efficient queue queries (find first pending for a specific slot)
+  @@index([courtId, startTime, status, createdAt])
+  @@index([reservationToken])
+  @@map("waitlist")
+}
+
+model FacilityMember {
+  id         String   @id @default(cuid())
+  facilityId String
+  memberId   String
+  createdAt  DateTime @default(now())
+
+  facility Facility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+  member   Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([facilityId, memberId])
+  @@map("facility_member")
+}
+
+// No-show report model for fraud prevention
+model NoShowReport {
+  id           String    @id @default(cuid())
+  bookingId    String    @unique
+  userId       String    // The user who didn't show up
+  reportedBy   String    // The owner/staff who reported
+  reportedAt   DateTime  @default(now())
+  reason       String?   // Optional reason for the report
+  status       String    @default("active") // "active" | "redeemed" | "expired"
+  redeemedAt   DateTime? // When strike was redeemed through successful bookings
+  expiredAt    DateTime? // When strike auto-expired (60 days)
+  
+  booking  Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  user     User    @relation("ReportedUser", fields: [userId], references: [id], onDelete: Cascade)
+  reporter User    @relation("Reporter", fields: [reportedBy], references: [id], onDelete: Cascade)
+  
+  @@index([userId, status])
+  @@index([reportedAt])
+  @@map("no_show_report")
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  facilityId String
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  facility   Facility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, facilityId])
+  @@map("favorite")
+}
+
+// Admin Audit Log for tracking all admin actions
+model AdminAuditLog {
+  id          String   @id @default(cuid())
+  adminId     String
+  action      String   // "users.ban", "facilities.delete", "bookings.cancel", etc.
+  entityType  String   // "user", "facility", "booking", "organization"
+  entityId    String
+  details     Json?    // Before/after state, additional context
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+  
+  admin       User     @relation("AuditAdmin", fields: [adminId], references: [id], onDelete: Cascade)
+  
+  @@index([adminId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("admin_audit_log")
+}
+
+// Platform Settings for CMS and global configuration
+model PlatformSettings {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       Json
+  label       String?  // Human-readable name for admin UI
+  description String?  // Description for admin UI
+  category    String   // "general", "homepage", "email", "seo", "trust"
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?  // Admin ID who last updated
+  
+  @@index([category])
+  @@map("platform_settings")
+}
+
+// Platform Notifications for centralized error/warning tracking
+model PlatformNotification {
+  id          String    @id @default(cuid())
+  type        String    // "error", "warning", "info", "action_required"
+  category    String    // "email", "cms", "booking", "payment", "system", "user", "owner", "facility"
+  title       String
+  message     String
+  metadata    Json?     // Additional context (booking ID, template key, user ID, etc.)
+  isRead      Boolean   @default(false)
+  isResolved  Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?   // Admin ID who resolved
+  
+  @@index([isRead, createdAt])
+  @@index([category])
+  @@index([type])
+  @@map("platform_notification")
 }

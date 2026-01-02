@@ -187,7 +187,7 @@ export function Analytics({
             <CardTitle className="text-sm font-medium text-gray-600">
               {t("averageBookingValue")}
             </CardTitle>
-            <TrendingUp className="h-4 w-4 text-purple-600" />
+            <TrendingUp className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">

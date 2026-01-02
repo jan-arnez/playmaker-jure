@@ -68,6 +68,31 @@
     "facilityCard": {
       "booking": "Booking"
     },
+    "booking": {
+      "seasonalTerm": {
+        "requestLink": "Want recurring weekly? Request seasonal term →",
+        "signInRequired": "Sign in to request seasonal terms",
+        "verifyEmail": "Please verify your email first",
+        "completeBooking": "Complete at least 1 booking to unlock seasonal terms",
+        "title": "Request Seasonal Term",
+        "description": "Request a recurring weekly booking for this court. The facility owner will review your request.",
+        "startDate": "Season Start",
+        "endDate": "Season End",
+        "pickDate": "Pick a date",
+        "dayOfWeek": "Day",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "totalSlots": "Total Bookings",
+        "notes": "Notes (optional)",
+        "notesPlaceholder": "Any special requests or notes for the owner...",
+        "cancel": "Cancel",
+        "submitRequest": "Submit Request",
+        "submitting": "Submitting...",
+        "fillRequired": "Please fill in all required fields",
+        "requestSubmitted": "Your seasonal term request has been submitted! The facility owner will review it.",
+        "requestError": "Failed to submit request. Please try again."
+      }
+    },
     "platformHeader": {
       "admin": "Admin",
       "logo": "Logo",
@@ -85,11 +110,64 @@
     "facilitiesPage": {
       "filters": "Filters",
       "sampleLocation": "Ljubljana",
-      "sampleTitle": "Plavalni center"
+      "sampleTitle": "Plavalni center",
+      "allFacilities": "All Facilities",
+      "facilitiesIn": "Facilities in {location}",
+      "sportFacilities": "{sport} Facilities",
+      "sportIn": "{sport} in {location}",
+      "searchResults": "Search Results",
+      "findAndBook": "Find and book your perfect sports facility",
+      "noFacilitiesFound": "No facilities found",
+      "tryAdjusting": "Try adjusting your search criteria",
+      "clearFilters": "Clear Filters",
+      "activeFilters": "Active Filters",
+      "sort": {
+        "sortBy": "Sort by",
+        "relevance": "Relevance",
+        "priceAsc": "Price: Low to High",
+        "priceDesc": "Price: High to Low",
+        "newest": "Newest First"
+      }
     },
     "facilityDetailPage": {
       "title": "Title",
-      "description": "bla bla bla"
+      "description": "bla bla bla",
+      "breadcrumb": {
+        "home": "Home",
+        "facilities": "Facilities"
+      },
+      "openingHours": "Opening Hours",
+      "contactForHours": "Contact for hours",
+      "location": "Location",
+      "getDirections": "Get Directions",
+      "showAllImages": "Show all images",
+      "imageCount": "{count} images",
+      "aboutFacility": "About This Facility",
+      "rulesGuidelines": "Rules & Guidelines",
+      "amenities": "Amenities",
+      "youMightAlsoLike": "You Might Also Like",
+      "noRelatedFacilities": "No related facilities found",
+      "viewAll": "View all",
+      "phoneMissing": "Phone missing",
+      "website": "Website",
+      "availabilityCalendar": "Availability",
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "closed": "Closed",
+      "open": "Open",
+      "openNow": "Open Now",
+      "closedNow": "Closed",
+      "sportSelector": {
+        "allSports": "All Sports",
+        "selectSport": "Select a sport"
+      }
     },
     "facilityDetail": {
       "contactInformation": "Contact Information",
@@ -101,14 +179,42 @@
       "wifiAvailable": "WiFi Available",
       "airConditioning": "Air Conditioning",
       "available": "Available",
-      "activeBookings": "active bookings"
+      "activeBookings": "active bookings",
+      "amenities": {
+        "parking": "Parking",
+        "wifi": "Free WiFi",
+        "showers": "Showers",
+        "lockers": "Lockers",
+        "changingRooms": "Changing Rooms",
+        "equipment": "Equipment Rental",
+        "airConditioning": "Air Conditioning",
+        "lighting": "Lighting",
+        "cafe": "Café/Bar",
+        "proShop": "Pro Shop",
+        "coaching": "Coaching Available",
+        "spectatorSeating": "Spectator Seating"
+      }
     }
   },
   "AdminModule": {
     "adminSidebar": {
       "dashboard": "Dashboard",
       "users": "Users",
-      "organizations": "Organizations"
+      "organizations": "Organizations",
+      "facilities": "Facilities",
+      "bookings": "Bookings",
+      "promotions": "Promotions",
+      "waitlist": "Waitlist",
+      "noShows": "No-Shows",
+      "analytics": "Analytics",
+      "security": "Security",
+      "auditLog": "Audit Log",
+      "content": "Content",
+      "settings": "Settings",
+      "groupMain": "Overview",
+      "groupEntities": "Management",
+      "groupAnalytics": "Analytics",
+      "groupSystem": "System"
     },
     "userColumns": {
       "name": "Name",
@@ -233,7 +339,14 @@
       "overview": "Overview",
       "facilities": "Facilities",
       "bookings": "Bookings",
+      "calendar": "Calendar",
+      "calendarSubItems": {
+        "allBookings": "All Bookings",
+        "calendarView": "Calendar View"
+      },
       "analytics": "Analytics",
+      "promotions": "Promotions",
+      "seasonalTerms": "Seasonal Terms",
       "team": "Team",
       "settings": "Settings",
       "createFacility": "Create Facility",
@@ -242,7 +355,44 @@
         "admin": "Admin",
         "member": "Member"
       },
-      "poweredBy": "Powered by"
+      "poweredBy": "Powered by",
+      "logout": "Log out"
+    },
+    "calendar": {
+      "title": "Calendar & Bookings",
+      "subtitle": "Manage and monitor all facility reservations",
+      "tabs": {
+        "calendar": "Calendar View",
+        "bookings": "Bookings List"
+      },
+      "navigation": {
+        "today": "Today",
+        "createBooking": "Create Booking"
+      },
+      "bookingsList": {
+        "title": "All Bookings",
+        "found": "{count} booking(s) found",
+        "exportExcel": "Export to Excel",
+        "emptyState": "No bookings found",
+        "emptyStateHint": "Try selecting a different facility",
+        "createFirst": "Create your first booking"
+      },
+      "filters": {
+        "title": "Filters",
+        "facility": "Facility",
+        "status": "Status",
+        "selectFacility": "Select facility",
+        "selectStatus": "Select status",
+        "allFacilities": "All facilities",
+        "allStatuses": "All statuses",
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "completed": "Completed"
+      },
+      "calendar": {
+        "title": "Calendar View"
+      }
     },
     "dashboard": {
       "providerDashboard": "Provider Dashboard",
@@ -362,7 +512,390 @@
       "thisMonth": "This Month",
       "thisMonthBookings": "This Month Bookings",
       "averagePerBooking": "Average per Booking",
-      "facilityUtilization": "Facility Utilization"
+      "facilityUtilization": "Facility Utilization",
+      "filters": {
+        "label": "Filters:",
+        "allTime": "All Time",
+        "last7Days": "Last 7 Days",
+        "last30Days": "Last 30 Days",
+        "last90Days": "Last 90 Days",
+        "customRange": "Custom Range",
+        "selectDateRange": "Select date range",
+        "allFacilities": "All Facilities",
+        "allCourts": "All Courts",
+        "clearFilters": "Clear Filters"
+      },
+      "metrics": {
+        "totalRevenue": "Total Revenue",
+        "monthlyRevenue": "Monthly Revenue",
+        "totalBookings": "Total Bookings",
+        "avgBooking": "Avg Booking",
+        "perBooking": "Per booking",
+        "occupancy": "Occupancy",
+        "activeFacilities": "Active Facilities",
+        "vsLastMonth": "vs last month",
+        "thisMonth": "This month",
+        "ofTotal": "of {count} total",
+        "courts": "{active} of {total} courts"
+      },
+      "charts": {
+        "revenueAnalyticsTitle": "Revenue Analytics",
+        "revenueAnalyticsDesc": "Detailed revenue breakdown and trends",
+        "revenueOverTime": "Revenue Over Time",
+        "revenueOverTimeDesc": "Monthly revenue trends",
+        "bookingsOverTime": "Bookings Over Time",
+        "bookingsOverTimeDesc": "Monthly booking volume",
+        "revenueByFacility": "Revenue by Facility",
+        "revenueByFacilityDesc": "Compare revenue across facilities",
+        "revenueByCourt": "Revenue by Court",
+        "revenueByCourtDesc": "Top performing courts",
+        "revenueByStatus": "Revenue by Status",
+        "revenueByStatusDesc": "Breakdown by booking status",
+        "revenueByDayOfWeek": "Revenue by Day",
+        "revenueByDayOfWeekDesc": "Weekly revenue patterns",
+        "revenueByHour": "Revenue by Hour",
+        "revenueByHourDesc": "Hourly revenue distribution",
+        "facilityDistribution": "Facility Distribution",
+        "facilityDistributionDesc": "Booking distribution across facilities"
+      },
+      "bookingAnalytics": {
+        "title": "Booking Analytics",
+        "description": "Detailed booking breakdown and trends",
+        "bookings": "Bookings",
+        "totalBookings": "Total Bookings",
+        "bookingsOverTime": "Bookings Over Time",
+        "bookingsOverTimeDesc": "Last 6 months booking trend",
+        "bookingStatusBreakdown": "Booking Status Breakdown",
+        "bookingStatusBreakdownDesc": "Distribution of bookings by status",
+        "bookingsByFacility": "Bookings by Facility",
+        "bookingsByFacilityDesc": "Top facilities by booking count",
+        "bookingsByCourt": "Bookings by Court",
+        "bookingsByCourtDesc": "Top courts by booking count",
+        "bookingsByDayOfWeek": "Bookings by Day of Week",
+        "bookingsByDayOfWeekDesc": "Booking distribution across weekdays",
+        "bookingsByHourOfDay": "Bookings by Hour of Day",
+        "bookingsByHourOfDayDesc": "Peak booking times",
+        "cancellationRate": "Cancellation Rate",
+        "cancellationRateDesc": "Overall booking cancellation statistics",
+        "totalCancelled": "Total Cancelled"
+      },
+      "occupancyAnalytics": {
+        "title": "Occupancy & Utilization",
+        "description": "Court utilization and facility performance metrics",
+        "courtUtilization": "Court Utilization by Facility",
+        "courtUtilizationDesc": "Percentage of courts being utilized per facility",
+        "peakHoursHeatmap": "Peak Hours Heatmap",
+        "peakHoursHeatmapDesc": "Booking occupancy by day and hour",
+        "facilityPerformance": "Facility Performance Comparison",
+        "facilityPerformanceDesc": "Compare facilities by bookings, revenue, and utilization",
+        "underutilized": "Underutilized Courts/Facilities",
+        "underutilizedCourts": "Underutilized Courts",
+        "underutilizedCourtsDesc": "Courts with less than 50% utilization",
+        "underutilizedFacilities": "Underutilized Facilities",
+        "underutilizedFacilitiesDesc": "Facilities with less than 20% utilization",
+        "noUnderutilizedCourts": "No underutilized courts found",
+        "allCourtsUtilized": "All courts are being utilized well",
+        "noUnderutilizedFacilities": "No underutilized facilities found",
+        "allFacilitiesUtilized": "All facilities are being utilized well",
+        "utilizationRate": "Utilization",
+        "activeCourts": "Active Courts",
+        "totalCourts": "Total Courts",
+        "avgPerCourt": "Avg per Court",
+        "revenuePerCourt": "Revenue per Court",
+        "of": "of",
+        "courtsActive": "courts active"
+      },
+      "customerInsights": {
+        "title": "Customer Insights",
+        "totalUniqueCustomers": "Total Unique Customers",
+        "repeatCustomerRate": "Repeat Customer Rate",
+        "newCustomers": "New Customers",
+        "returningCustomers": "Returning Customers",
+        "topCustomersByBookings": "Top Customers by Bookings",
+        "topCustomersByBookingsDesc": "Your most active customers",
+        "topCustomersByRevenue": "Top Customers by Revenue",
+        "topCustomersByRevenueDesc": "Your highest value customers",
+        "last30Days": "Last 30 days",
+        "repeatCustomers": "repeat customers"
+      },
+      "timeBasedPatterns": {
+        "title": "Time-based Patterns",
+        "description": "Identify best performing times and seasonal trends",
+        "bestPerformingDays": "Best Performing Days",
+        "bestPerformingDaysDesc": "Revenue and bookings by day of week",
+        "bestPerformingHours": "Best Performing Hours",
+        "bestPerformingHoursDesc": "Revenue and bookings by hour of day",
+        "seasonalTrends": "Seasonal Trends",
+        "seasonalTrendsDesc": "Monthly booking and revenue trends over the last 12 months",
+        "top3BestDays": "Top 3 Best Performing Days",
+        "top3BestDaysDesc": "Days with highest revenue performance",
+        "top5BestHours": "Top 5 Best Performing Hours",
+        "top5BestHoursDesc": "Hours with highest revenue performance",
+        "best": "Best",
+        "peak": "Peak",
+        "avg": "avg",
+        "totalBookings12Months": "Total Bookings (12 months)",
+        "totalRevenue12Months": "Total Revenue (12 months)",
+        "avgMonthlyRevenue": "Avg Monthly Revenue",
+        "insufficientData": "Insufficient data for seasonal trends",
+        "need3MonthsData": "Need at least 3 months of booking data"
+      },
+      "status": {
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "pending": "Pending",
+        "completed": "Completed"
+      },
+      "days": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      },
+      "noData": "No data available",
+      "export": "Export"
+    },
+    "promotions": {
+      "title": "Promotions",
+      "subtitle": "Manage discounts and special offers for your facilities",
+      "createPromotion": "Create Promotion",
+      "viewAnalytics": "View Analytics",
+      "hideAnalytics": "Hide Analytics",
+      "stats": {
+        "totalPromotions": "Total Promotions",
+        "active": "active",
+        "totalUsage": "Total Usage",
+        "timesRedeemed": "Times redeemed",
+        "customerSavings": "Customer Savings",
+        "totalValueProvided": "Total value provided",
+        "activePromotions": "Active Promotions",
+        "currentlyRunning": "Currently running"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search by name, code...",
+        "status": "Status",
+        "allStatus": "All Status",
+        "active": "Active",
+        "inactive": "Inactive",
+        "expired": "Expired",
+        "sortBy": "Sort By",
+        "newestFirst": "Newest First",
+        "oldestFirst": "Oldest First",
+        "mostUsed": "Most Used",
+        "leastUsed": "Least Used",
+        "highestDiscount": "Highest Discount",
+        "lowestDiscount": "Lowest Discount",
+        "nameAZ": "Name (A-Z)",
+        "nameZA": "Name (Z-A)",
+        "results": "Results",
+        "clearFilters": "Clear Filters"
+      },
+      "list": {
+        "allPromotions": "All Promotions",
+        "discount": "Discount",
+        "usage": "Usage",
+        "validUntil": "Valid Until",
+        "facilities": "Facilities",
+        "all": "All",
+        "noDescription": "No description"
+      },
+      "actions": {
+        "viewDetails": "View Details",
+        "edit": "Edit",
+        "duplicate": "Duplicate",
+        "extend": "Extend",
+        "activate": "Activate",
+        "deactivate": "Deactivate",
+        "delete": "Delete",
+        "moreActions": "More Actions"
+      },
+      "emptyState": {
+        "title": "Create Your First Promotion",
+        "description": "Attract more customers with special offers and discounts",
+        "boostTitle": "Boost Your Bookings",
+        "boostDescription": "Create targeted promotions to increase facility utilization and attract new customers.",
+        "createFirst": "Create First Promotion"
+      },
+      "usageAnalytics": "Usage Analytics",
+      "loading": "Loading promotions...",
+      "dialogs": {
+        "extend": {
+          "title": "Extend Promotion Dates",
+          "description": "Extend the end date for \"{name}\". Current end date: {date}",
+          "extendBy": "Extend by (days)",
+          "newEndDate": "New end date: {date}",
+          "cancel": "Cancel",
+          "extend": "Extend"
+        },
+        "delete": {
+          "title": "Delete Promotion",
+          "description": "Are you sure you want to delete \"{name}\"? This action cannot be undone. If the promotion has been used, it will be deactivated instead of deleted.",
+          "cancel": "Cancel",
+          "delete": "Delete"
+        }
+      },
+      "toast": {
+        "promotionActivated": "Promotion activated",
+        "promotionDeactivated": "Promotion deactivated",
+        "promotionDuplicated": "Promotion duplicated successfully",
+        "promotionExtended": "Promotion extended by {days} days",
+        "promotionDeleted": "Promotion deleted successfully",
+        "promotionDeactivatedInfo": "Promotion deactivated (cannot delete used promotions)",
+        "loadError": "Failed to load promotions",
+        "updateError": "Failed to update promotion status",
+        "duplicateError": "Failed to duplicate promotion",
+        "extendError": "Failed to extend promotion",
+        "deleteError": "Failed to delete promotion",
+        "detailsError": "Failed to load promotion details"
+      }
+    },
+    "seasonalTerms": {
+      "title": "Seasonal Terms",
+      "subtitle": "Manage recurring weekly bookings from specified date to specified date",
+      "createSeries": "Create Seasonal Series",
+      "stats": {
+        "totalSeries": "Total Series",
+        "seriesCreated": "series created",
+        "activeSeries": "Active Series",
+        "currentlyActive": "currently active",
+        "pendingSeries": "Pending Series",
+        "awaitingConfirmation": "awaiting confirmation",
+        "totalBookings": "Total Bookings",
+        "fromAllSeries": "from all series"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search by customer, court...",
+        "court": "Court",
+        "allCourts": "All courts",
+        "status": "Status",
+        "allStatus": "All Status",
+        "sortBy": "Sort By",
+        "newestFirst": "Newest First",
+        "oldestFirst": "Oldest First",
+        "mostBookings": "Most Bookings",
+        "leastBookings": "Least Bookings",
+        "paymentStatus": "Payment",
+        "allPayments": "All",
+        "paymentPending": "Pending",
+        "paymentPaid": "Paid",
+        "results": "Results",
+        "clearFilters": "Clear Filters"
+      },
+      "tabs": {
+        "all": "All",
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "active": "Active",
+        "completed": "Completed",
+        "rejected": "Rejected"
+      },
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "rejected": "Rejected",
+        "active": "Active",
+        "completed": "Completed"
+      },
+      "days": {
+        "sunday": "Sunday",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+      },
+      "list": {
+        "courtFacility": "Court - Facility",
+        "schedule": "Schedule",
+        "bookings": "bookings",
+        "customer": "Customer",
+        "notes": "Notes",
+        "noSeries": "No seasonal series found",
+        "createFirst": "Create your first seasonal series to get started.",
+        "noSeriesForStatus": "No {status} seasonal series found."
+      },
+      "actions": {
+        "confirmSeries": "Confirm Series",
+        "rejectSeries": "Reject Series",
+        "communicate": "Communicate",
+        "email": "Email",
+        "moreActions": "More Actions",
+        "viewDetails": "View Details",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "form": {
+        "title": "Create Seasonal Series",
+        "editTitle": "Edit Seasonal Series",
+        "description": "Create a recurring weekly booking series",
+        "facility": "Facility",
+        "selectFacility": "Select facility",
+        "court": "Court",
+        "selectCourt": "Select court",
+        "selectFacilityFirst": "Select facility first",
+        "seasonStartDate": "Season Start Date",
+        "seasonEndDate": "Season End Date",
+        "pickDate": "Pick a date",
+        "dayOfWeek": "Day of Week",
+        "selectDay": "Select day",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "selectTime": "Select time",
+        "customerName": "Customer Name",
+        "customerNamePlaceholder": "Enter customer name",
+        "customerEmail": "Customer Email",
+        "customerEmailPlaceholder": "customer@example.com",
+        "customerPhone": "Customer Phone",
+        "customerPhonePlaceholder": "+386...",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes...",
+        "price": "Total Price",
+        "pricePlaceholder": "Enter total price",
+        "status": "Reservation Status",
+        "paymentStatus": "Payment Status",
+        "paymentPending": "Pending Payment",
+        "paymentPaid": "Paid",
+        "cancel": "Cancel",
+        "create": "Create Series",
+        "save": "Save Changes"
+      },
+      "summary": {
+        "numberOfSlots": "Number of Slots",
+        "pricePerSlot": "Price per Slot",
+        "hours": "hours",
+        "totalPrice": "Total Price"
+      },
+      "communicate": {
+        "title": "Communicate with Customer",
+        "description": "Send a message to {email}",
+        "message": "Message",
+        "messagePlaceholder": "Enter your message...",
+        "cancel": "Cancel",
+        "send": "Send Message"
+      },
+      "toast": {
+        "seriesConfirmed": "Seasonal series confirmed successfully",
+        "seriesRejected": "Seasonal series rejected",
+        "seriesCreated": "Seasonal series created successfully",
+        "seriesActivated": "Seasonal series activated successfully",
+        "messageSent": "Message sent to {email}",
+        "confirmError": "Failed to confirm seasonal series",
+        "rejectError": "Failed to reject seasonal series",
+        "createError": "Failed to create seasonal series",
+        "activateError": "Failed to activate seasonal series",
+        "messageError": "Failed to send message",
+        "fillRequired": "Please fill in all required fields",
+        "activeRequiresPaid": "Cannot set status to Active - payment must be marked as Paid first",
+        "conflictsFound": "Conflicts found with existing bookings:",
+        "confirmActivate": "Do you want to proceed anyway?"
+      },
+      "loading": "Loading seasonal series..."
     },
     "team": {
       "team": "Team",
@@ -390,11 +923,72 @@
       "noMembersDescription": "Invite team members to collaborate on managing your facilities",
       "inviteFirstMember": "Invite First Member",
       "inviteMember": "Invite Member",
+      "facilities": "Facilities",
+      "noFacilities": "No facilities",
+      "allFacilities": "All facilities",
+      "assignFacilities": "Assign Facilities",
       "role": {
         "owner": "Owner",
         "admin": "Admin",
         "member": "Member"
+      },
+      "pendingInvitations": "Pending Invitations",
+      "pendingInvitationsDescription": "Invitations waiting for email confirmation",
+      "invitationExpired": "Invitation expired",
+      "expiresInDays": "Expires in {days} days",
+      "expiresToday": "Expires today",
+      "invitedBy": "Invited by",
+      "expired": "Expired",
+      "pending": "Pending",
+      "dialogs": {
+        "assignFacilities": {
+          "title": "Assign Facilities to {name}",
+          "description": "Select which facilities this member should have access to. If only one facility exists, it will be automatically assigned.",
+          "noFacilities": "No facilities available",
+          "cancel": "Cancel",
+          "save": "Save",
+          "saving": "Saving..."
+        },
+        "inviteMember": {
+          "title": "Invite Team Member",
+          "description": "Invite a new member to your organization. Select their role and assign facilities if they are a member (receptor).",
+          "emailLabel": "Email",
+          "emailPlaceholder": "member@example.com",
+          "roleLabel": "Role",
+          "rolePlaceholder": "Select a role",
+          "roleOwner": "Owner (Full Access)",
+          "roleMember": "Member (Receptor)",
+          "assignFacilities": "Assign Facilities",
+          "oneFacilityNote": "Only one facility available. It will be automatically assigned.",
+          "cancel": "Cancel",
+          "invite": "Invite Member",
+          "inviting": "Inviting..."
+        },
+        "removeMember": {
+          "title": "Remove Team Member",
+          "description": "Are you sure you want to remove this member from the organization? This action cannot be undone.",
+          "cancel": "Cancel",
+          "confirm": "Remove Member"
+        }
+      },
+      "toast": {
+        "facilitiesAssigned": "Facilities assigned successfully",
+        "facilitiesAssignError": "Failed to assign facilities",
+        "inviteSentWithFacilities": "Invitation sent! The member will receive an email to confirm. Facilities will be assigned after they accept the invitation.",
+        "inviteSent": "Invitation sent! The member will receive an email to confirm their membership.",
+        "inviteError": "Failed to invite member",
+        "memberRemoved": "Member removed successfully",
+        "memberRemoveError": "Failed to remove member",
+        "roleUpdateComingSoon": "Role update coming soon",
+        "memberRemovalComingSoon": "Member removal coming soon",
+        "adminRoleForbidden": "Admin role cannot be assigned. Only platform owner can assign admin roles."
       }
+    },
+    "noFacilityAccess": {
+      "title": "No Facility Access",
+      "description": "You don't have access to any facilities",
+      "message": "You have been added to this organization, but no facilities have been assigned to you yet. Please contact the organization owner to get access to facilities.",
+      "contactOwner": "Contact the organization owner"
     },
     "settings": {
       "settings": "Settings",
@@ -453,6 +1047,626 @@
       "cancel": "Cancel",
       "create": "Create Facility",
       "error": "Failed to create facility. Please try again."
+    },
+    "facilityManagement": {
+      "title": "Facility Management",
+      "subtitle": "Manage all aspects of your sports facilities",
+      "selectFacility": "Select a facility...",
+      "addNewFacility": "Add New Facility",
+      "noFacilitiesTitle": "No Facilities Available",
+      "noFacilitiesDesc": "Create your first facility to get started",
+      "noFacilitiesDescMember": "No facilities have been created yet",
+      "createFirstFacility": "Create First Facility"
+    },
+    "facilityDetails": {
+      "essentialInfo": "Essential Information",
+      "viewFacilityPage": "View Facility Page",
+      "editBasicInfo": "Edit Basic Info",
+      "facilityName": "Facility Name",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "website": "Website",
+      "noContactInfo": "No contact information added",
+      "workingHours": "Working Hours",
+      "editHours": "Edit Hours",
+      "noWorkingHours": "No working hours set",
+      "configureHours": "Click \"Edit Hours\" to configure"
+    },
+    "images": {
+      "title": "Images",
+      "editImages": "Edit Images",
+      "uploadImages": "Upload Images",
+      "noImages": "No images uploaded",
+      "noImagesDesc": "Upload images to showcase your facility",
+      "setAsDefault": "Set as Default",
+      "defaultBadge": "Default"
+    },
+    "content": {
+      "title": "Description & Rules",
+      "editContent": "Edit Content",
+      "description": "Description",
+      "rules": "Rules",
+      "noDescription": "No description added",
+      "addDescription": "Add Description",
+      "noRules": "No rules added",
+      "addRules": "Add Rules"
+    },
+    "sportsAndCourts": {
+      "title": "Sports & Courts",
+      "addSport": "Add Sport",
+      "addFirstSport": "Add First Sport",
+      "addCourt": "Add Court",
+      "addCourtTo": "Add Court to {sport}",
+      "noCourtsForSport": "No courts added for this sport",
+      "noSports": "No sports configured",
+      "noSportsDesc": "Add sports and courts to enable bookings",
+      "court": "court",
+      "courts": "courts",
+      "sport": "sport",
+      "sports": "sports",
+      "totalCourts": "total courts",
+      "location": "Location",
+      "surface": "Surface",
+      "timeSlots": "Time Slots",
+      "notSet": "Not set",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "workingHoursLabel": "Working Hours",
+      "usesFacilityHours": "Uses facility hours",
+      "customHours": "Custom hours",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copy": "Copy",
+      "viewPricing": "View Pricing",
+      "toggleCourtStatus": "Toggle status for {court}",
+      "copyCourt": "Copy {court}",
+      "deleteCourt": "Delete {court}",
+      "editWorkingHours": "Edit working hours for {court}"
+    },
+    "surfaces": {
+      "clay": "Clay",
+      "hard": "Hard Court",
+      "grass": "Grass",
+      "synthetic": "Synthetic",
+      "wood": "Wood",
+      "sand": "Sand"
+    },
+    "timeSlotOptions": {
+      "30min": "30 minutes",
+      "45min": "45 minutes",
+      "60min": "1 hour",
+      "90min": "1.5 hours",
+      "120min": "2 hours"
+    },
+    "sportOptions": {
+      "tennis": "Tennis",
+      "multipurpose": "Multi-purpose",
+      "badminton": "Badminton",
+      "tableTennis": "Table Tennis",
+      "volleyball": "Volleyball",
+      "padel": "Padel",
+      "swimming": "Swimming",
+      "football": "Football",
+      "squash": "Squash",
+      "basketball": "Basketball",
+      "pickleball": "Pickleball"
+    },
+    "dialogs": {
+      "createSport": {
+        "title": "Add New Sport",
+        "description": "Create a new sport category for your facility",
+        "sportName": "Sport Name *",
+        "selectSport": "Select a sport...",
+        "create": "Create Sport",
+        "creating": "Creating...",
+        "cancel": "Cancel"
+      },
+      "editSport": {
+        "title": "Edit Sport",
+        "description": "Update the sport category details",
+        "sportName": "Sport Name *",
+        "save": "Save Changes",
+        "update": "Update Sport",
+        "updating": "Updating..."
+      },
+      "createCourt": {
+        "title": "Add New Court",
+        "description": "Create a new court for {sport}",
+        "courtName": "Court Name *",
+        "courtNamePlaceholder": "e.g., Court {number}",
+        "courtDescription": "Description",
+        "courtDescriptionPlaceholder": "Optional description",
+        "surface": "Surface Type",
+        "selectSurface": "Select surface...",
+        "locationType": "Location Type *",
+        "indoor": "Indoor",
+        "outdoor": "Outdoor",
+        "capacity": "Capacity",
+        "capacityPlaceholder": "e.g., 4",
+        "timeSlot": "Time Slot *",
+        "selectTimeSlot": "Select time slot...",
+        "custom": "Custom",
+        "customPlaceholder": "e.g., 15min, 180min",
+        "customHelp": "Enter duration in minutes (e.g., 15, 180) or with \"min\" suffix (e.g., 15min, 180min)",
+        "selectTimeSlotAlert": "Please select a time slot",
+        "pricing": "Pricing",
+        "pricingMode": {
+          "basic": "Basic Pricing",
+          "basicDesc": "Single price for all time slots",
+          "advanced": "Advanced Pricing",
+          "advancedDesc": "Different prices for different times"
+        },
+        "pricePerSlot": "Price per Time Slot (€) *",
+        "pricePerSlotHelp": "This price applies to all selected time slots. The price you enter is the price for the duration of each time slot (e.g., if you set €25 and have 60min slots, each 60min booking costs €25).",
+        "advancedPricingHelp": "Set different prices for different time periods. The price you enter applies to each time slot booking during that time period.",
+        "advancedPricingNote": "Note: If no advanced pricing tiers are enabled, the basic price will be used for all time periods.",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "priceLabel": "Price (€)",
+        "isActiveLabel": "Court is active and available for booking",
+        "create": "Create Court",
+        "creating": "Creating...",
+        "cancel": "Cancel"
+      },
+      "editCourt": {
+        "title": "Edit Court",
+        "description": "Update court details for {sport}",
+        "save": "Save Changes",
+        "update": "Update Court",
+        "updating": "Updating..."
+      },
+      "deleteSport": {
+        "confirm": "Are you sure? This will delete all courts for this sport."
+      },
+      "deleteCourt": {
+        "confirm": "Are you sure you want to delete this court?"
+      },
+      "pricing": {
+        "title": "Pricing for {court}",
+        "subtitle": "{sport} • View pricing structure",
+        "sport": "Sport",
+        "mode": "Pricing Mode",
+        "basicPricing": "Basic Pricing",
+        "basicPricingDesc": "Same price for all time slots and all days",
+        "advancedPricing": "Advanced Pricing",
+        "advancedPricingDesc": "Different prices for different time periods",
+        "basicPrice": "Basic Price",
+        "pricePerTimeSlot": "Price per Time Slot:",
+        "perSlot": "per time slot",
+        "availableTimeSlots": "Available Time Slots:",
+        "booking": "booking",
+        "tiers": "Pricing Tiers",
+        "tierName": "Tier Name",
+        "timeRange": "Time Range",
+        "price": "Price",
+        "enabled": "Enabled",
+        "noTiersEnabled": "No advanced pricing tiers are enabled. Using basic pricing: €{price} per time slot.",
+        "close": "Close"
+      },
+      "pricingTiers": {
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening"
+      }
+    },
+    "errors": {
+      "failedToUpdate": "Failed to update. Please try again.",
+      "failedToCreate": "Failed to create. Please try again.",
+      "failedToDelete": "Failed to delete. Please try again.",
+      "failedToCopy": "Failed to copy. Please try again.",
+      "failedToUpdateCourtStatus": "Failed to update court status. Please try again.",
+      "failedToCreateSport": "Failed to create sport. Please try again.",
+      "failedToUpdateSport": "Failed to update sport. Please try again.",
+      "failedToDeleteSport": "Failed to delete sport. Please try again.",
+      "failedToCreateCourt": "Failed to create court. Please try again.",
+      "failedToUpdateCourt": "Failed to update court. Please try again.",
+      "failedToDeleteCourt": "Failed to delete court. Please try again.",
+      "failedToUpdateCourtHours": "Failed to update court working hours. Please try again."
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "close": "Close",
+      "loading": "Loading...",
+      "updatingFacilities": "Updating facilities..."
     }
+  },
+  "platform": {
+    "providers": {
+      "sticky": {
+        "text": "Ready to modernize your facility?",
+        "cta": "Start Free Trial"
+      },
+      "hero": {
+        "title": "Partner with Playmaker",
+        "subtitle": "The all-in-one platform to manage, automate, and grow your sports facility business.",
+        "contact": "Contact Sales",
+        "try": "Start Free Trial",
+        "watchVideo": "Watch Video"
+      },
+      "stats": {
+        "facilities": "Facilities Managed",
+        "bookings": "Monthly Bookings",
+        "revenue": "Revenue Processed",
+        "uptime": "Uptime"
+      },
+      "features": {
+        "section1": {
+          "title": "Easy Facility Management",
+          "description": "Manage your facilities, bookings, and customers all in one place with our intuitive platform.",
+          "cta": "Learn More"
+        },
+        "section2": {
+          "title": "Automated Booking System",
+          "description": "Let customers book your facilities 24/7 with our automated booking system that handles payments and confirmations.",
+          "cta": "Get Started"
+        },
+        "section3": {
+          "title": "Analytics & Insights",
+          "description": "Track your performance with detailed analytics and insights to optimize your facility utilization.",
+          "cta": "View Demo"
+        }
+      },
+      "deepDive": {
+        "analytics": {
+          "title": "Data-Driven Decisions",
+          "subtitle": "Turn data into revenue",
+          "description": "Stop guessing. Know exactly when your peak hours are, which courts generate the most revenue, and track growth over time. Our analytics dashboard provides actionable insights to help you optimize pricing and availability.",
+          "points": [
+             "Real-time revenue tracking", 
+             "Occupancy heatmaps", 
+             "Customer retention metrics",
+             "Exportable reports"
+          ],
+          "cta": "Explore Analytics"
+        },
+        "seasonal": {
+           "title": "Seasonal & Recurring Bookings",
+           "subtitle": "Simplify long-term scheduling",
+           "description": "Easily manage league games, training sessions, and long-term rentals. Our seasonal booking engine handles conflicts, automated renewals, and bulk invoicing effortlessly.",
+           "points": [
+             "Bulk booking management",
+             "Automatic conflict detection",
+             "Flexible invoicing options",
+             "Season rollover tools"
+           ],
+           "cta": "See How It Works"
+        },
+        "marketing": {
+           "title": "Promotions & Growth",
+           "subtitle": "Fill empty slots fast",
+           "description": "Attract new customers and fill off-peak hours with flexible promotion tools. Create time-limited offers, first-time customer discounts, and targeted campaigns.",
+           "points": [
+             "Custom discount codes",
+             "Time-restricted offers",
+             "New customer acquisition tools",
+             "Campaign performance tracking"
+           ],
+           "cta": "View Marketing Tools"
+        }
+      },
+      "comparison": {
+        "title": "Why Choose Playmaker?",
+        "subtitle": "See how we stack up against the competition",
+        "us": "Playmaker",
+        "others": "Others",
+        "features": {
+            "realtime": "Real-time Booking Engine",
+            "seasonal": "Advanced Seasonal Management",
+            "analytics": "Deep Analytics & Insights",
+            "marketing": "Built-in Marketing Tools",
+            "mobile": "Mobile-First Design",
+            "support": "24/7 Dedicated Support"
+        }
+      },
+      "testimonials": {
+        "title": "Trusted by Facility Owners",
+        "subtitle": "Join hundreds of facilities scaling with Playmaker",
+        "t1": {
+            "text": "Playmaker transformed how we manage our tennis courts. The seasonal booking feature alone saved us hours of admin work every week.",
+            "author": "Jane Doe",
+            "role": "Owner, City Tennis Club"
+        },
+         "t2": {
+            "text": "The analytics dashboard gives us insights we never had before. We've increased revenue by 15% just by optimizing our peak hours based on the data.",
+            "author": "John Smith",
+            "role": "Manager, SportCenter"
+        },
+        "t3": {
+            "text": "Finally, a system that handles both our daily bookings and our complex league schedules without crashing. Support is outstanding.",
+            "author": "Mike Johnson",
+            "role": "Director, Padel Pro"
+        }
+      },
+      "video": {
+        "title": "See Playmaker in Action",
+        "subtitle": "Watch how easy it is to manage your facility"
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Find Your Perfect Sports Venue",
+      "subtitle": "Book courts, fields, and gyms across Slovenia instantly. No phone calls, no hassle.",
+      "searchPlaceholder": "Search by name, sport, or city...",
+      "searchButton": "Search",
+      "locationPlaceholder": "All Cities",
+      "sportPlaceholder": "All Sports",
+      "datePlaceholder": "Select Date",
+      "timePlaceholder": "Select Time"
+    },
+    "facilities": {
+      "popularTitle": "Popular Facilities",
+      "popularSubtitle": "Discover our most popular sports facilities",
+      "searchResultsTitle": "Found {count} facilities",
+      "searchResultsSubtitle": "Here are the facilities matching your search",
+      "viewAll": "View All Facilities",
+      "notFoundTitle": "No facilities found",
+      "notFoundSubtitle": "Try adjusting your search criteria",
+      "clearSearch": "Clear Search"
+    },
+    "freeFacilities": {
+      "badge": "Available Now",
+      "title": "Free Facilities",
+      "subtitle": "Check out facilities with available slots right now",
+      "tabToday": "Free Today",
+      "tabWeekend": "This Weekend",
+      "viewAllToday": "View All Available Today",
+      "viewAllWeekend": "View All Weekend Availability"
+    },
+    "footer": {
+      "description": "Discover and book sports facilities across Slovenia. Connect with local sports venues and make your fitness goals a reality.",
+      "quickLinks": "Quick Links",
+      "allFacilities": "All Facilities",
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "helpCenter": "Help Center",
+      "forProviders": "For Providers",
+      "providerLogin": "Provider Login",
+      "listYourFacility": "List Your Facility",
+      "pricing": "Pricing",
+      "support": "Support",
+      "contactInfo": "Contact Info",
+      "rights": "© 2025 Playmaker. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Book your favorite sports facility in three simple steps",
+      "steps": {
+        "search": {
+          "title": "Search",
+          "description": "Browse hundreds of facilities by sport, location, or availability. Filter to find your perfect match."
+        },
+        "book": {
+          "title": "Book",
+          "description": "Select your time slot, confirm your booking instantly, and receive immediate confirmation via email."
+        },
+        "play": {
+          "title": "Play",
+          "description": "Show up at your booked facility and enjoy your game. It's that simple!"
+        }
+      }
+    },
+    "sports": {
+      "title": "Popular Sports",
+      "subtitle": "Find facilities for your favorite sport",
+      "items": {
+        "tennis": { "name": "Tennis" },
+        "multipurpose": { "name": "Multi-purpose" },
+        "badminton": { "name": "Badminton" },
+        "volleyball": { "name": "Volleyball" },
+        "padel": { "name": "Padel" },
+        "tableTennis": { "name": "Table Tennis" },
+        "squash": { "name": "Squash" },
+        "football": { "name": "Football" },
+        "basketball": { "name": "Basketball" }
+      }
+    },
+    "testimonials": {
+      "title": "What Players Say",
+      "subtitle": "Join thousands of happy players across Slovenia",
+      "t1": {
+        "text": "Finally, a platform where I can find and book tennis courts without calling 5 different places. Saved me so much time!",
+        "author": "Marko K.",
+        "sport": "Tennis Player"
+      },
+      "t2": {
+        "text": "I discovered new padel courts near me that I didn't even know existed. The booking process is super smooth.",
+        "author": "Ana J.",
+        "sport": "Padel Enthusiast"
+      },
+      "t3": {
+        "text": "Great for organizing weekly football with friends. We always find available pitches, even on weekends.",
+        "author": "Tomaž N.",
+        "sport": "Football Player"
+      }
+    },
+    "features": {
+      "title": "Everything You Need",
+      "subtitle": "Book sports facilities with ease using our powerful platform",
+      "items": {
+        "search": {
+          "title": "Smart Search",
+          "description": "Find facilities by sport, location, or availability with our intelligent search."
+        },
+        "booking": {
+          "title": "Easy Booking",
+          "description": "Book your favorite courts in just a few clicks, anytime you want."
+        },
+        "instant": {
+          "title": "Instant Confirmation",
+          "description": "Get immediate booking confirmation and reminders via email."
+        },
+        "location": {
+          "title": "Find Nearby",
+          "description": "Discover sports facilities near you with location-based search."
+        },
+        "payment": {
+          "title": "Secure Payments",
+          "description": "Pay securely online with multiple payment options available."
+        },
+        "time": {
+          "title": "Flexible Scheduling",
+          "description": "Choose from various time slots that fit your schedule perfectly."
+        },
+        "community": {
+          "title": "Join Community",
+          "description": "Connect with other players and find partners for your games."
+        },
+        "verified": {
+          "title": "Verified Venues",
+          "description": "All facilities are verified to ensure quality and safety standards."
+        }
+      }
+    },
+    "stats": {
+      "facilities": "Facilities",
+      "cities": "Cities",
+      "bookings": "Bookings",
+      "rating": "Rating"
+    },
+    "whyChoose": {
+      "title": "Why Choose Playmaker?",
+      "subtitle": "We make finding and booking sports facilities simple, fast, and reliable.",
+      "items": {
+        "instant": {
+          "title": "Instant Booking",
+          "description": "Book your favorite facilities in seconds with our streamlined process.",
+          "benefits": ["Real-time availability", "Immediate confirmation"]
+        },
+        "verified": {
+          "title": "Verified Facilities",
+          "description": "All facilities are verified and maintained to the highest standards.",
+          "benefits": ["Quality assured", "Safety certified"]
+        },
+        "community": {
+          "title": "Active Community",
+          "description": "Join thousands of sports enthusiasts in our growing community.",
+          "benefits": ["Find playing partners", "Join local events"]
+        },
+        "quality": {
+          "title": "Premium Quality",
+          "description": "Access top-tier facilities with professional-grade equipment.",
+          "benefits": ["Pro equipment", "Well-maintained venues"]
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Play?",
+      "subtitle": "Join thousands of players who book their sports facilities with Playmaker every day.",
+      "findFacility": "Find a Facility",
+      "listFacility": "List Your Facility"
+    }
+  },
+  "filters": {
+    "title": "Filters",
+    "clearAll": "Clear All",
+    "clear": "Clear",
+    "location": {
+      "label": "Location",
+      "selectLocation": "Anywhere",
+      "currentLocation": "Current location",
+      "startTyping": "Start typing a location...",
+      "noResults": "No results found.",
+      "popularLocations": "Popular Locations",
+      "allRegions": "All Regions"
+    },
+    "sport": {
+      "label": "Sport",
+      "allSports": "All sports",
+      "tennis": "Tennis",
+      "multiPurpose": "Multi-purpose",
+      "badminton": "Badminton",
+      "tableTennis": "Table Tennis",
+      "volleyball": "Volleyball",
+      "padel": "Padel",
+      "swimming": "Swimming",
+      "football": "Football",
+      "squash": "Squash",
+      "basketball": "Basketball",
+      "pickleball": "Pickleball"
+    },
+    "date": {
+      "label": "Date",
+      "selectDate": "Any date",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "weekend": "Weekend"
+    },
+    "time": {
+      "label": "Time",
+      "anyTime": "Any time",
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening",
+      "selectTime": "Select specific time",
+      "selectExactTime": "Select exact time"
+    },
+    "locationType": {
+      "label": "Location Type",
+      "allTypes": "All Types",
+      "indoor": "Indoor",
+      "outdoor": "Outdoor"
+    },
+    "surface": {
+      "label": "Surface Type",
+      "clay": "Clay",
+      "hard": "Hard Court",
+      "grass": "Grass",
+      "synthetic": "Synthetic",
+      "wood": "Wood",
+      "sand": "Sand"
+    },
+    "amenities": {
+      "label": "Amenities",
+      "parking": "Free Parking",
+      "showers": "Showers",
+      "lockers": "Lockers",
+      "cafe": "Cafe",
+      "lighting": "Lighting"
+    }
+  },
+  "PartnersPricing": {
+    "title": "Choose Your Plan",
+    "description": "Select the perfect plan for your facility management needs",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "discount20": "20% off",
+    "popular": "Popular",
+    "perMonth": "/month",
+    "contactUsForOptions": "Need a custom plan?",
+    "plans": {
+      "osnovno": {
+        "name": "Basic",
+        "description": "Perfect for small facilities"
+      },
+      "napredno": {
+        "name": "Advanced",
+        "description": "Ideal for growing businesses"
+      },
+      "naprednoPlus": {
+        "name": "Premium",
+        "description": "For large organizations"
+      }
+    },
+    "features": {
+      "includesBasic": "Everything in Basic",
+      "includesAdvanced": "Everything in Advanced",
+      "feature1": "Unlimited bookings",
+      "feature2": "Customer management",
+      "feature3": "Payment processing",
+      "feature4": "Email notifications",
+      "feature5": "Basic analytics"
+    },
+    "ctaStartNow": "Start Now",
+    "ctaSubscribe": "Subscribe",
+    "ctaContactUs": "Contact Us"
   }
 }

@@ -4,29 +4,41 @@ import {
   BarChart3,
   Building2,
   Calendar,
+  CalendarDays,
   Home,
-  Plus,
+  Settings,
   Users,
+  Percent,
+  CalendarCheck,
+  LogOut,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import { useProviderContext } from "@/context/provider-context";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/modules/auth/lib/auth-client";
+import { useRouter } from "@/i18n/navigation";
 
-interface ProviderSidebarProps {
-  onNavigate?: () => void;
-}
-
-export function ProviderSidebar({ onNavigate }: ProviderSidebarProps) {
+export function ProviderSidebar() {
   const t = useTranslations("ProviderModule.sidebar");
   const pathname = usePathname();
+  const router = useRouter();
   const { organization, userRole } = useProviderContext();
 
-  const canCreateFacility = userRole === "owner" || userRole === "admin";
+  const handleLogout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+          router.refresh();
+        },
+      },
+    });
+  };
 
   const navigationItems = [
     {
@@ -41,9 +53,19 @@ export function ProviderSidebar({ onNavigate }: ProviderSidebarProps) {
       icon: Building2,
     },
     {
-      name: t("bookings"),
-      href: `/provider/${organization.slug}/bookings`,
-      icon: Calendar,
+      name: t("calendar"),
+      href: `/provider/${organization.slug}/calendar`,
+      icon: CalendarDays,
+      subItems: [
+        {
+          name: t("calendarSubItems.allBookings"),
+          href: `/provider/${organization.slug}/calendar?view=bookings`,
+        },
+        {
+          name: t("calendarSubItems.calendarView"),
+          href: `/provider/${organization.slug}/calendar?view=calendar`,
+        },
+      ],
     },
     {
       name: t("analytics"),
@@ -51,17 +73,39 @@ export function ProviderSidebar({ onNavigate }: ProviderSidebarProps) {
       icon: BarChart3,
     },
     {
+      name: t("promotions"),
+      href: `/provider/${organization.slug}/promotions`,
+      icon: Percent,
+    },
+    {
+      name: t("seasonalTerms"),
+      href: `/provider/${organization.slug}/seasonal-terms`,
+      icon: CalendarCheck,
+    },
+    {
       name: t("team"),
       href: `/provider/${organization.slug}/team`,
       icon: Users,
     },
+    {
+      name: t("settings"),
+      href: `/provider/${organization.slug}/settings`,
+      icon: Settings,
+    },
   ];
 
   const isActive = (href: string, exact = false) => {
+    // Remove locale from pathname if present (e.g., /en/provider/... -> /provider/...)
+    // Match pattern: /{locale}/provider/... or /{locale}/provider/.../
+    const pathnameWithoutLocale = pathname.replace(/^\/[a-z]{2}(?=\/)/, '') || pathname;
+    
     if (exact) {
-      return pathname === href;
+      // For exact match (Overview), check if pathname exactly matches the href
+      return pathnameWithoutLocale === href || pathnameWithoutLocale === `${href}/`;
     }
-    return pathname.startsWith(href);
+    // For non-exact match, check if pathname starts with the href
+    // This ensures /provider/org/facilities matches /provider/org/facilities but not /provider/org
+    return pathnameWithoutLocale.startsWith(href + '/') || pathnameWithoutLocale === href;
   };
 
   return (
@@ -97,19 +141,6 @@ export function ProviderSidebar({ onNavigate }: ProviderSidebarProps) {
         </div>
       </div>
 
-      {/* Quick Actions */}
-      {canCreateFacility && (
-        <div className="p-4 border-b">
-          <Button
-            className="w-full justify-start"
-            variant="outline"
-            onClick={onNavigate}
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            {t("createFacility")}
-          </Button>
-        </div>
-      )}
 
       {/* Navigation */}
       <nav className="flex-1 px-4 py-4 space-y-1">
@@ -136,7 +167,16 @@ export function ProviderSidebar({ onNavigate }: ProviderSidebarProps) {
       <Separator />
 
       {/* Footer */}
-      <div className="p-4">
+      <div className="p-4 space-y-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleLogout}
+          className="w-full justify-start text-gray-600 hover:text-red-600 hover:bg-red-50"
+        >
+          <LogOut className="h-4 w-4 mr-3" />
+          {t("logout")}
+        </Button>
         <div className="text-xs text-gray-500 text-center">
           {t("poweredBy")} Playmaker
         </div>

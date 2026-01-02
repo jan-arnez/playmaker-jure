@@ -2,14 +2,15 @@
 
 import {
   Ban,
+  Eye,
   MoreVertical,
-  Shield,
-  ShieldOff,
+  RotateCcw,
   Trash2,
   UserCheck,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -30,7 +31,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
-import { logger } from "@/lib/logger";
 import { authClient } from "@/modules/auth/lib/auth-client";
 
 interface User {
@@ -41,6 +41,7 @@ interface User {
   banned: boolean | null;
   banReason: string | null;
   banExpires: Date | null;
+  activeStrikes?: number;
 }
 
 interface UserTableActionsProps {
@@ -52,8 +53,10 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
   const router = useRouter();
   const t = useTranslations("AdminModule.userTableActions");
   const [banDialogOpen, setBanDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [banReason, setBanReason] = useState("");
   const [banDuration, setBanDuration] = useState("7"); // days
+  const [loading, setLoading] = useState(false);
 
   const handleSetRole = async (role: "user" | "admin") => {
     try {
@@ -62,63 +65,113 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
         role,
         fetchOptions: {
           onSuccess: () => {
-            logger.logUserAction("admin_set_role", { userId, role });
+            toast.success(`User role updated to ${role}`);
             router.refresh();
           },
         },
       });
     } catch (error) {
-      logger.logError(error as Error, { action: "set_role", userId, role });
+      toast.error("Failed to update user role");
     }
   };
 
   const handleBanUser = async () => {
+    setLoading(true);
     try {
-      const banExpires = new Date();
-      // biome-ignore lint/correctness/useParseIntRadix: <>
-      banExpires.setDate(banExpires.getDate() + parseInt(banDuration));
-
-      // In a real app, you would call an API to ban the user
-      logger.logUserAction("admin_ban_user", {
-        userId,
-        reason: banReason,
-        duration: banDuration,
-        expires: banExpires.toISOString(),
+      const res = await fetch("/api/admin/users", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          action: "ban",
+          banReason,
+          banDuration: parseInt(banDuration),
+        }),
       });
 
+      if (!res.ok) throw new Error("Failed to ban user");
+
+      toast.success("User banned successfully");
       setBanDialogOpen(false);
       setBanReason("");
       router.refresh();
     } catch (error) {
-      logger.logError(error as Error, { action: "ban_user", userId });
+      toast.error("Failed to ban user");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleUnbanUser = async () => {
+    setLoading(true);
     try {
-      // In a real app, you would call an API to unban the user
-      logger.logUserAction("admin_unban_user", { userId });
+      const res = await fetch("/api/admin/users", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          action: "unban",
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to unban user");
+
+      toast.success("User unbanned successfully");
       router.refresh();
     } catch (error) {
-      logger.logError(error as Error, { action: "unban_user", userId });
+      toast.error("Failed to unban user");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetStrikes = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          action: "resetStrikes",
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to reset strikes");
+
+      toast.success("User strikes reset successfully");
+      router.refresh();
+    } catch (error) {
+      toast.error("Failed to reset strikes");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeleteUser = async () => {
+    setLoading(true);
     try {
-      await authClient.admin.removeUser({
-        userId,
-        fetchOptions: {
-          onSuccess: () => {
-            logger.logUserAction("admin_delete_user", { userId });
-            router.refresh();
-          },
-        },
+      const res = await fetch(`/api/admin/users/${userId}`, {
+        method: "DELETE",
       });
+
+      if (!res.ok) throw new Error("Failed to delete user");
+
+      toast.success("User deactivated successfully");
+      setDeleteDialogOpen(false);
+      router.refresh();
     } catch (error) {
-      logger.logError(error as Error, { action: "delete_user", userId });
+      toast.error("Failed to delete user");
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleViewDetails = () => {
+    router.push(`/admin/users/${userId}`);
+  };
+
+
 
   return (
     <>
@@ -134,22 +187,21 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          {/* Role Management */}
-          {user.role !== "admin" && (
-            <DropdownMenuItem onClick={() => handleSetRole("admin")}>
-              <Shield className="h-4 w-4 mr-2" />
-              {t("setAdmin")}
-            </DropdownMenuItem>
-          )}
-
-          {user.role === "admin" && (
-            <DropdownMenuItem onClick={() => handleSetRole("user")}>
-              <ShieldOff className="h-4 w-4 mr-2" />
-              Remove Admin
-            </DropdownMenuItem>
-          )}
+          {/* View Details */}
+          <DropdownMenuItem onClick={handleViewDetails}>
+            <Eye className="h-4 w-4 mr-2" />
+            View Details
+          </DropdownMenuItem>
 
           <DropdownMenuSeparator />
+
+          {/* Reset Strikes */}
+          {(user.activeStrikes ?? 0) > 0 && (
+            <DropdownMenuItem onClick={handleResetStrikes} disabled={loading}>
+              <RotateCcw className="h-4 w-4 mr-2" />
+              Reset Strikes
+            </DropdownMenuItem>
+          )}
 
           {/* Ban Management */}
           {!user.banned ? (
@@ -158,7 +210,7 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
               Ban User
             </DropdownMenuItem>
           ) : (
-            <DropdownMenuItem onClick={handleUnbanUser}>
+            <DropdownMenuItem onClick={handleUnbanUser} disabled={loading}>
               <UserCheck className="h-4 w-4 mr-2" />
               Unban User
             </DropdownMenuItem>
@@ -168,7 +220,7 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
 
           {/* Delete User */}
           <DropdownMenuItem
-            onClick={handleDeleteUser}
+            onClick={() => setDeleteDialogOpen(true)}
             className="text-red-600 focus:text-red-600"
           >
             <Trash2 className="h-4 w-4 mr-2" />
@@ -198,11 +250,11 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="banDuration">Ban duration (days)</Label>
+              <Label htmlFor="banDuration">Ban duration (days, 0 = permanent)</Label>
               <Input
                 id="banDuration"
                 type="number"
-                min="1"
+                min="0"
                 max="365"
                 value={banDuration}
                 onChange={(e) => setBanDuration(e.target.value)}
@@ -216,9 +268,34 @@ export function UserTableActions({ userId, user }: UserTableActionsProps) {
             <Button
               variant="destructive"
               onClick={handleBanUser}
-              disabled={!banReason.trim()}
+              disabled={!banReason.trim() || loading}
             >
-              Ban User
+              {loading ? "Banning..." : "Ban User"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Deactivate User</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to deactivate {user.name}? This will ban the
+              user permanently. This action can be reversed by unbanning.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteUser}
+              disabled={loading}
+            >
+              {loading ? "Deactivating..." : "Deactivate User"}
             </Button>
           </DialogFooter>
         </DialogContent>

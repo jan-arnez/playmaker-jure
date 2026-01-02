@@ -17,13 +17,13 @@ import {
 } from "@/components/ui/select";
 
 interface QuickBookingProps {
-  facilityId: string;
+  facilitySlug: string;
   facilityName: string;
   sport?: string;
 }
 
 export function QuickBooking({
-  facilityId,
+  facilitySlug,
   facilityName: _facilityName,
   sport,
 }: QuickBookingProps) {
@@ -48,7 +48,7 @@ export function QuickBooking({
   const handleQuickBook = () => {
     if (selectedDate && selectedTime) {
       // Navigate to facility page with pre-selected booking
-      window.location.href = `/facilities/${facilityId}?date=${selectedDate}&time=${selectedTime}`;
+      window.location.href = `/facilities/${facilitySlug}?date=${selectedDate}&time=${selectedTime}`;
     }
   };
 
@@ -108,7 +108,7 @@ export function QuickBooking({
           </Button>
 
           <Button variant="outline" asChild size="sm">
-            <Link href={`/facilities/${facilityId}`}>View Details</Link>
+            <Link href={`/facilities/${facilitySlug}`}>View Details</Link>
           </Button>
         </div>
       </CardContent>

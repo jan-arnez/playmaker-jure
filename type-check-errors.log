@@ -1,0 +1,11 @@
+
+> playmaker-nextjs@0.1.0 type-check C:\Users\jurea\Documents\playmaker-jure 26.10
+> tsc --noEmit
+
+src/components/optimistic-bookings-management.tsx(142,6): error TS17008: JSX element 'Card' has no corresponding closing tag.
+src/components/optimistic-bookings-management.tsx(165,8): error TS17008: JSX element 'CardContent' has no corresponding closing tag.
+src/components/optimistic-bookings-management.tsx(166,10): error TS17008: JSX element 'div' has no corresponding closing tag.
+src/components/optimistic-bookings-management.tsx(195,12): error TS17008: JSX element 'div' has no corresponding closing tag.
+src/components/optimistic-bookings-management.tsx(339,1): error TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+src/components/optimistic-bookings-management.tsx(340,1): error TS1005: '</' expected.
+ ELIFECYCLE  Command failed with exit code 2.

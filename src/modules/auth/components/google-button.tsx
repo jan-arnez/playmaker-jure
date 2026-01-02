@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { type SVGProps, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "../lib/auth-client";
+import { routing } from "@/i18n/routing";
 
 interface GoogleButtonProps {
   context?: "login" | "signup";
@@ -19,9 +20,14 @@ export function GoogleButton({ context = "login" }: GoogleButtonProps) {
   const signInWithGoogle = async () => {
     try {
       setIsLoading(true);
+      
+      const prefixes = (routing.localePrefix as unknown as { prefixes: Record<string, string> })?.prefixes;
+      const prefix = prefixes?.[locale];
+      const callbackURL = prefix !== undefined ? (prefix || "/") : `/${locale}`;
+
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: `/${locale}`,
+        callbackURL,
       });
     } catch (error) {
       console.error(error);

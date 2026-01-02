@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { DashboardOverview } from "./dashboard/dashboard-overview";
 import { ProviderDashboardLayout } from "./layout/provider-dashboard-layout";
 
@@ -20,6 +19,28 @@ interface ProviderDashboardProps {
     city: string;
     phone?: string;
     email?: string;
+    imageUrl?: string;
+    status: "active" | "inactive" | "maintenance";
+    todayBookings: number;
+    totalBookings: number;
+    occupancyRate: number;
+    sportCategories: Array<{
+      id: string;
+      name: string;
+      description?: string;
+      type: "indoor" | "outdoor";
+      courts: Array<{
+        id: string;
+        name: string;
+        description?: string;
+        surface?: string;
+        capacity?: number;
+        isActive: boolean;
+      }>;
+    }>;
+    _count: {
+      bookings: number;
+    };
     createdAt: string;
     updatedAt: string;
   }>;
@@ -27,14 +48,43 @@ interface ProviderDashboardProps {
     id: string;
     facilityId: string;
     facilityName: string;
+    courtName?: string;
     customerName: string;
     customerEmail: string;
     customerPhone?: string;
     startTime: string;
     endTime: string;
-    status: "pending" | "confirmed" | "cancelled" | "completed";
-    createdAt: string;
+    status: "confirmed" | "pending" | "cancelled" | "completed";
     totalAmount: number;
+    notes?: string;
+    createdAt: string;
+  }>;
+  stats?: {
+    totalFacilities: number;
+    totalBookings: number;
+    activeBookings: number;
+    teamMembers: number;
+    monthlyRevenue: number;
+    pendingBookings: number;
+    occupancyRate?: number;
+    averageRating?: number;
+    todayBookings?: number;
+    weeklyRevenue?: number;
+    lastWeekRevenue?: number;
+    lastMonthRevenue?: number;
+  };
+  pendingActions?: Array<{
+    id: string;
+    type: "booking" | "promotion" | "maintenance" | "notification";
+    title: string;
+    description: string;
+    priority: "high" | "medium" | "low";
+    createdAt: Date;
+    dueDate?: Date;
+    facilityName?: string;
+    customerName?: string;
+    amount?: number;
+    actionRequired: boolean;
   }>;
 }
 
@@ -43,31 +93,50 @@ export function ProviderDashboard({
   userRole,
   facilities = [],
   bookings = [],
+  stats,
+  pendingActions = [],
 }: ProviderDashboardProps) {
-  const [_showCreateFacility, _setShowCreateFacility] = useState(false);
-
-  // Calculate stats from data
-  const stats = {
-    totalFacilities: facilities.length,
-    totalBookings: bookings.length,
-    activeBookings: bookings.filter((b) => b.status === "confirmed").length,
-    teamMembers: 1, // This would come from organization members
-    monthlyRevenue: bookings
-      .filter((b) => {
-        const bookingDate = new Date(b.createdAt);
-        const now = new Date();
-        return (
-          bookingDate.getMonth() === now.getMonth() &&
-          bookingDate.getFullYear() === now.getFullYear()
-        );
-      })
-      .reduce((sum, b) => sum + b.totalAmount, 0),
-    pendingBookings: bookings.filter((b) => b.status === "pending").length,
-  };
-
   return (
     <ProviderDashboardLayout organization={organization} userRole={userRole}>
-      <DashboardOverview stats={stats} onCreateFacility={() => {}} />
+      <div className="space-y-6">
+        <DashboardOverview 
+          stats={stats}
+          facilities={facilities}
+          bookings={bookings}
+          pendingActions={pendingActions}
+          onCreateFacility={() => {}}
+          onViewFacility={(facilityId) => {
+            console.log('View facility:', facilityId);
+          }}
+          onManageFacility={(facilityId) => {
+            console.log('Manage facility:', facilityId);
+          }}
+          onAddBooking={(facilityId) => {
+            console.log('Add booking for facility:', facilityId);
+          }}
+          onViewBooking={(bookingId) => {
+            console.log('View booking:', bookingId);
+          }}
+          onContactCustomer={(email, phone) => {
+            console.log('Contact customer:', email, phone);
+          }}
+          onConfirmBooking={(bookingId) => {
+            console.log('Confirm booking:', bookingId);
+          }}
+          onCancelBooking={(bookingId) => {
+            console.log('Cancel booking:', bookingId);
+          }}
+          onViewAllBookings={() => {
+            console.log('View all bookings');
+          }}
+          onViewAllActions={() => {
+            console.log('View all actions');
+          }}
+          onViewAnalytics={() => {
+            console.log('View analytics');
+          }}
+        />
+      </div>
     </ProviderDashboardLayout>
   );
 }
